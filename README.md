@@ -13,19 +13,23 @@ total greenhouse gas emission.
 chart coloring the countries by either their total greenhouse gas emission
 or the greenhouse gas emission per capita.
 
-- The time element of the greenhouse gas emission by country over time
+- Chart 1: The time element of the greenhouse gas emission by country over time
  visualization can be interactive, by having the user have control over a
 range slider or a scroll bar that determines which data of a year will be
 shown.
 
-- The greenhouse gas emission by source can be visualized by a bar chart.
+- Chart 2: The greenhouse gas emission by source can be visualized by a bar chart.
 
-- The fractions of greenhouse gasses emitted from the total greenhouse gas
+- Chart 3: The fractions of greenhouse gasses emitted from the total greenhouse gas
  emission can be visualized by a pie chart.
+
+- (optional) If sources for chart 2 and 3 have data for individual countries,
+clicking a country in chart 1 could change for which country chart 2 and 3
+are plotted.
 
 ## Prerequisites
 #### Possible sources
 
 #### External components
-Most, if not all, visualizations will be made in javascript using d3. These
+Most, if not all, visualizations will be made in JavaScript using d3. These
 scripts will then be loaded in by a html page.
