@@ -8,7 +8,7 @@ Visualization for greenhouse gas emission by country over time, greenhouse gas
 emission by source, and the fractions of greenhouse gasses emitted from the
 total greenhouse gas emission.
 
-###### Features
+##### Features
 - The greenhouse gas emission by country over time can be visualized by a map
 chart coloring the countries by either their total greenhouse gas emission
 or the greenhouse gas emission per capita.
@@ -23,4 +23,9 @@ shown.
 - The fractions of greenhouse gasses emitted from the total greenhouse gas
  emission can be visualized by a pie chart.
 
-## Possible sources
+## Prerequisites
+### Possible sources
+
+### External components
+Most, if not all, visualizations will be made in javascript using d3. These
+scripts will then be loaded in by a html page.
