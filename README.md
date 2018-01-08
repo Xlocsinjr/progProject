@@ -27,6 +27,9 @@ shown.
 clicking a country in chart 1 could change for which country chart 2 and 3
 are plotted.
 
+#### Sketch
+![](doc/ideaSketch.png)
+
 ## Prerequisites
 #### Possible sources
 - http://unfccc.int/ghg_data/ghg_data_unfccc/items/4146.php
