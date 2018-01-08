@@ -20,13 +20,13 @@ shown.
 - Chart 2: The greenhouse gas emission by source.
 This can be visualized by a bar chart.
 
-- Chart 2 can have options to choose which greenhouse gasses are plotted
-in the bar chart.
+- (optional) Via a checkbox selection the user can choose which emission
+sources are shown in chart 2.
 
 - Chart 3: The fractions of greenhouse gasses emitted from the total greenhouse
 gas emission. This can be visualized by a pie chart.
 
-- clicking a country in chart 1 could change for which country chart 2 and 3
+- clicking a country in chart 1 changes for which country chart 2 and 3
 are plotted.
 
 - (optional) Via a bullet-point selection the user can choose which continent
