@@ -17,6 +17,10 @@ total greenhouse gas emission or the greenhouse gas emission per capita.
 over a range slider or a scroll bar that determines which data of a year will be
 shown.
 
+- In chart 1, a tooltip will show a country's true data value. This will allow
+the user to get to know the exact data value of emission for a country instead
+of having to guess it off the color in the legend.
+
 - Chart 2: The greenhouse gas emission by source.
 This can be visualized by a bar chart.
 
