@@ -29,6 +29,9 @@ are plotted.
 
 ## Prerequisites
 #### Possible sources
+- http://unfccc.int/ghg_data/ghg_data_unfccc/items/4146.php
+- https://www.epa.gov/ghgemissions/global-greenhouse-gas-emissions-data
+- http://edgar.jrc.ec.europa.eu/overview.php?v=CO2ts1990-2015#
 
 #### External components
 Most, if not all, visualizations will be made in JavaScript using d3. These
