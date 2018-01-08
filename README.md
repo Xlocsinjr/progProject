@@ -9,23 +9,29 @@ emission by source, and the fractions of greenhouse gasses emitted from the
 total greenhouse gas emission.
 
 #### Features
-- The greenhouse gas emission by country over time can be visualized by a map
-chart coloring the countries by either their total greenhouse gas emission
-or the greenhouse gas emission per capita.
+- Chart 1: The greenhouse gas emission by country over time. This can be
+visualized by a map chart coloring the countries by either their
+total greenhouse gas emission or the greenhouse gas emission per capita.
 
-- Chart 1: The time element of the greenhouse gas emission by country over time
- visualization can be interactive, by having the user have control over a
-range slider or a scroll bar that determines which data of a year will be
+- The time element of chart 1 can be interactive by having the user have control
+over a range slider or a scroll bar that determines which data of a year will be
 shown.
 
-- Chart 2: The greenhouse gas emission by source can be visualized by a bar chart.
+- Chart 2: The greenhouse gas emission by source.
+This can be visualized by a bar chart.
 
-- Chart 3: The fractions of greenhouse gasses emitted from the total greenhouse gas
- emission can be visualized by a pie chart.
+- Chart 2 can have options to choose which greenhouse gasses are plotted
+in the bar chart.
 
-- (optional) If sources for chart 2 and 3 have data for individual countries,
-clicking a country in chart 1 could change for which country chart 2 and 3
+- Chart 3: The fractions of greenhouse gasses emitted from the total greenhouse
+gas emission. This can be visualized by a pie chart.
+
+- clicking a country in chart 1 could change for which country chart 2 and 3
 are plotted.
+
+- (optional) Via a bullet-point selection the user can choose which continent
+is shown in chart 1. The user will then have the option to "zoom in" to
+a particular continent.
 
 #### Sketch
 ![](doc/ideaSketch.png)
@@ -39,3 +45,7 @@ are plotted.
 #### External components
 Most, if not all, visualizations will be made in JavaScript using d3. These
 scripts will then be loaded in by a html page.
+
+#### Difficulties
+- There might not be data for every country for chart 2 and 3. If necessary
+the range of countries can be limited to Europe only.
