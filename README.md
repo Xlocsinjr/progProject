@@ -58,5 +58,10 @@ Most, if not all, visualizations will be made in JavaScript using d3. These
 scripts will then be loaded in by a html page.
 
 #### Difficulties
-- There might not be data for every country for chart 2 and 3. If necessary
-the range of countries can be limited to Europe only.
+- There might not be data for every country for chart 2 and 3.
+- For chart 2, only data on UN countries were found. Perhaps this chart could be
+unlinked from the world map, but have a checkbox selection with the UN countries
+instead.
+- Chart 3 isn't very interesting to the story that the charts are meant to tell.
+Perhaps it could be replaced by a line chart that shows GHG emissions over the
+years.
