@@ -45,6 +45,8 @@ a particular continent.
 - http://unfccc.int/ghg_data/ghg_data_unfccc/items/4146.php
 - https://www.epa.gov/ghgemissions/global-greenhouse-gas-emissions-data
 - http://edgar.jrc.ec.europa.eu/overview.php?v=CO2ts1990-2015#
+- http://di.unfccc.int/time_series
+ (multiple data sources. Can be used for emission per sector)
 
 #### External components
 Most, if not all, visualizations will be made in JavaScript using d3. These
