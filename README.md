@@ -37,6 +37,10 @@ are plotted.
 is shown in chart 1. The user will then have the option to "zoom in" to
 a particular continent.
 
+- (optional) Clicking countries on the world map will show data for those
+countries in chart 2 (the bar chart). In menu to the side these countries can
+be removed from the bar chart.
+
 #### Sketch
 ![](doc/ideaSketch.png)
 
