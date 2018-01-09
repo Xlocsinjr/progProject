@@ -1,7 +1,8 @@
 # progProject readme
 
 ## Problem
-Relate the greenhouse gas emissions of the world by source and type of gas.
+Relate the greenhouse gas emissions of the world by emission source and type
+of gas.
 
 ## Solution
 Visualization for greenhouse gas emission by country over time, greenhouse gas
