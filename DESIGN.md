@@ -20,7 +20,7 @@ in equivalent kilotons of CO2 (kt CO2 equivalent).
 The data for the GDP is a csv, which can be directly read by d3.
 
 ##### Design diagram
-![](doc/designSketch2.png)
+![](doc/designSketch.png)
 
 ##### Possible required plugins
 - D3
