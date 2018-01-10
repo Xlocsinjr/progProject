@@ -9,5 +9,5 @@ are meant to tell.
 
 10-01-2018
 - Revising the project proposal.
-Replace pie chart with scatterplot relating a country's GDP to its GHG emission?
+Replace pie chart with scatterplot relating a country's GDP to its GHG emission
 - Working on the design document.

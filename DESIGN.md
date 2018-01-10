@@ -17,11 +17,21 @@ The data for GHG emissions is given in excel files (.xls).
 For CO2 the data is given in kilotons (kt) and for the other gasses
 in equivalent kilotons of CO2 (kt CO2 equivalent).
 
-The data for the GDP is a csv, which can be directly read by d3.
+The data for the GDP is a csv, which can be directly read by d3, but could first
+be converted to a json.
+
+#### Scripts and functions
+##### Scripts
+- Script(s) to convert a datasource to json in python.
+- A script for the graphs in JavaScript
+##### Functions
+- every graph will have its own function
+- every interactive element will have its own update function
 
 ##### Design diagram
 ![](doc/designSketch.png)
 
 ##### Possible required plugins
+- python
 - D3
 - D3 tooltip
