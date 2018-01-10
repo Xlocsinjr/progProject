@@ -26,7 +26,11 @@ of having to guess it off the color in the legend.
 - Chart 2: The greenhouse gas emission by source.
 This can be visualized by a bar chart.
 
-- Chart 3: A scatterplot relating a country's GDP to its GHG emissions.
+- Chart 3: A scatterplot relating a country's GDP to its GHG emissions. This
+chart shows GDP on the x-axis and GHG emission or GHG emission per GDP.
+
+- Via an interactive element the user could switch the y axis between total
+GHG emission and GHG emission per GDP.
 
 - Clicking countries on the world map will show data for those
 countries in the other charts. In a menu to the side, these countries can
@@ -39,7 +43,7 @@ a particular continent.
 
 
 #### Sketch
-![](doc/ideaSketch2.png)
+![](doc/ideaSketch3.png)
 
 ## Prerequisites
 #### Possible sources
