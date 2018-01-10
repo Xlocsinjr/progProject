@@ -12,7 +12,8 @@ total greenhouse gas emission.
 #### Features
 - Chart 1: The greenhouse gas emission by country over time. This can be
 visualized by a map chart coloring the countries by either their
-total greenhouse gas emission or the greenhouse gas emission per capita.
+total greenhouse gas emission, the greenhouse gas emission per capita or the
+greenhouse gas emission per GDP.
 
 - The time element of chart 1 can be interactive by having the user have control
 over a range slider or a scroll bar that determines which data of a year will be
@@ -25,30 +26,24 @@ of having to guess it off the color in the legend.
 - Chart 2: The greenhouse gas emission by source.
 This can be visualized by a bar chart.
 
-- (optional) Via a checkbox selection the user can choose which emission
-sources are shown in chart 2.
+- Chart 3: A scatterplot relating a country's GDP to its GHG emissions.
 
-- Chart 3: The fractions of greenhouse gasses emitted from the total greenhouse
-gas emission. This can be visualized by a pie chart.
-
-- clicking a country in chart 1 changes for which country chart 2 and 3
-are plotted.
+- Clicking countries on the world map will show data for those
+countries in the other charts. In a menu to the side, these countries can
+be removed from the charts.
 
 - (optional) Via a bullet-point selection the user can choose which continent
 is shown in chart 1. The user will then have the option to "zoom in" to
 a particular continent.
 
-- (optional) Clicking countries on the world map will show data for those
-countries in chart 2 (the bar chart). In menu to the side these countries can
-be removed from the bar chart.
+
 
 #### Sketch
-![](doc/ideaSketch.png)
+![](doc/ideaSketch2.png)
 
 ## Prerequisites
 #### Possible sources
 - http://unfccc.int/ghg_data/ghg_data_unfccc/items/4146.php
-- https://www.epa.gov/ghgemissions/global-greenhouse-gas-emissions-data
 - http://edgar.jrc.ec.europa.eu/overview.php?v=CO2ts1990-2015#
 - http://di.unfccc.int/time_series
  (multiple data sources. Can be used for emission per sector)
@@ -62,6 +57,3 @@ scripts will then be loaded in by a html page.
 - For chart 2, only data on UN countries were found. Perhaps this chart could be
 unlinked from the world map, but have a checkbox selection with the UN countries
 instead.
-- Chart 3 isn't very interesting to the story that the charts are meant to tell.
-Perhaps it could be replaced by a line chart that shows GHG emissions over the
-years.
