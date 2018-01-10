@@ -8,4 +8,6 @@ The pie chart does not tie in well with the overall story the rest of the charts
 are meant to tell.
 
 10-01-2018
-- Revising the project proposal and working on the design document
+- Revising the project proposal.
+Replace pie chart with scatterplot relating a country's GDP to its GHG emission?
+- Working on the design document.

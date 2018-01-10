@@ -54,6 +54,4 @@ scripts will then be loaded in by a html page.
 
 #### Difficulties
 - There might not be data for every country for chart 2 and 3.
-- For chart 2, only data on UN countries were found. Perhaps this chart could be
-unlinked from the world map, but have a checkbox selection with the UN countries
-instead.
+- For chart 2, only data on UN countries were found.
