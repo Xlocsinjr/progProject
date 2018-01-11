@@ -1,13 +1,12 @@
 # progProject readme
 
 ## Problem
-Relate the greenhouse gas emissions of the world by emission source and type
-of gas.
+Relate the greenhouse gas emissions of the world by emission source and country
+GDP.
 
 ## Solution
 Visualization for greenhouse gas emission by country over time, greenhouse gas
-emission by source, and the fractions of greenhouse gasses emitted from the
-total greenhouse gas emission.
+emission by source, and the greenhouse gas emission for a country's GDP.
 
 #### Features
 - Chart 1: The greenhouse gas emission by country over time. This can be

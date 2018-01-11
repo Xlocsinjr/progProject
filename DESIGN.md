@@ -40,3 +40,5 @@ be converted to a json.
 - python
 - D3
 - D3 tooltip
+- topojson
+- datamaps
