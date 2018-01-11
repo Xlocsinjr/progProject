@@ -11,3 +11,8 @@ are meant to tell.
 - Revising the project proposal.
 Replace pie chart with scatterplot relating a country's GDP to its GHG emission
 - Working on the design document.
+
+11-01-2018
+- Daily standup:
+UN countries data. Country removal via dropdown. Possible issues with country
+names in different datasets.
