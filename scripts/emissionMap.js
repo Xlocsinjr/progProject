@@ -2,29 +2,44 @@
 
  ****/
 
-var fakedata = {
-  {USA: [20, 2, 4, 6, 8, 75]},
-  {JPN: [15, 5, 2, 2, 6, 70]},
-  {DEU: [10, 2, 4, 2, 2, 70]},
-  {AUS: [10, 4, 4, 1, 1, 60]}
-};
+var fakedata = [
+  [["USA", 10]],
+  [["USA", 8]],
+  [["USA", 4]],
+  [["USA", 5]],
+  [["USA", 7]]
+];
 
-function colorCoder(dataset){
-  var coder = {};
-  dataset.forEach(function (d){
-    var country = d.
-  });
-};
+console.log(fakedata[0]);
+
+// Colour range
+var colour = d3.scale.linear()
+  .range(["white", "blue"])
+  .domain([0,10]);
 
 var map = new Datamap({
   element: document.getElementById('worldMap'),
   fills: {
     defaultFill: "#ABDDA4",
-    10: "#FF0E0F",
-    9: "FF2E2D",
-    8: "FF4847",
-    7:: "FF6464",
+    // 10: "#FF0E0F",
+    // 9: "FF2E2D",
+    // 8: "FF4847",
+    // 7: "FF6464",
   },
-  data: fakedata,
+  data: {
+    USA: { fillKey: 10 },
+  },
 
 });
+
+
+// Colour range
+var colour = d3.scale.linear()
+  .range(["white", "blue"])
+  .domain([0,10]);
+
+window.setInterval(function() {
+  map.updateChoropleth({
+    USA: colour(Math.random() * 10)
+  });
+}, 2000);
