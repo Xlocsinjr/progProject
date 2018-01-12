@@ -10,17 +10,10 @@ var fakedata = [
   [["USA", 7], ["CHN", 8]]
 ];
 
-
-
 // Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp
 var slider = document.getElementById("myRange");
-
 var yearIndex = slider.value;
 
-slider.oninput = function() {
-  yearIndex = slider.value;
-  console.log(data);
-};
 
 // Colour range
 var colour = d3.scale.linear()
@@ -45,8 +38,15 @@ var colour = d3.scale.linear()
   .range(["white", "blue"])
   .domain([0,10]);
 
-window.setInterval(function() {
+function updateColour(yearIndex) {
   map.updateChoropleth({
-    USA: colour(Math.random() * 10)
+    USA: colour(fakedata[yearIndex][0][1]),
+    CHN: colour(fakedata[yearIndex][1][1])
   });
-}, 2000);
+};
+
+
+slider.oninput = function() {
+  yearIndex = slider.value;
+  updateColour(yearIndex);
+};

@@ -16,3 +16,7 @@ Replace pie chart with scatterplot relating a country's GDP to its GHG emission
 - Daily standup:
 UN countries data. Country removal via dropdown. Possible issues with country
 names in different datasets.
+- Trying to figure out how datamaps plugin works.
+
+12-01-2018
+- Trying to figure out how datamaps plugin works.
