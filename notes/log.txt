@@ -1,22 +1,26 @@
-08-01-2018
+08-01-2018    w1 monday
 - Set up first project proposal
 
-09-01-2018
+09-01-2018    w1 tuesday
 - Worked on project proposal
 - Failed to propose a good project.
 The pie chart does not tie in well with the overall story the rest of the charts
 are meant to tell.
 
-10-01-2018
+10-01-2018    w1 wednesday
 - Revising the project proposal.
 Replace pie chart with scatterplot relating a country's GDP to its GHG emission
 - Working on the design document.
 
-11-01-2018
+11-01-2018    w1 thursday
 - Daily standup:
 UN countries data. Country removal via dropdown. Possible issues with country
 names in different datasets.
 - Trying to figure out how datamaps plugin works.
 
-12-01-2018
+12-01-2018    w1 friday
 - Trying to figure out how datamaps plugin works.
+- Presentations:
+get index.html link in github.
+Arrange dataset on year first then country.
+Next step: get data sorted out. (This should have been the first step.)
