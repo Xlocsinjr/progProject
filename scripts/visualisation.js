@@ -35,8 +35,9 @@ var map = new Datamap({
 
 // Colour range
 var colour = d3.scale.linear()
-  .range(["white", "blue"])
-  .domain([0,10]);
+  .range(["white", "red"])
+  .domain([0, 10]);
+
 
 function updateColour(yearIndex) {
   map.updateChoropleth({
