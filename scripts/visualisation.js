@@ -12,24 +12,16 @@ var fakedata = [
 
 // Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp
 var slider = document.getElementById("myRange");
-var yearIndex = slider.value;
 
 
-// Colour range
-var colour = d3.scale.linear()
-  .range(["white", "blue"])
-  .domain([0,10]);
 
 
+// ------------------- MAP -----------------------------------------------------
 var map = new Datamap({
   element: document.getElementById('worldMap'),
   fills: {
     defaultFill: "#ABDDA4",
-  },
-  data: {
-    USA: { fillKey: 10 },
-  },
-
+  }
 });
 
 
@@ -46,6 +38,13 @@ function updateColour(yearIndex) {
   });
 };
 
+// Country mouseover
+// map.svg.selectAll('.datamaps-subunits').on('mouseover', function() {
+//   console.log(ting);
+// });
+
+var yearIndex = slider.value;
+updateColour(yearIndex);
 
 slider.oninput = function() {
   yearIndex = slider.value;
