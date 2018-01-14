@@ -29,6 +29,45 @@ All data sources should be trimmed to only contain the relevant data. Then the
 data files can be saves as .csv after which a script can create usable jsons for
 the visualisations.
 
+##### json structure
+###### World map and scatterplot
+[
+  {
+    year: 1970
+    countryCode:  
+    {
+      Name: Country name
+      GDP: value USD,
+      GHG: value kt CO2 equivalent
+    }
+    countryCode:
+    {
+      Name: Country name
+      GDP: value USD,
+      GHG: value kt CO2 equivalent
+    }
+  }
+ {
+   {
+     year: 1971
+     countryCode:  
+     {
+       Name: Country name
+       GDP: value USD,
+       GHG: value kt CO2 equivalent
+     }
+     countryCode:
+     {
+       Name: Country name
+       GDP: value USD,
+       GHG: value kt CO2 equivalent
+     }
+   }
+ }
+... etc
+]
+
+
 ### Scripts and functions
 ##### Scripts
 - Script(s) to convert a datasource to json in python.

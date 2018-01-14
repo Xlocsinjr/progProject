@@ -11,16 +11,14 @@ import os
 # Finds the path to the directory above the directory this file is in.
 scriptDir = os.path.dirname(os.path.dirname(__file__))
 
-def main():
-
 
 def getData():
     GDPcsvFileName = "data/worldGDP.csv"
     GDPcsvFilePath = os.path.join(scriptDir, GDPcsvFileName)
-    GDPcsvFile = open(csvFilePath, "r")
+    GDPcsvFile = open(GDPcsvFilePath, "r")
 
     # Starts jsonfile with opening bracket, then iterate through every row in csv.
-    jsonFileName = "data/mapData.json"
+    jsonFileName = "data/jsons/mapData.json"
     jsonFilePath = os.path.join(scriptDir, jsonFileName)
     jsonFile = open(jsonFilePath, "w+")
     jsonFile.write("[")
@@ -30,10 +28,9 @@ def getData():
     for yearIndex in range(43):
         yearDict = {}
 
-        year = 1970 + yearIndex
-        yearDict[str(year)] = year
+        yearDict["year"] = 1970 + yearIndex
 
-        for row in csvFile:
+        for row in GDPcsvFile:
             countryDict = {}
 
             new_row = row.split(",")
@@ -52,12 +49,12 @@ def getData():
             if not firstRow:
                 jsonFile.write(",")
 
-            # Dumps the dictionary as a row in the json
-            json.dump(dictionary, jsonFile)
-            firstRow = False
+        # Dumps the dictionary as a row in the json
+        json.dump(yearDict, jsonFile)
+        firstRow = False
 
     # Overwrites last "," with a closing bracket
     jsonFile.write("]")
 
 if __name__ == '__main__':
-    main()
+    getData()
