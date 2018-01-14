@@ -40,8 +40,8 @@ def getData():
             countryCode = new_row[1]
             GDP = new_row[2 + yearIndex]
 
-            countryDict["GDP"] = GDP
             countryDict["Name"] = countryName
+            countryDict["GDP"] = GDP
 
 
             yearDict[countryCode] = countryDict
