@@ -13,11 +13,12 @@ scriptDir = os.path.dirname(os.path.dirname(__file__))
 
 
 def getData():
+    # Finds the data source file and opens it for reading.
     GDPcsvFileName = "data/worldGDP.csv"
     GDPcsvFilePath = os.path.join(scriptDir, GDPcsvFileName)
     GDPcsvFile = open(GDPcsvFilePath, "r")
 
-    # Starts jsonfile with opening bracket, then iterate through every row in csv.
+    # Opens a json file for writing.
     jsonFileName = "data/jsons/mapData.json"
     jsonFilePath = os.path.join(scriptDir, jsonFileName)
     jsonFile = open(jsonFilePath, "w+")
@@ -30,6 +31,8 @@ def getData():
 
         yearDict["year"] = 1970 + yearIndex
 
+        # Start reading the file from the beginning
+        GDPcsvFile.seek(0)
         for row in GDPcsvFile:
             countryDict = {}
 
@@ -46,8 +49,8 @@ def getData():
 
             yearDict[countryCode] = countryDict
 
-            if not firstRow:
-                jsonFile.write(",")
+        if not firstRow:
+            jsonFile.write(",")
 
         # Dumps the dictionary as a row in the json
         json.dump(yearDict, jsonFile)

@@ -28,5 +28,6 @@ Next step: get data sorted out. (This should have been the first step.)
 14-01-2018    w1 sunday
 - convert datasources to csv
 - convert the csv to json: json per visualisation?
-- been able to create a json holding only the names and GDP of every country of
-every year from the GDP data. Next step is to add the GHG emissions.
+- been able to create a json (though not correct) holding only the names and GDP
+of every country of every year from the GDP data. Next step is to add the GHG
+emissions.
