@@ -31,3 +31,6 @@ Next step: get data sorted out. (This should have been the first step.)
 - been able to create a json (though not correct) holding only the names and GDP
 of every country of every year from the GDP data. Next step is to add the GHG
 emissions.
+- Tried to change the json to hold GHG emission data but the script reads the
+values in scientific notation (ex: 1.31E+01) as a string. This must be converted
+to float or int first.
