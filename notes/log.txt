@@ -24,3 +24,7 @@ names in different datasets.
 get index.html link in github.
 Arrange dataset on year first then country.
 Next step: get data sorted out. (This should have been the first step.)
+
+14-01-2018    w1 sunday
+- convert datasources to csv
+- convert the csv to json: json per visualisation?

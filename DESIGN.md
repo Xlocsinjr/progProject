@@ -1,6 +1,7 @@
 # Design  
 
-### Data sources
+### Data
+##### Data sources
 - http://di.unfccc.int/time_series.
 From this link all relevant data can be found but only for the UN nations.
 Time series data for every type of greenhouse gas and emissions per sector
@@ -16,13 +17,17 @@ capita and per GDP for every country.
 From this link, time series data for GDP for countries over the years can be
 found.
 
-
+##### Data reworking
 The data for GHG emissions is given in excel files (.xlsx).
 For CO2 the data is given in kilotons (kt) and for the other gasses
 in equivalent kilotons of CO2 (kt CO2 equivalent).
 
 The data for the GDP is a csv, which can be directly read by d3, but could first
 be converted to a json.
+
+All data sources should be trimmed to only contain the relevant data. Then the
+data files can be saves as .csv after which a script can create usable jsons for
+the visualisations.
 
 ### Scripts and functions
 ##### Scripts

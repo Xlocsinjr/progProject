@@ -8,53 +8,53 @@ import csv
 import json
 import os
 
+# Finds the path to the directory above the directory this file is in.
 scriptDir = os.path.dirname(os.path.dirname(__file__))
-dataDir = os.path.join(scriptDir, "Data")
 
 def main():
-    converter("Data/DeBilt.csv", "Data/DeBilt.json")
-    converter("Data/Eindhoven.csv", "Data/Eindhoven.json")
-    converter("Data/Leeuwarden.csv", "Data/Leeuwarden.json")
-    converter("Data/Schiphol.csv", "Data/Schiphol.json")
-    converter("Data/Vlissingen.csv", "Data/Vlissingen.json")
 
 
-def converter(csvFileName, jsonFileName):
-    csvFilePath = os.path.join(scriptDir, csvFileName)
-    csvFile = open(csvFilePath, "r")
+def getData():
+    GDPcsvFileName = "data/worldGDP.csv"
+    GDPcsvFilePath = os.path.join(scriptDir, GDPcsvFileName)
+    GDPcsvFile = open(csvFilePath, "r")
 
-    # Starts jsonfile with opening bracket, then iterate through every row in csv
+    # Starts jsonfile with opening bracket, then iterate through every row in csv.
+    jsonFileName = "data/mapData.json"
     jsonFilePath = os.path.join(scriptDir, jsonFileName)
     jsonFile = open(jsonFilePath, "w+")
     jsonFile.write("[")
 
     firstRow = True
-    for row in csvFile:
-        dictionary = {}
-        new_row = row.split(",")
+
+    for yearIndex in range(43):
+        yearDict = {}
+
+        year = 1970 + yearIndex
+        yearDict[str(year)] = year
+
+        for row in csvFile:
+            countryDict = {}
+
+            new_row = row.split(",")
 
 
+            countryName = new_row[0]
+            countryCode = new_row[1]
+            GDP = new_row[2 + yearIndex]
 
-        # Forms a string for the date to put in the dictionary
-        date_string = new_row[1][:4] + "-" + new_row[1][4:6] + "-" + new_row[1][6:]
-        dictionary["date"] = date_string
+            countryDict["GDP"] = GDP
+            countryDict["Name"] = countryName
 
-        # Formats average, minimum and maximum temperature per day
-        T_av = int(new_row[2].strip()) * 0.1
-        dictionary["average"] = round(T_av, 1)
 
-        T_min = int(new_row[3].strip()) * 0.1
-        dictionary["minimum"] = round(T_min, 1)
+            yearDict[countryCode] = countryDict
 
-        T_max = int(new_row[4].strip()) * 0.1
-        dictionary["maximum"] = round(T_max, 1)
+            if not firstRow:
+                jsonFile.write(",")
 
-        # Dumps the dictionary as a row in the json
-        if not firstRow:
-            jsonFile.write(",")
-
-        json.dump(dictionary, jsonFile)
-        firstRow = False
+            # Dumps the dictionary as a row in the json
+            json.dump(dictionary, jsonFile)
+            firstRow = False
 
     # Overwrites last "," with a closing bracket
     jsonFile.write("]")
