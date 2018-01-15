@@ -4,7 +4,7 @@
 
 
 
-d3.json("../data/jsons/testjson.json", function(error, data) {
+d3.json("../data/jsons/mapData.json", function(error, data) {
   if (error) throw error;
 
   // Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp
@@ -22,10 +22,11 @@ d3.json("../data/jsons/testjson.json", function(error, data) {
   // Colour range
   var colour = d3.scale.linear()
     .range(["white", "red"])
-    .domain([0, 30]);
+    .domain([0, 12500000]);
 
 
   var testjson = data;
+  console.log(testjson);
 
   function updateColour(yearIndex) {
     map.updateChoropleth({
