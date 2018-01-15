@@ -36,7 +36,11 @@ values in scientific notation (ex: 1.31E+01) as a string. This must be converted
 to float or int first.
 
 #### 15-01-2018    w2 monday
-- Daily standup:
+- Daily standup: Made a start in creating a usable json. By the end of this week
+all data should be usable and at least the world map and scatterplot should
+work.
 - Got the world map working with real data.
-- Still have to add GDP tot the json
+- Note: Still have to add GDP tot the json
 - Somehow 2012 data isn't added to the json
+- World map data is (seems?) correct now, with GDP and GHG emission data from
+1970 to 2012 available in json format.
