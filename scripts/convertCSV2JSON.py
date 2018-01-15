@@ -13,16 +13,16 @@ scriptDir = os.path.dirname(os.path.dirname(__file__))
 
 
 def getData():
-    # Finds the data source file and opens it for reading.
-    GHGcsvFileName = "data/GHG/worldGHG.csv"
-    GHGcsvFilePath = os.path.join(scriptDir, GHGcsvFileName)
-    GHGcsvFile = open(GHGcsvFilePath, "r")
-
     # Opens a json file for writing.
     jsonFileName = "data/jsons/mapData.json"
     jsonFilePath = os.path.join(scriptDir, jsonFileName)
     jsonFile = open(jsonFilePath, "w+")
     jsonFile.write("[")
+
+    # Finds the data source file and opens it for reading.
+    GHGcsvFileName = "data/GHG/worldGHG.csv"
+    GHGcsvFilePath = os.path.join(scriptDir, GHGcsvFileName)
+    GHGcsvFile = open(GHGcsvFilePath, "r")
 
     firstRow = True
 
@@ -42,8 +42,10 @@ def getData():
             countryName = new_row[0]
             countryCode = new_row[1]
             GHGstring = new_row[2 + yearIndex]
-            GHGstring = GHGstring.replace("e", "E")
+            #GHGstring = GHGstring.replace("e", "E")
+            print(GHGstring)
             GHG = float(GHGstring)
+
 
             countryDict["Name"] = countryName
             countryDict["GHG"] = GHG
