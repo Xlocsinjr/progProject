@@ -31,6 +31,7 @@ the visualisations.
 
 ##### json structure
 ###### World map and scatterplot
+'''
 [
   {
     year: 1970
@@ -66,6 +67,7 @@ the visualisations.
  }
 ... etc
 ]
+'''
 
 
 ### Scripts and functions
