@@ -15,6 +15,7 @@ d3.json("../data/jsons/mapData.json", function(error, data) {
     element: document.getElementById('worldMap'),
     fills: {
       defaultFill: "#ABDDA4",
+      NAV: "black"
     }
   });
 
