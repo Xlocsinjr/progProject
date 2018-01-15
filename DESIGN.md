@@ -34,13 +34,13 @@ the visualisations.
 ```
 [
   {
-    year: 1970
+    year: 1970,
     countryCode:  
     {
       Name: Country name
       GDP: value USD,
       GHG: value kt CO2 equivalent
-    }
+    },
     countryCode:
     {
       Name: Country name
@@ -50,13 +50,13 @@ the visualisations.
   }
  {
    {
-     year: 1971
+     year: 1971,
      countryCode:  
      {
        Name: Country name
        GDP: value USD,
        GHG: value kt CO2 equivalent
-     }
+     },
      countryCode:
      {
        Name: Country name
