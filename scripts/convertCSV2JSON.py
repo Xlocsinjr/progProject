@@ -42,8 +42,6 @@ def getData():
             countryName = new_row[0]
             countryCode = new_row[1]
             GHGstring = new_row[2 + yearIndex]
-            #GHGstring = GHGstring.replace("e", "E")
-            print(GHGstring)
             GHG = float(GHGstring)
 
 

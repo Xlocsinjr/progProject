@@ -21,18 +21,24 @@ d3.json("../data/jsons/mapData.json", function(error, data) {
 
   // Colour range
   var colour = d3.scale.linear()
-    .range(["white", "red"])
+    .range(["#ABDDA4", "red"])
     .domain([0, 12500000]);
 
 
-  var testjson = data;
-  console.log(testjson);
+  console.log(data);
 
   function updateColour(yearIndex) {
-    map.updateChoropleth({
-      USA: colour(testjson[yearIndex]["USA"]["GHG"]),
-      CHN: colour(testjson[yearIndex]["CHN"]["GHG"])
-    });
+    updateDict = {};
+    keysList = Object.keys(data[yearIndex]);
+    for (i in keysList) {
+      key = keysList[i];
+      if (key != "year") {
+        val = data[yearIndex][key]["GHG"];
+        updateDict[key] = colour(val);
+      };
+    };
+
+    map.updateChoropleth(updateDict);
   };
 
   // Country mouseover
