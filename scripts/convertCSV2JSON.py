@@ -20,7 +20,7 @@ def getData():
     jsonFile.write("[")
 
     firstRow = True
-    for yearIndex in range(42):
+    for yearIndex in range(43):
         yearDict = {}
 
         yearDict["year"] = 1970 + yearIndex
@@ -68,9 +68,9 @@ def getData():
 
             # Makes sure value is float. If no entry: set to "NAV".
             print(countryCode, 1970 + yearIndex, GDPstring)
-            if GDPstring != "":
+            try:
                 GDP = float(GDPstring)
-            else:
+            except:
                 GDP = "NAV"
 
             # Adds GDP to the already existing dictionary.
