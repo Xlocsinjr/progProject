@@ -1,31 +1,31 @@
-#### 08-01-2018    w1 monday
+#### 08-01-2018    week1 - monday
 - Set up first project proposal
 
-#### 09-01-2018    w1 tuesday
+#### 09-01-2018    week1 - tuesday
 - Worked on project proposal
 - Failed to propose a good project.
 The pie chart does not tie in well with the overall story the rest of the charts
 are meant to tell.
 
-#### 10-01-2018    w1 wednesday
+#### 10-01-2018    week1 - wednesday
 - Revising the project proposal.
 Replace pie chart with scatterplot relating a country's GDP to its GHG emission
 - Working on the design document.
 
-#### 11-01-2018    w1 thursday
+#### 11-01-2018    week1 - thursday
 - Daily standup:
 UN countries data. Country removal via dropdown. Possible issues with country
 names in different datasets.
 - Trying to figure out how datamaps plugin works.
 
-#### 12-01-2018    w1 friday
+#### 12-01-2018    week1 - friday
 - Trying to figure out how datamaps plugin works.
 - Presentations:
 get index.html link in github.
 Arrange dataset on year first then country.
 Next step: get data sorted out. (This should have been the first step.)
 
-#### 14-01-2018    w1 sunday
+#### 14-01-2018    week1 - sunday
 - convert datasources to csv
 - convert the csv to json: json per visualisation?
 - been able to create a json (though not correct) holding only the names and GDP
@@ -35,7 +35,7 @@ emissions.
 values in scientific notation (ex: 1.31E+01) as a string. This must be converted
 to float or int first.
 
-#### 15-01-2018    w2 monday
+#### 15-01-2018    week2 - monday
 - Daily standup: Made a start in creating a usable json. By the end of this week
 all data should be usable and at least the world map and scatterplot should
 work.
