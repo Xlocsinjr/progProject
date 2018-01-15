@@ -29,6 +29,9 @@ All data sources should be trimmed to only contain the relevant data. Then the
 data files can be saves as .csv after which a script can create usable jsons for
 the visualisations.
 
+For the world map GHG emissions: China dominates with their high GHG emission
+which means all other countries are barely coloured.
+
 ##### json structure
 ###### World map and scatterplot
 ```

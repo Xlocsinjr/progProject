@@ -34,3 +34,9 @@ emissions.
 - Tried to change the json to hold GHG emission data but the script reads the
 values in scientific notation (ex: 1.31E+01) as a string. This must be converted
 to float or int first.
+
+15-01-2018    w2 monday
+- Daily standup:
+- Got the world map working with real data.
+- Still have to add GDP tot the json
+- Somehow 2012 data isn't added to the json

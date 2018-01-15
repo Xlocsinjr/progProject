@@ -19,38 +19,74 @@ def getData():
     jsonFile = open(jsonFilePath, "w+")
     jsonFile.write("[")
 
-    # Finds the data source file and opens it for reading.
-    GHGcsvFileName = "data/GHG/worldGHG.csv"
-    GHGcsvFilePath = os.path.join(scriptDir, GHGcsvFileName)
-    GHGcsvFile = open(GHGcsvFilePath, "r")
-
     firstRow = True
-
-    for yearIndex in range(43):
+    for yearIndex in range(42):
         yearDict = {}
 
         yearDict["year"] = 1970 + yearIndex
 
-        # Start reading the file from the beginning
+        # ------------------- GHG EMISSION DATA --------------------------------
+        # Finds the GHG data source file and opens it for reading.
+        GHGcsvFileName = "data/GHG/worldGHG.csv"
+        GHGcsvFilePath = os.path.join(scriptDir, GHGcsvFileName)
+        GHGcsvFile = open(GHGcsvFilePath, "r")
+
+        # Start reading the file from the beginning. Iterate through rows.
         GHGcsvFile.seek(0)
         for row in GHGcsvFile:
             countryDict = {}
-
             new_row = row.split(",")
 
-
+            # Gather relevant entries.
             countryName = new_row[0]
             countryCode = new_row[1]
             GHGstring = new_row[2 + yearIndex]
             GHG = float(GHGstring)
 
-
+            # Create entries in countryDict
             countryDict["Name"] = countryName
             countryDict["GHG"] = GHG
 
-
+            # Add countryDict to yearDict
             yearDict[countryCode] = countryDict
 
+        # ------------------- GDP DATA -----------------------------------------
+        # Finds the GHG data source file and opens it for reading.
+        GDPcsvFileName = "data/worldGDP.csv"
+        GDPcsvFilePath = os.path.join(scriptDir, GDPcsvFileName)
+        GDPcsvFile = open(GDPcsvFilePath, "r")
+
+        # Start reading the file from the beginning
+        GDPcsvFile.seek(0)
+        for row in GDPcsvFile:
+            new_row = row.split(",")
+
+            # Gather relevant data.
+            countryName = new_row[0]
+            countryCode = new_row[1]
+            GDPstring = new_row[2 + yearIndex]
+
+            # Makes sure value is float. If no entry: set to "NAV".
+            print(countryCode, 1970 + yearIndex, GDPstring)
+            if GDPstring != "":
+                GDP = float(GDPstring)
+            else:
+                GDP = "NAV"
+
+            # Adds GDP to the already existing dictionary.
+            try:
+                yearDict[countryCode]["GDP"] = GDP
+            except:
+                # Create new entries for a country if it not yet already exists
+                yearDict[countryCode] = {}
+                yearDict[countryCode]["Name"] = countryName
+                yearDict[countryCode]["GDP"] = GDP
+
+                # Set GHG to NAV if a new dict had to be created: This means
+                # there was no data for this country for GHG emission.
+                yearDict[countryCode]["GHG"] = "NAV"
+
+        # Write comma if not the first row
         if not firstRow:
             jsonFile.write(",")
 
