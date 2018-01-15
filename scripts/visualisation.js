@@ -22,7 +22,8 @@ d3.json("../data/jsons/mapData.json", function(error, data) {
   // Colour range
   var colour = d3.scale.linear()
     .range(["#ABDDA4", "red"])
-    .domain([0, 12500000]);
+    //.domain([0, 12500000]);
+    .domain([0, 1000000]);
 
 
   console.log(data);
