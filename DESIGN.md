@@ -77,6 +77,10 @@ which means all other countries are barely coloured.
 ]
 ```
 
+###### Grouped bar chart
+- Bars can either be grouped by sector and have the countries identified by colour,
+or the bars can be grouped by country and have the sectors identified by the colour.
+
 
 ### Scripts and functions
 ##### Scripts

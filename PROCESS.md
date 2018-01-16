@@ -60,3 +60,6 @@ map, it still happens.
 - In the earlier years, all the dots will be at the left side of the scatterplot.
 Perhaps the x-axis' range should change depending on the highest GDP of the countries
 that will be plotted in the chart.
+- The world map and the scatter plot now can show data. The next
+step will be to create a json for the data for GHG emission per sector and to create
+a first version of the grouped bar chart.
