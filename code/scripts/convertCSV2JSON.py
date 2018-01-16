@@ -69,7 +69,6 @@ def getData():
             GDPstring = new_row[2 + yearIndex]
 
             # Makes sure value is float. If no entry: set to "NAV".
-            print(countryCode, 1970 + yearIndex, GDPstring)
             try:
                 GDP = float(GDPstring)
             except:
