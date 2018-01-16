@@ -1,6 +1,6 @@
 # progProject readme
 ## Link
-https://xlocsinjr.github.io/progProject/
+https://xlocsinjr.github.io/progProject/code/HTML/progProject.html
 ## Problem
 Relate the greenhouse gas emissions of the world by emission source and country
 GDP.
