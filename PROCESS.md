@@ -53,3 +53,7 @@ bottom of the chart. The chart currently shows all countries that have both GDP 
 emission data.
 - Country colour is still blinking/flashing/flickering if the mouse is hovering over a
 country. Not sure where it comes from.
+- Found new data source for GHG emission per sector.
+- In the earlier years, all the dots will be at the left side of the scatterplot.
+Perhaps the x-axis' range should change depending on the highest GDP of the countries
+that will be plotted in the chart.

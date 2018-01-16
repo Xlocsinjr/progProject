@@ -99,8 +99,8 @@ d3.json("../data/jsons/mapData.json", function(error, data) {
         if ((isNaN(GDPval) != true) && (isNaN(GHGval) != true)){
           dots.append("circle")
             .attr("class", "scatterDot")
-            .attr("cx", x(GDPval / 1000000.))
-            .attr("cy", y(GHGval / 1000.))
+            .attr("cx", x(GDPval / 1000000.)) // million USD
+            .attr("cy", y(GHGval / 1000.)) // Mt CO2 eq
             .attr("r", 2);
         };
       };
