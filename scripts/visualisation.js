@@ -93,7 +93,6 @@ d3.json("../data/jsons/mapData.json", function(error, data) {
       if (key != "year") {
         var GDPval = data[yearIndex][key]["GDP"];
         var GHGval = data[yearIndex][key]["GHG"];
-        console.log(GDPval, GHGval);
 
         // Only place dot if both data is available.
         if ((isNaN(GDPval) != true) && (isNaN(GHGval) != true)){
