@@ -50,9 +50,12 @@ work.
 - Tried copying over the scatterplot from Data processing homework 4.
 - Scatterplot can now update with the slider but the dots all seem to be placed near the
 bottom of the chart. The chart currently shows all countries that have both GDP and GHG
-emission data.
+emission data. UPDATE: Apparently this happened because all countries have a far lower
+GHG emission relative to China's emission in 2012, which is the highest GHG emission of
+all countries and all years.
 - Country colour is still blinking/flashing/flickering if the mouse is hovering over a
-country. Not sure where it comes from.
+country. Not sure where it comes from. Even with all elements commented out except the
+map, it still happens.
 - Found new data source for GHG emission per sector.
 - In the earlier years, all the dots will be at the left side of the scatterplot.
 Perhaps the x-axis' range should change depending on the highest GDP of the countries
