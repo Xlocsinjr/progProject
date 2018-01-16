@@ -43,9 +43,11 @@ def getData():
             GHGstring = new_row[2 + yearIndex]
             GHG = float(GHGstring)
 
-            # Create entries in countryDict
+            # Create entries in countryDict.
             countryDict["Name"] = countryName
             countryDict["GHG"] = GHG
+            # Create entry for GDP but will be overwritten later.
+            countryDict["GDP"] = "NAV"
 
             # Add countryDict to yearDict
             yearDict[countryCode] = countryDict

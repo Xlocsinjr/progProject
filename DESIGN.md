@@ -79,7 +79,6 @@ which means all other countries are barely coloured.
 - A script for the graphs in JavaScript
 ##### Functions
 - A function to read in all the jsons created by the python script
-- every graph will have its own function
 - every interactive element will have its own update function
 
 ### Design diagram

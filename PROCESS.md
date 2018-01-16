@@ -36,6 +36,7 @@ values in scientific notation (ex: 1.31E+01) as a string. This must be converted
 to float or int first.
 
 #### 15-01-2018    week2 - monday
+- Changed log to process.md
 - Daily standup: Made a start in creating a usable json. By the end of this week
 all data should be usable and at least the world map and scatterplot should
 work.
@@ -44,3 +45,9 @@ work.
 - Somehow 2012 data isn't added to the json
 - World map data is (seems?) correct now, with GDP and GHG emission data from
 1970 to 2012 available in json format.
+
+#### 16-01-2018    week2 - tuesday
+- Tried copying over the scatterplot from Data processing homework 4.
+- Scatterplot can now update with the slider but the dots all seem to be placed near the
+bottom of the chart. The chart currently shows all countries that have both GDP and GHG
+emission data.
