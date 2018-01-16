@@ -8,7 +8,7 @@
  var yearIndex = slider.value;
 
 
-d3.json("../data/jsons/mapData.json", function(error, data) {
+d3.json("../../data/jsons/mapData.json", function(error, data) {
   if (error) throw error;
 
 
