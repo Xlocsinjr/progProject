@@ -9,7 +9,7 @@ import json
 import os
 
 # Finds the path to the directory above the directory this file is in.
-scriptDir = os.path.dirname(os.path.dirname(__file__))
+scriptDir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 
 def getData():
