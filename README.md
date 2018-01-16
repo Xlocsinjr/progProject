@@ -50,6 +50,7 @@ a particular continent.
 - http://edgar.jrc.ec.europa.eu/overview.php?v=CO2ts1990-2015#
 - http://di.unfccc.int/time_series
  (multiple data sources. Can be used for emission per sector)
+- https://ourworldindata.org/co2-and-other-greenhouse-gas-emissions#emissions-by-sector
 
 #### External components
 Most, if not all, visualizations will be made in JavaScript using d3. These

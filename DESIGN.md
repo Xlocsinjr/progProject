@@ -17,6 +17,11 @@ capita and per GDP for every country.
 From this link, time series data for GDP for countries over the years can be
 found.
 
+- https://ourworldindata.org/co2-and-other-greenhouse-gas-emissions#emissions-by-sector
+At emissions by sector. Here a data file can be found for GHG emission for countries
+mostly in the years 1990 to 2010. Some countries do have data for years outside this
+range but then it is only for certain sectors.
+
 ##### Data reworking
 The data for GHG emissions is given in excel files (.xlsx).
 For CO2 the data is given in kilotons (kt) and for the other gasses

@@ -51,3 +51,5 @@ work.
 - Scatterplot can now update with the slider but the dots all seem to be placed near the
 bottom of the chart. The chart currently shows all countries that have both GDP and GHG
 emission data.
+- Country colour is still blinking/flashing/flickering if the mouse is hovering over a
+country. Not sure where it comes from.

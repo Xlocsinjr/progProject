@@ -18,8 +18,7 @@ d3.json("../data/jsons/mapData.json", function(error, data) {
     element: document.getElementById('worldMap'),
     fills: {
       defaultFill: "#ABDDA4",
-      NAV: "black"
-    }
+    },
   });
 
 
@@ -28,9 +27,6 @@ d3.json("../data/jsons/mapData.json", function(error, data) {
     .range(["#ABDDA4", "red"])
     .domain([0, 12500000]);
     // 12500000 : China 2012 GHG emission
-
-
-  console.log(data);
 
   function updateColour(yearIndex) {
     updateDict = {};
@@ -51,17 +47,17 @@ d3.json("../data/jsons/mapData.json", function(error, data) {
 
   // Sets the margins for the chart and sets the width and height.
   var margin = {top: 20, right: 30, bottom: 40, left: 40},
-      width = 400 - margin.left - margin.right,
+      width = 900 - margin.left - margin.right,
       height = 300 - margin.top - margin.bottom;
 
   // Sets x-axis scale for GDP.
   var x = d3.scale.linear()
-      .domain([0, 16200])  // USA GDP 2012 in million $
+      .domain([0, 16200000.])  // World GDP 2012
       .range([0, width]);
 
   // Sets y-axis scale for GHG emissions.
   var y = d3.scale.linear()
-    .domain([0, 12500000])  // China GHG 2012
+    .domain([0, 12500])  // China GHG 2012
     .range([height, 0]);
 
   // Defines the x-axis. Placed at the bottom.
@@ -97,13 +93,14 @@ d3.json("../data/jsons/mapData.json", function(error, data) {
       if (key != "year") {
         var GDPval = data[yearIndex][key]["GDP"];
         var GHGval = data[yearIndex][key]["GHG"];
+        console.log(GDPval, GHGval);
 
         // Only place dot if both data is available.
         if ((isNaN(GDPval) != true) && (isNaN(GHGval) != true)){
           dots.append("circle")
             .attr("class", "scatterDot")
             .attr("cx", x(GDPval / 1000000.))
-            .attr("cy", y(GHGval))
+            .attr("cy", y(GHGval / 1000.))
             .attr("r", 2);
         };
       };
@@ -122,9 +119,9 @@ d3.json("../data/jsons/mapData.json", function(error, data) {
       .attr("class", "axisLabel")
       .attr("x", width)
       .attr("y", 30)
-      .style("font", "20px sans-serif")
+      .style("font", "11px sans-serif")
       .style("text-anchor", "end")
-      .text("GDP (US$)");
+      .text("GDP (million US$)");
 
   // Adds a g element for a Y axis
   scatterPlot.append("g")
@@ -134,9 +131,9 @@ d3.json("../data/jsons/mapData.json", function(error, data) {
       .attr("transform", "rotate(-90)")
       .attr("y", 6)
       .attr("dy", ".71em")
-      .style("font", "20px sans-serif")
+      .style("font", "11px sans-serif")
       .style("text-anchor", "end")
-      .text("total GHG emission (kt CO2 equivalent)");
+      .text("total GHG emission (Mt CO2 equivalent)");
 
   // Adds a canvas for the Legend to the chart
   // var legend_x = 90;
