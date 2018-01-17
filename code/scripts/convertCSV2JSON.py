@@ -12,7 +12,7 @@ import os
 scriptDir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 
-def getData():
+def getGHGvGDPData():
     # Opens a json file for writing.
     jsonFileName = "data/jsons/mapData.json"
     jsonFilePath = os.path.join(scriptDir, jsonFileName)
@@ -95,14 +95,8 @@ def getData():
         json.dump(yearDict, jsonFile)
         firstRow = False
 
-
-    # # Finds the data source file and opens it for reading.
-    # GDPcsvFileName = "data/worldGDP.csv"
-    # GDPcsvFilePath = os.path.join(scriptDir, GDPcsvFileName)
-    # GDPcsvFile = open(GDPcsvFilePath, "r")
-
     # Overwrites last "," with a closing bracket
     jsonFile.write("]")
 
 if __name__ == '__main__':
-    getData()
+    getGHGvGDPData()

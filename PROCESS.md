@@ -63,3 +63,7 @@ that will be plotted in the chart.
 - The world map and the scatter plot now can show data. The next
 step will be to create a json for the data for GHG emission per sector and to create
 a first version of the grouped bar chart.
+
+#### 17-01-2018    week2 - wednesday
+- New optional idea for the grouped bar chart: Via checkboxes the user can
+which sectors the chart will show.

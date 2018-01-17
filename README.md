@@ -15,30 +15,34 @@ visualized by a map chart coloring the countries by either their
 total greenhouse gas emission, the greenhouse gas emission per capita or the
 greenhouse gas emission per GDP.
 
+- Chart 2: The greenhouse gas emission by source.
+This can be visualised by a bar chart.
+
+- Chart 3: A scatterplot relating a country's GDP to its GHG emissions. This
+chart shows GDP on the x-axis and GHG emission or GHG emission per GDP.
+
 - The time element of chart 1 can be interactive by having the user have control
 over a range slider or a scroll bar that determines which data of a year will be
 shown.
 
 - In chart 1, a tooltip will show a country's true data value. This will allow
 the user to get to know the exact data value of emission for a country instead
-of having to guess it off the color in the legend.
-
-- Chart 2: The greenhouse gas emission by source.
-This can be visualized by a bar chart.
-
-- Chart 3: A scatterplot relating a country's GDP to its GHG emissions. This
-chart shows GDP on the x-axis and GHG emission or GHG emission per GDP.
+of having to guess it off the colour in the legend.
 
 - Via an interactive element the user could switch the y axis between total
-GHG emission and GHG emission per GDP.
+GHG emission and GHG emission per GDP in the chart 3 (scatterplot).
 
 - Clicking countries on the world map will show data for those
 countries in the other charts. In a menu to the side, these countries can
-be removed from the charts.
+be removed from the charts. This menu can also be a dropdown menu.
 
 - (optional) Via a bullet-point selection the user can choose which continent
 is shown in chart 1. The user will then have the option to "zoom in" to
 a particular continent.
+
+- (optional) Via checkboxes the user can choose which of the sectors will be
+shown in chart 2 (grouped barchart). This will make comparing a sector from
+different countries easier.
 
 
 
