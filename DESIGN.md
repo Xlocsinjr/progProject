@@ -84,7 +84,7 @@ or the bars can be grouped by country and have the sectors identified by the col
 
 ### Scripts and functions
 ##### Scripts
-- Script(s) to convert a datasource to json in python.
+- convertCSV2JSON: A script to convert a datasource to json in python.
 - A script for the graphs in JavaScript
 ##### Functions
 - A function to read in all the jsons created by the python script
