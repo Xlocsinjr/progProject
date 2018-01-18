@@ -38,7 +38,6 @@ For the world map GHG emissions: China dominates with their high GHG emission
 which means all other countries are barely coloured.
 
 ##### json structure
-###### World map and scatterplot
 ```
 [
   {
@@ -48,12 +47,17 @@ which means all other countries are barely coloured.
       Name: Country name
       GDP: value USD,
       GHG: value kt CO2 equivalent
+      sector1: value kt CO2 equivalent,
+      sector2: value kt CO2 equivalent,
+      ...
     },
     countryCode:
     {
       Name: Country name
       GDP: value USD,
       GHG: value kt CO2 equivalent
+      sector1: value kt CO2 equivalent,
+      sector2: value kt CO2 equivalent,
     }
   }
  {
@@ -64,12 +68,16 @@ which means all other countries are barely coloured.
        Name: Country name
        GDP: value USD,
        GHG: value kt CO2 equivalent
+       sector1: value kt CO2 equivalent,
+       sector2: value kt CO2 equivalent,
      },
      countryCode:
      {
        Name: Country name
        GDP: value USD,
        GHG: value kt CO2 equivalent
+       sector1: value kt CO2 equivalent,
+       sector2: value kt CO2 equivalent,
      }
    }
  }

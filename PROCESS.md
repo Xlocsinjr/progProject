@@ -74,3 +74,7 @@ choose which sectors the chart will show.
 - For the Sector data: Yugoslav SFR had no country code. The country code was
 manually corrected to Yugoslavia, YUG. Though, this may not change anything in
 the final product as Yugoslavia is not a country anymore.
+- Managed to get all data into a single json. All sector data for country codes
+that didn't already have entries made from the GDP and GHG data was neglected
+for now. Most of this data is data for larger regions or regions within
+countries so there shouldn't be any data loss on individual countries.
