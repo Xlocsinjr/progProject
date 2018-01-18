@@ -11,6 +11,13 @@ import os
 # Finds the path to the directory above the directory this file is in.
 scriptDir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
+def valueTest(value):
+    try:
+        float(value)
+    except:
+        return "NAV"
+    return value
+
 
 def getMapData():
     # Opens a json file for writing.
@@ -111,7 +118,7 @@ def getSectorData():
 
     # ------------------- SECTOR DATA -----------------------------------------
     # Finds the GHG per sector data source file and opens it for reading.
-    sectorcsvFileName = "data/perSector/perSector2.csv"
+    sectorcsvFileName = "data/perSector/perSector3b.csv"
     sectorcsvFilePath = os.path.join(scriptDir, sectorcsvFileName)
     sectorcsvFile = open(sectorcsvFilePath, "r")
 
@@ -135,22 +142,30 @@ def getSectorData():
             # Gather relevant data into a dictionary.
             countrySectorDict = {
                 "Name": splitRow[0],
-                # "Other": splitRow[3],
-                # "internationalBunkers": splitRow[4],
-                # "waste": splitRow[5],
-                # "industry": splitRow[6],
-                # "residentialAndCommercial": splitRow[7],
-                # "transport": splitRow[8],
-                # "agriculture": splitRow[9],
-                "forrestry": splitRow[10],
-                "landUseSources": splitRow[11],
-                "energy": splitRow[12]
+                "Other": valueTest(splitRow[3]),
+                "internationalBunkers": valueTest(splitRow[4]),
+                "waste": valueTest(splitRow[5]),
+                "industry": valueTest(splitRow[6]),
+                "residentialAndCommercial": valueTest(splitRow[7]),
+                "transport": valueTest(splitRow[8]),
+                "agriculture": valueTest(splitRow[9]),
+                "forrestry": valueTest(splitRow[10]),
+                "landUseSources": valueTest(splitRow[11]),
+                "energy": valueTest(splitRow[12])
             }
 
             dataList[indexYear][countryCode] = countrySectorDict
 
     # Dumps the dictionary as a row in the json
-    json.dump(dataList, jsonFile)
+    jsonFile.write("[")
+    firstEntry = True
+    for entry in dataList:
+        json.dump(entry, jsonFile)
+        # Write comma if not the first entry
+        if not firstEntry:
+            jsonFile.write(",")
+        firstEntry = False
+    jsonFile.write("]")
 
 
 if __name__ == '__main__':
