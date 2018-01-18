@@ -3,9 +3,9 @@
  ****/
 
 
- // Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp
- var slider = document.getElementById("myRange");
- var yearIndex = slider.value;
+// Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp
+var slider = document.getElementById("myRange");
+var yearIndex = slider.value;
 
 
 d3.json("../../data/jsons/mapData.json", function(error, data) {

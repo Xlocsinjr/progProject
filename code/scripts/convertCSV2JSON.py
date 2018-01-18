@@ -108,7 +108,6 @@ def getSectorData():
     jsonFileName = "data/jsons/sectorData.json"
     jsonFilePath = os.path.join(scriptDir, jsonFileName)
     jsonFile = open(jsonFilePath, "w+")
-    jsonFile.write("[")
 
     # ------------------- SECTOR DATA -----------------------------------------
     # Finds the GHG per sector data source file and opens it for reading.
@@ -125,7 +124,6 @@ def getSectorData():
     sectorcsvFile.seek(0)
     for row in sectorcsvFile:
         splitRow = row.split(",")
-        print(row)
         # Check data year and get countrycode.
         dataYear = int(splitRow[2])
         countryCode = splitRow[1]
@@ -137,13 +135,13 @@ def getSectorData():
             # Gather relevant data into a dictionary.
             countrySectorDict = {
                 "Name": splitRow[0],
-                "Other": splitRow[3],
-                "internationalBunkers": splitRow[4],
-                "waste": splitRow[5],
-                "industry": splitRow[6],
-                "residentialAndCommercial": splitRow[7],
-                "transport": splitRow[8],
-                "agriculture": splitRow[9],
+                # "Other": splitRow[3],
+                # "internationalBunkers": splitRow[4],
+                # "waste": splitRow[5],
+                # "industry": splitRow[6],
+                # "residentialAndCommercial": splitRow[7],
+                # "transport": splitRow[8],
+                # "agriculture": splitRow[9],
                 "forrestry": splitRow[10],
                 "landUseSources": splitRow[11],
                 "energy": splitRow[12]
@@ -151,8 +149,6 @@ def getSectorData():
 
             dataList[indexYear][countryCode] = countrySectorDict
 
-
-    print(dataList)
     # Dumps the dictionary as a row in the json
     json.dump(dataList, jsonFile)
 

@@ -68,3 +68,6 @@ a first version of the grouped bar chart.
 - New optional idea for the grouped bar chart: Via checkboxes the user can
 choose which sectors the chart will show.
 - Today: Get the GHG emission per sector data in a usable json file.
+
+#### 17-01-2018    week2 - wednesday
+- Tried getting the GHG emission per sector data in a usable json file.
