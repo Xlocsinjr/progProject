@@ -12,14 +12,23 @@ import os
 scriptDir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 def valueTest(value):
+    """
+    Checks if a given value can be converted to float to ensure it is a number.
+    Returns:
+        the value as a float if it is a number.
+        "NAV" if it is not a number
+    """
     try:
-        float(value)
+        newValue = float(value)
     except:
         return "NAV"
-    return value
+    return newValue
 
 
 def getMapData():
+    """
+    Gathers the data for the world map and writes the data into a json file.
+    """
     # Opens a json file for writing.
     jsonFileName = "data/jsons/mapData.json"
     jsonFilePath = os.path.join(scriptDir, jsonFileName)
@@ -78,10 +87,7 @@ def getMapData():
             GDPstring = splitRow[2 + yearIndex]
 
             # Makes sure value is float. If no entry: set to "NAV".
-            try:
-                GDP = float(GDPstring)
-            except:
-                GDP = "NAV"
+            GDP = valueTest(GDPstring)
 
             # Adds GDP to the already existing dictionary.
             try:
@@ -111,6 +117,10 @@ def getMapData():
 
 
 def getSectorData():
+    """
+    Gathers the data for the grouped bar chart and writes the data into a
+    json file.
+    """
     # Opens a json file for writing.
     jsonFileName = "data/jsons/sectorData.json"
     jsonFilePath = os.path.join(scriptDir, jsonFileName)
@@ -141,33 +151,35 @@ def getSectorData():
 
             # Gather relevant data into a dictionary.
             countrySectorDict = {
-                "Name": splitRow[0],
-                "Other": valueTest(splitRow[3]),
-                "internationalBunkers": valueTest(splitRow[4]),
-                "waste": valueTest(splitRow[5]),
-                "industry": valueTest(splitRow[6]),
-                "residentialAndCommercial": valueTest(splitRow[7]),
-                "transport": valueTest(splitRow[8]),
-                "agriculture": valueTest(splitRow[9]),
-                "forrestry": valueTest(splitRow[10]),
-                "landUseSources": valueTest(splitRow[11]),
+                # "Name": splitRow[0],
+                # "Other": valueTest(splitRow[3]),
+                # "internationalBunkers": valueTest(splitRow[4]),
+                # "waste": valueTest(splitRow[5]),
+                # "industry": valueTest(splitRow[6]),
+                # "residentialAndCommercial": valueTest(splitRow[7]),
+                # "transport": valueTest(splitRow[8]),
+                # "agriculture": valueTest(splitRow[9]),
+                # "forrestry": valueTest(splitRow[10]),
+                # "landUseSources": valueTest(splitRow[11]),
                 "energy": valueTest(splitRow[12])
             }
 
             dataList[indexYear][countryCode] = countrySectorDict
 
-    # Dumps the dictionary as a row in the json
+    # Dumps every dictionary into the json
     jsonFile.write("[")
+
     firstEntry = True
     for entry in dataList:
-        json.dump(entry, jsonFile)
         # Write comma if not the first entry
         if not firstEntry:
             jsonFile.write(",")
+
+        json.dump(entry, jsonFile)
         firstEntry = False
     jsonFile.write("]")
 
 
 if __name__ == '__main__':
-    #getMapData()
+    getMapData()
     getSectorData()
