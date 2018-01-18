@@ -69,5 +69,8 @@ a first version of the grouped bar chart.
 choose which sectors the chart will show.
 - Today: Get the GHG emission per sector data in a usable json file.
 
-#### 17-01-2018    week2 - wednesday
+#### 18-01-2018    week2 - thursday
 - Tried getting the GHG emission per sector data in a usable json file.
+- For the Sector data: Yugoslav SFR had no country code. The country code was
+manually corrected to Yugoslavia, YUG. Though, this may not change anything in
+the final product as Yugoslavia is not a country anymore.
