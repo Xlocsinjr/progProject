@@ -32,7 +32,6 @@ def getMapData():
     jsonFileName = "data/jsons/allData.json"
     jsonFilePath = os.path.join(scriptDir, jsonFileName)
     jsonFile = open(jsonFilePath, "w+")
-    jsonFile.write("[")
 
     #---------------- GHG V GDP ------------------------------------------------
     dataList = []
@@ -143,7 +142,11 @@ def getMapData():
             }
 
             # Merge dictionaries.
-            mergeDict = {**sectorDict, **dataList[indexYear][countryCode]}
+            try:
+                mergeDict = {**sectorDict, **dataList[indexYear][countryCode]}
+                dataList[indexYear][countryCode] = mergeDict
+            except:
+                nothing = "placehold"
 
 
     # Dumps every dictionary into the json
@@ -157,6 +160,8 @@ def getMapData():
 
         json.dump(entry, jsonFile)
         firstEntry = False
+        jsonFile.write("\n")
+
     jsonFile.write("]")
 
 
