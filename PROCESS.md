@@ -82,6 +82,7 @@ countries so there shouldn't be any data loss on individual countries.
 #### 19-01-2018    week2 - friday
 - Presentation feedback:
   - quantize scale will allow colouring the countries based on in what range
-  (bucket) they fall in. laat niet meer zien dan er is in de worldmap: kies de buckets goed zodat je
-wel verandering ziet op de kaart.
-  - It might also be possible to plot the colours and dots in a log scale. 
+  (bucket) they fall in. Don't show more than there is: Choose the buckets well
+  so change in emission over the years is still visible even though the colour
+  is based on the buckets.
+  - It might also be possible to plot the colours and dots in a log scale.
