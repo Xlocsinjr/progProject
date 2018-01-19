@@ -80,8 +80,8 @@ for now. Most of this data is data for larger regions or regions within
 countries so there shouldn't be any data loss on individual countries.
 
 #### 19-01-2018    week2 - friday
-- Presentation:
-  - quantize scale: buckets
-  - log scale?
-  - laat niet meer zien dan er is in de worldmap: kies de buckets goed zodat je
+- Presentation feedback:
+  - quantize scale will allow colouring the countries based on in what range
+  (bucket) they fall in. laat niet meer zien dan er is in de worldmap: kies de buckets goed zodat je
 wel verandering ziet op de kaart.
+  - It might also be possible to plot the colours and dots in a log scale. 
