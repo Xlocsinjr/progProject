@@ -78,3 +78,10 @@ the final product as Yugoslavia is not a country anymore.
 that didn't already have entries made from the GDP and GHG data was neglected
 for now. Most of this data is data for larger regions or regions within
 countries so there shouldn't be any data loss on individual countries.
+
+#### 19-01-2018    week2 - friday
+- Presentation:
+  - quantize scale: buckets
+  - log scale?
+  - laat niet meer zien dan er is in de worldmap: kies de buckets goed zodat je
+wel verandering ziet op de kaart.
