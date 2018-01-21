@@ -93,8 +93,8 @@ fully loaded after calling d3.json because it is asynchronous. It is best to
 just run all functions inside d3.json.
 - Investigated the colour flickering tooltip in the worldmap. It has definitely
 something to do with the slider in the html. Commenting the slider out in the
-html fixes the problem. Perhaps the slider causes the map to constantly reload.
+html fixes the problem. Perhaps the slider causes the map to constantly reload?
 UPDATE: Apparently this issue can also be fixed by putting the slider after the
-world map in the html;.
+world map in the html, which is a quick and easy fix.
 - Separated the function updateScatterYear from the main function.
 - Separated the function updateColour from the main function.

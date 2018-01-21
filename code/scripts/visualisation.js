@@ -1,6 +1,12 @@
-/****
-
- ****/
+/**
+ * visualisation.js
+ *
+ * This script creates a world map and a scatterplot showing data from
+ * allData.json in progProject.html.
+ *
+ * Author: Xander Locsin
+ * StudentID: 10722432
+ */
 
 // ------------------- INITIALISATIONS -----------------------------------------
 
@@ -16,7 +22,7 @@ var map = new Datamap({
 });
 
 
-function main(){
+function main() {
   d3.json("../../data/jsons/allData.json", function(error, data) {
     if (error) throw error;
 
@@ -59,7 +65,7 @@ function main(){
         .scale(y)
         .orient("left");
 
-    // Selects the chart in the html and gives it width and height including margins
+    // Selects the chart in the html and gives it width, height and margins.
     var scatterPlot = d3.select(".scatterPlot")
         .attr("id", "theScatterPlot")
         .attr("width", width + margin.left + margin.right)
@@ -69,8 +75,6 @@ function main(){
 
     var dots = scatterPlot.append("g")
       .attr("id", "allDots");
-
-    updateScatterYear(yearIndex, data, x, y);
 
 
     // Adds a g element for an X axis
@@ -99,7 +103,10 @@ function main(){
         .text("total GHG emission (Mt CO2 equivalent)");
 
 
-    // ------------------- SLIDER UPDATE -----------------------------------------
+    updateScatterYear(yearIndex, data, x, y);
+
+
+    // ------------------- SLIDER UPDATE ---------------------------------------
     slider.oninput = function() {
       yearIndex = slider.value;
 
@@ -112,7 +119,7 @@ function main(){
   });
 };
 
-// ------------------- Functions -----------------------------------------
+// ------------------- FUNCTIONS -----------------------------------------------
 
 /**
  * Updates the Scatterplot to data of a different year.
@@ -170,7 +177,7 @@ function updateColour(yearIndex, data, colourScale) {
 
 
 
-// ------------------- WHEN LOADED -----------------------------------------
+// ------------------- WHEN LOADED ---------------------------------------------
 window.onload = function(){
   main();
 }
