@@ -19,7 +19,8 @@ greenhouse gas emission per GDP.
 This can be visualised by a bar chart.
 
 - Chart 3: A scatterplot relating a country's GDP to its GHG emissions. This
-chart shows GDP on the x-axis and GHG emission or GHG emission per GDP.
+chart shows GDP on the x-axis and GHG emission or GHG emission per GDP. Each dot
+will be labeled with the country's name.
 
 - The time element of chart 1 can be interactive by having the user have control
 over a range slider or a scroll bar that determines which data of a year will be

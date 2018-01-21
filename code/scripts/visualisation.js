@@ -2,45 +2,36 @@
 
  ****/
 
+// ------------------- INITIALISATIONS -----------------------------------------
 
 // Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp
 var slider = document.getElementById("myRange");
 var yearIndex = slider.value;
+
+var map = new Datamap({
+  element: document.getElementById('worldMap'),
+  fills: {
+    defaultFill: "#ABDDA4",
+  },
+});
 
 
 function main(){
   d3.json("../../data/jsons/allData.json", function(error, data) {
     if (error) throw error;
 
-    // ------------------- MAP ---------------------------------------------------
-    var map = new Datamap({
-      element: document.getElementById('worldMap'),
-      fills: {
-        defaultFill: "#ABDDA4",
-      },
-    });
-
+    // ------------------- MAP -------------------------------------------------
 
     // Colour range
-    var colour = d3.scale.linear()
+    var colourRange = d3.scale.linear()
       .range(["#ABDDA4", "red"])
       .domain([0, 12500000]);
       // 12500000 : China 2012 GHG emission
 
-    function updateColour(yearIndex) {
-      updateDict = {};
-      keysList = Object.keys(data[yearIndex]);
-      for (i in keysList) {
-        key = keysList[i];
-        if (key != "year") {
-          val = data[yearIndex][key]["GHG"];
-          updateDict[key] = colour(val);
-        };
-      };
-      map.updateChoropleth(updateDict);
-    };
+    // Initial colouring.
+    updateColour(yearIndex, data, colourRange);
 
-    // ------------------- SCATTERPLOT -------------------------------------------
+    // ------------------- SCATTERPLOT -----------------------------------------
     // From example: https://bost.ocks.org/mike/bar/3/
 
     // Sets the margins for the chart and sets the width and height.
@@ -109,11 +100,13 @@ function main(){
 
 
     // ------------------- SLIDER UPDATE -----------------------------------------
-    updateColour(yearIndex);
-
     slider.oninput = function() {
       yearIndex = slider.value;
-      updateColour(yearIndex);
+
+      // Update world map country colours.
+      updateColour(yearIndex, data, colourRange);
+
+      // Update scatterplot year data.
       updateScatterYear(yearIndex, data, x, y);
     };
   });
@@ -121,7 +114,13 @@ function main(){
 
 // ------------------- Functions -----------------------------------------
 
-// Updates the Scatterplot to different data.
+/**
+ * Updates the Scatterplot to data of a different year.
+ * Parameters:
+ *  yearIndex: index for the year of data (1970 has index 0).
+ *  data: data object from which the data is retrieved.
+ *  xScale, yScale: data scales to correctly place dots in the chart.
+ */
 function updateScatterYear(yearIndex, data, xScale, yScale){
 
   // Remove all dots.
@@ -148,6 +147,25 @@ function updateScatterYear(yearIndex, data, xScale, yScale){
       };
     };
   };
+};
+
+/**
+ * Updates the  world map country colours to data of a different year.
+ * Parameters:
+ *  yearIndex: index for the year of data (1970 has index 0).
+ *  data: data object from which the data is retrieved.
+ */
+function updateColour(yearIndex, data, colourScale) {
+  updateDict = {};
+  keysList = Object.keys(data[yearIndex]);
+  for (i in keysList) {
+    key = keysList[i];
+    if (key != "year") {
+      val = data[yearIndex][key]["GHG"];
+      updateDict[key] = colourScale(val);
+    };
+  };
+  map.updateChoropleth(updateDict);
 };
 
 

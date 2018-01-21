@@ -98,9 +98,12 @@ or the bars can be grouped by country and have the sectors identified by the col
 - convertCSV2JSON: A script to convert a datasource to json in python.
 - visualisations.js: A script for the graphs in JavaScript
 ##### Functions
+- NOTE: All functions are defined in visualisations.js.
 - NOTE: every interactive element will have its own update function
 - function updateScatterYear: This function updates the scatter plot to data
 of a different year.
+- function updateColour: This function updates the world map's country's colours
+to data of a different year.
 
 ### Design diagram
 ![](doc/designSketch.png)
