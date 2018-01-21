@@ -49,7 +49,7 @@ which means all other countries are barely coloured.
       GHG: value kt CO2 equivalent
       sector1: value kt CO2 equivalent,
       sector2: value kt CO2 equivalent,
-      ...
+      ... other sectors ...
     },
     countryCode:
     {
@@ -58,6 +58,7 @@ which means all other countries are barely coloured.
       GHG: value kt CO2 equivalent
       sector1: value kt CO2 equivalent,
       sector2: value kt CO2 equivalent,
+      ... other sectors ...
     }
   }
  {
@@ -70,6 +71,7 @@ which means all other countries are barely coloured.
        GHG: value kt CO2 equivalent
        sector1: value kt CO2 equivalent,
        sector2: value kt CO2 equivalent,
+       ... other sectors ...
      },
      countryCode:
      {
@@ -78,6 +80,7 @@ which means all other countries are barely coloured.
        GHG: value kt CO2 equivalent
        sector1: value kt CO2 equivalent,
        sector2: value kt CO2 equivalent,
+       ... other sectors ...
      }
    }
  }
@@ -93,11 +96,11 @@ or the bars can be grouped by country and have the sectors identified by the col
 ### Scripts and functions
 ##### Scripts
 - convertCSV2JSON: A script to convert a datasource to json in python.
-- A script for the graphs in JavaScript
+- visualisations.js: A script for the graphs in JavaScript
 ##### Functions
 - NOTE: every interactive element will have its own update function
 - function updateScatterYear: This function updates the scatter plot to data
-from a different year.
+of a different year.
 
 ### Design diagram
 ![](doc/designSketch.png)
