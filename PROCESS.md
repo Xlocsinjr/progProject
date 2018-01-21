@@ -98,3 +98,6 @@ UPDATE: Apparently this issue can also be fixed by putting the slider after the
 world map in the html, which is a quick and easy fix.
 - Separated the function updateScatterYear from the main function.
 - Separated the function updateColour from the main function.
+- New idea: Which year and which countries are plotted could be specified within
+a global object variable. The charts can then retrieve a list or some other
+object which specify which countries should be shown.
