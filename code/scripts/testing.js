@@ -1,45 +1,45 @@
 /****
 
  ****/
- 
+
 // Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp
 var slider = document.getElementById("myRange");
 var yearIndex = slider.value;
 
 
-d3.json("../../data/jsons/mapData.json", function(error, data) {
+
+
+d3.json("../../data/jsons/allData.json", function(error, data) {
   if (error) throw error;
 
-  // ------------------- MAP ---------------------------------------------------
-  var map = new Datamap({
-    element: document.getElementById('worldMap'),
-    fills: {
-      defaultFill: "#ABDDA4",
-    },
-  });
+  var bar = barChart.selectAll(".bar")
+    .data(dateData)
+    .enter().append("g")
+      .attr("class", "bar")
+      .attr("transform", function(d, i) { return "translate(" + i * rectGroupWidth + ",0)"; });
 
 
-  // Colour range
-  var colour = d3.scale.linear()
-    .range(["#ABDDA4", "red"])
-    .domain([0, 12500000]);
-    // 12500000 : China 2012 GHG emission
+  // Gives the bar a rectangle for the minimum temperature
+  bar.append("rect")
+    // gives the rectangle a proper range and  domain
+    .attr("x", 4)
+    .attr("y", function(d) { return y(d.minimum); })
 
-  function updateColour(yearIndex) {
-    updateDict = {};
-    keysList = Object.keys(data[yearIndex]);
-    for (i in keysList) {
-      key = keysList[i];
-      if (key != "year") {
-        val = data[yearIndex][key]["GHG"];
-        updateDict[key] = colour(val);
-      };
-    };
-    map.updateChoropleth(updateDict);
-  };
+    // Set height to the temperature data.
+    .attr("height", function(d) {return barHeight - y(d.minimum);})
+
+    // Set width to barWidth - 5 to create space between bars
+    .attr("width", (rectGroupWidth / 3) - 5)
+
+    .style("fill", "steelblue")
+    .on("mouseover", function(d) {
+      tip.html("<div class='tip'>" + d.minimum + " \xB0C </div>")
+      tip.show();
+    })
+    .on("mouseout", tip.hide);
+
 
   // ------------------- SLIDER UPDATE -----------------------------------------
-  updateColour(yearIndex);
 
   slider.oninput = function() {
     yearIndex = slider.value;
