@@ -95,8 +95,9 @@ or the bars can be grouped by country and have the sectors identified by the col
 - convertCSV2JSON: A script to convert a datasource to json in python.
 - A script for the graphs in JavaScript
 ##### Functions
-- A function to read in all the jsons created by the python script
-- every interactive element will have its own update function
+- NOTE: every interactive element will have its own update function
+- function updateScatterYear: This function updates the scatter plot to data
+from a different year.
 
 ### Design diagram
 ![](doc/designSketch.png)
