@@ -91,3 +91,6 @@ countries so there shouldn't be any data loss on individual countries.
 - Tried to store the json data in a variable in javascript. The data is not
 fully loaded after calling d3.json because it is asynchronous. It is best to
 just run all functions inside d3.json.
+- Investigated the colour flickering tooltip in the worldmap. It has definitely
+something to do with the slider in the html. Commenting the slider out in the
+html fixes the problem.
