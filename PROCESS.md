@@ -107,3 +107,9 @@ object which specify which countries should be shown.
 The domain of both axes were changed to 0.001 since log(0) is not a number.
 - First version of the bar chart has been implemented though it does not yet
 show any bars.
+- The bar chart now shows bars for countries showing real data. The Y-axis does
+not show ticks which means that the bars do not give any indication to its
+value. Since the function updateBar already works with a "to plot" list, the
+functionality of adding countries to the bar chart via the world map should not
+be too difficult to add. As of now, the "to plot" list only contain the
+Netherlands, the United States and China.

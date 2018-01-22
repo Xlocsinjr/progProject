@@ -109,87 +109,18 @@ function main() {
 
     // Sets the margins for the bar chart and sets the width and height
     var barMargin = {top: 20, right: 30, bottom: 40, left: 60},
-      barWidth = 400 - barMargin.left - barMargin.right,
-      barHeight = 350 - barMargin.top - barMargin.bottom;
-
-    keysList = Object.keys(data[yearIndex]);
-    var countriesCount = keysList.length;
-
-    // Ordinal scale for the x-axis to display station names
-    var barXScale = d3.scale.ordinal()
-      .domain([0, countriesCount])
-      .rangeRoundBands([0, barWidth], .1);
-
-    // Linear scale to properly set the length of the bars
-    var barYScale = d3.scale.linear()
-      .domain([0, 12500])
-      .range([barHeight, 0]);
-
-    // Defines the x-axis. Placed at the bottom.
-    var xAxis = d3.svg.axis()
-      .scale(barXScale)
-      .orient("bottom");
-
-    // Defines the y-axis. Placed on the left.
-    var yAxis = d3.svg.axis()
-      .scale(barYScale)
-      .orient("left");
+      barChartWidth = 400 - barMargin.left - barMargin.right,
+      barChartHeight = 350 - barMargin.top - barMargin.bottom;
 
     // Selects the chart in the html and gives it width, height and margins.
     var barChart = d3.select(".barChart")
-        .attr("width", barWidth + barMargin.left + barMargin.right)
-        .attr("height", barHeight + barMargin.top + barMargin.bottom)
+        .attr("width", barChartWidth + barMargin.left + barMargin.right)
+        .attr("height", barChartHeight + barMargin.top + barMargin.bottom)
       .append("g")
         .attr("transform", "translate(" + barMargin.left + "," + barMargin.top + ")");
 
-    // Width of bars in the chart set to width divided by number of data entries.
-    var rectGroupWidth = barWidth / keysList.length;
 
-    for (i in keysList) {
-      key = keysList[i];
-      countryData = data[yearIndex][key];
-
-      barChart.selectAll(".bar")
-        .append("g")
-          .attr("class", "bar")
-          .attr("transform", function(d, i) { return "translate(" + i * rectGroupWidth + ",0)"; })
-        .append("rect")
-          .attr("x", 4)
-          .attr("y", countryData["energy"])
-
-          // Set height to the temperature data.
-          .attr("height", function(d) {return barHeight - countryData["energy"];})
-
-          // Set width to barWidth - 5 to create space between bars
-          .attr("width", rectGroupWidth)
-
-          .style("fill", "steelblue");
-    };
-
-    // Adds a g element for an X axis
-    barChart.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + barHeight + ")")
-        .call(xAxis)
-      .append("text")
-        .attr("class", "axisLabel")
-        .attr("x", barWidth)
-        .attr("y", 35)
-        .style("font", "11px sans-serif")
-        .style("text-anchor", "end")
-        .text("Country");
-
-    // Adds a g element for a Y axis
-    barChart.append("g")
-        .attr("class", "y axis")
-        .call(yAxis)
-      .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", -45)
-        .attr("dy", ".71em")
-        .style("font", "11px sans-serif")
-        .style("text-anchor", "end")
-        .text("GHG emission (Mt CO2 equivalent) (\xB0C)");
+    updateBar(yearIndex, data, barChartWidth, barChartHeight);
 
 
     // ------------------- SLIDER UPDATE ---------------------------------------
@@ -201,6 +132,9 @@ function main() {
 
       // Update scatterplot year data.
       updateScatterYear(yearIndex, data, x, y);
+
+      //Update barchart year data.
+      updateBar(yearIndex, data, barChartWidth, barChartHeight)
     };
   });
 };
@@ -215,7 +149,6 @@ function main() {
  *  xScale, yScale: data scales to correctly place dots in the chart.
  */
 function updateScatterYear(yearIndex, data, xScale, yScale){
-
   // Remove all dots.
   d3.select("#theScatterPlot").selectAll(".scatterDot").remove();
 
@@ -259,6 +192,99 @@ function updateColour(yearIndex, data, colourScale) {
     };
   };
   map.updateChoropleth(updateDict);
+};
+
+
+/**
+ *
+ */
+function updateBar(yearIndex, data, barChartWidth, barChartHeight) {
+  plotList = ["NLD", "USA", "CHN"];
+  keysList = Object.keys(data[yearIndex]);
+  var countriesCount = plotList.length;
+
+  // Gather country names.
+  var countryNames = [];
+  for (i in plotList) {
+    countryKey = plotList[i];
+    countryNames[i] = data[yearIndex][countryKey]["Name"];
+  };
+
+
+  // Set width of bars to width of chart divided by number of data entries.
+  var rectGroupWidth = barChartWidth / countriesCount;
+  rectGroupWidth = 20;
+
+  // Ordinal scale for the x-axis to display country names.
+  var barXScale = d3.scale.ordinal()
+    .domain(countryNames)
+    .rangeRoundBands([0, barChartWidth], .1);
+
+  // Linear scale to properly set the length of the bars.
+  var barYScale = d3.scale.linear()
+    .domain([0, 1000000])
+    .range([0, barChartHeight]);
+
+  // Defines the x-axis. Placed at the bottom.
+  var barXAxis = d3.svg.axis()
+    .scale(barXScale)
+    .orient("bottom");
+
+  // Defines the y-axis. Placed on the left.
+  var barYAxis = d3.svg.axis()
+    .scale(barYScale)
+    .orient("left");
+
+  // Remove all old bars.
+  d3.selectAll(".barRect").remove();
+  d3.select(".barXAxis").remove();
+  d3.select(".barYAxis").remove();
+
+  for (i in plotList) {
+    key = plotList[i];
+    countryData = data[yearIndex][key];
+    console.log(countryNames[i], countryData["Agriculture"], barYScale(countryData["Agriculture"]));
+
+    d3.select(".barChart")
+      .append("g")
+        .attr("class", "barRect")
+      .append("rect")
+        .attr("class", "barRect")
+        .attr("x", i + (rectGroupWidth / 2))
+        .attr("y", barChartHeight - barYScale(countryData["Agriculture"]))
+        // Set height to the temperature data.
+        .attr("height", barYScale(countryData["Agriculture"]))
+
+        // Set width to barChartWidth - 5 to create space between bars
+        .attr("width", rectGroupWidth)
+
+        .style("fill", "steelblue");
+  };
+
+  // Adds a g element for an X axis
+  d3.select(".barChart").append("g")
+      .attr("class", "barXAxis")
+      .attr("transform", "translate(0," + barChartHeight + ")")
+      .call(barXAxis)
+    .append("text")
+      .attr("class", "axisLabel")
+      .attr("x", barChartWidth)
+      .attr("y", 35)
+      .style("font", "11px sans-serif")
+      .style("text-anchor", "end")
+      .text("Country");
+
+  // Adds a g element for a Y axis
+  d3.select(".barChart").append("g")
+      .attr("class", "barYAxis")
+      .call(barYAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -45)
+      .attr("dy", ".71em")
+      .style("font", "11px sans-serif")
+      .style("text-anchor", "end")
+      .text("GHG emission (Mt CO2 equivalent) (\xB0C)");
 };
 
 

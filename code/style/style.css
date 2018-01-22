@@ -89,6 +89,21 @@
   shape-rendering: crispEdges;
 }
 
+
+.barXAxis {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+  font: 10px sans-serif;
+}
+
+.barYAxis {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+  font: 10px sans-serif;
+}
+
 .legend{
   fill:#FFFFFF;
   stroke:#020203;
