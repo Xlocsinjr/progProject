@@ -101,3 +101,9 @@ world map in the html, which is a quick and easy fix.
 - New idea: Which year and which countries are plotted could be specified within
 a global object variable. The charts can then retrieve a list or some other
 object which specify which countries should be shown.
+
+#### 22-01-2018   week3 - monday
+- Changed the scale for the x and y axis of the scatterplot to a log-log scale.
+The domain of both axes were changed to 0.001 since log(0) is not a number.
+- First version of the bar chart has been implemented though it does not yet
+show any bars.
