@@ -119,4 +119,4 @@ except for the reason that it "shows up nicely" in the charts.
 - It would be best if the world map colour scale was quantised, assigning a
 colour for certain ranges of values.
 - The bar chart is now a grouped bar chart showing real data for 3 countries and
-4 sectors.
+4 sectors. 
