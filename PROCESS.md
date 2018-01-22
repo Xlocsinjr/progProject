@@ -113,3 +113,10 @@ value. Since the function updateBar already works with a "to plot" list, the
 functionality of adding countries to the bar chart via the world map should not
 be too difficult to add. As of now, the "to plot" list only contain the
 Netherlands, the United States and China.
+- Bar chart has range set in log scale. World map has linear range set for
+the colours. Currently, the boundaries of these ranges cannot be justified
+except for the reason that it "shows up nicely" in the charts.
+- It would be best if the world map colour scale was quantised, assigning a
+colour for certain ranges of values.
+- The bar chart is now a grouped bar chart showing real data for 3 countries and
+4 sectors.

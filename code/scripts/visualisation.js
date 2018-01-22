@@ -119,8 +119,9 @@ function main() {
       .append("g")
         .attr("transform", "translate(" + barMargin.left + "," + barMargin.top + ")");
 
-
-    updateBar(yearIndex, data, barChartWidth, barChartHeight);
+    var countryPlotList = ["NLD", "USA", "CHN"];
+    var sectorPlotList = ["Agriculture", "ResidentialAndCommercial", "Transport", "Energy"]
+    updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
 
 
     // ------------------- SLIDER UPDATE ---------------------------------------
@@ -134,7 +135,7 @@ function main() {
       updateScatterYear(yearIndex, data, x, y);
 
       //Update barchart year data.
-      updateBar(yearIndex, data, barChartWidth, barChartHeight)
+      updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
     };
   });
 };
@@ -198,22 +199,16 @@ function updateColour(yearIndex, data, colourScale) {
 /**
  *
  */
-function updateBar(yearIndex, data, barChartWidth, barChartHeight) {
-  plotList = ["NLD", "USA", "CHN"];
-  keysList = Object.keys(data[yearIndex]);
-  var countriesCount = plotList.length;
+function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList) {
+  var keysList = Object.keys(data[yearIndex]);
+  var countriesCount = countryPlotList.length;
 
   // Gather country names.
   var countryNames = [];
-  for (i in plotList) {
-    countryKey = plotList[i];
+  for (i in countryPlotList) {
+    countryKey = countryPlotList[i];
     countryNames[i] = data[yearIndex][countryKey]["Name"];
   };
-
-
-  // Set width of bars to width of chart divided by number of data entries.
-  var rectGroupWidth = barChartWidth / countriesCount;
-  rectGroupWidth = 20;
 
   // Ordinal scale for the x-axis to display country names.
   var barXScale = d3.scale.ordinal()
@@ -221,8 +216,8 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight) {
     .rangeRoundBands([0, barChartWidth], .1);
 
   // Linear scale to properly set the length of the bars.
-  var barYScale = d3.scale.linear()
-    .domain([0, 1000000])
+  var barYScale = d3.scale.log()
+    .domain([10000, 10000000])
     .range([0, barChartHeight]);
 
   // Defines the x-axis. Placed at the bottom.
@@ -235,30 +230,55 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight) {
     .scale(barYScale)
     .orient("left");
 
-  // Remove all old bars.
+  // Remove all old bars and the X-axis.
   d3.selectAll(".barRect").remove();
   d3.select(".barXAxis").remove();
   d3.select(".barYAxis").remove();
 
-  for (i in plotList) {
-    key = plotList[i];
-    countryData = data[yearIndex][key];
-    console.log(countryNames[i], countryData["Agriculture"], barYScale(countryData["Agriculture"]));
+  // Set width of a group of bars to chart width divided by number of countries.
+  var rectGroupWidth = barChartWidth / countriesCount;
 
-    d3.select(".barChart")
-      .append("g")
-        .attr("class", "barRect")
-      .append("rect")
-        .attr("class", "barRect")
-        .attr("x", i + (rectGroupWidth / 2))
-        .attr("y", barChartHeight - barYScale(countryData["Agriculture"]))
-        // Set height to the temperature data.
-        .attr("height", barYScale(countryData["Agriculture"]))
+  // Loop through all countries that need to be plotted.
+  for (i in countryPlotList) {
+    plotKey = countryPlotList[i];
+    countryData = data[yearIndex][plotKey];
 
-        // Set width to barChartWidth - 5 to create space between bars
-        .attr("width", rectGroupWidth)
+    var barGroup = d3.select(".barChart").append("g")
+        .attr("class", "barRect");
 
-        .style("fill", "steelblue");
+
+    // Colour definition of the sectors.
+    colourStuff = ["orange", "yellow", "steelblue", "red"]
+
+    /**
+     * Padding value definitions.
+     * groupPadding is set to 5% of a group's width.
+     * rectPadding has to be more than groupPadding.
+     */
+    var groupPadding = 0.05 * rectGroupWidth;
+    var rectPadding = groupPadding + 2;
+
+    // Loop through all sectors that need to be plotted.
+    for (j in sectorPlotList) {
+      sectorKey = sectorPlotList[j];
+      sectorBarsCount = sectorPlotList.length;
+
+      console.log(j, sectorKey, sectorBarsCount);
+      console.log(countryData[sectorKey]);
+      if (isNaN(countryData[sectorKey]) == false) {
+        var rectWidth = rectGroupWidth / sectorBarsCount;
+
+        d3.select(".barChart").select(".barRect")
+          .append("rect")
+            .attr("class", "barRect")
+            .attr("x", (i * rectGroupWidth) + (j * (rectWidth - groupPadding)) + groupPadding)
+            .attr("y", barChartHeight - barYScale(countryData[sectorKey]))
+            .attr("height", barYScale(countryData[sectorKey]))
+            .attr("width", rectWidth - rectPadding)
+            .style("fill", colourStuff[j]);
+      };
+    };
+
   };
 
   // Adds a g element for an X axis
