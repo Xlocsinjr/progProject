@@ -138,3 +138,6 @@ sectors if available.
 - Scatterplot now also works with a "to plot" list. The dots are labeled with
 their country name.
 - New idea: Be able to switch between log-log and linear scatterplot.
+- Next step: It would be best to get the layout of the page in order before
+putting any interactive elements on the page. Might be useful to check
+bootstrap.
