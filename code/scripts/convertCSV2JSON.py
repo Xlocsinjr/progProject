@@ -24,18 +24,17 @@ def valueTest(value):
         return "NAV"
     return newValue
 
-
 def getMapData():
     """
     Gathers the data for the world map and writes the data into a json file.
     """
     # Opens a json file for writing.
-    jsonFileName = "data/jsons/mapData.json"
+    jsonFileName = "data/jsons/allData.json"
     jsonFilePath = os.path.join(scriptDir, jsonFileName)
     jsonFile = open(jsonFilePath, "w+")
-    jsonFile.write("[")
 
     #---------------- GHG V GDP ------------------------------------------------
+    dataList = []
 
     firstRow = True
     for yearIndex in range(43):
@@ -72,7 +71,7 @@ def getMapData():
 
         # ------------------- GDP DATA -----------------------------------------
         # Finds the GHG data source file and opens it for reading.
-        GDPcsvFileName = "data/worldGDP.csv"
+        GDPcsvFileName = "data/GDP/worldGDP.csv"
         GDPcsvFilePath = os.path.join(scriptDir, GDPcsvFileName)
         GDPcsvFile = open(GDPcsvFilePath, "r")
 
@@ -102,40 +101,18 @@ def getMapData():
                 # there was no data for this country for GHG emission.
                 yearDict[countryCode]["GHG"] = "NAV"
 
-        # Write comma if not the first row
-        if not firstRow:
-            jsonFile.write(",")
+        dataList.append(yearDict)
 
-        # Dumps the dictionary as a row in the json
-        json.dump(yearDict, jsonFile)
-        firstRow = False
-
-    # Overwrites last "," with a closing bracket
-    jsonFile.write("]")
-
-
-
-
-def getSectorData():
+    # ---------------------- SECTOR --------------------------------------------
     """
     Gathers the data for the grouped bar chart and writes the data into a
     json file.
     """
-    # Opens a json file for writing.
-    jsonFileName = "data/jsons/sectorData.json"
-    jsonFilePath = os.path.join(scriptDir, jsonFileName)
-    jsonFile = open(jsonFilePath, "w+")
-
     # ------------------- SECTOR DATA -----------------------------------------
     # Finds the GHG per sector data source file and opens it for reading.
-    sectorcsvFileName = "data/perSector/perSector3b.csv"
+    sectorcsvFileName = "data/perSector/perSector.csv"
     sectorcsvFilePath = os.path.join(scriptDir, sectorcsvFileName)
     sectorcsvFile = open(sectorcsvFilePath, "r")
-
-    # Initialises the json structure.
-    dataList = []
-    for i in range(43):
-        dataList.append({"year": 1970 + i})
 
     # Start reading the file from the beginning.
     sectorcsvFile.seek(0)
@@ -146,25 +123,31 @@ def getSectorData():
         countryCode = splitRow[1]
 
         # Ignore data from before 1970 and later than 2012
-        if dataYear >= 1970 and dataYear <= 2012:
+        if dataYear >= 1970 and dataYear <= 2012 and countryCode != "":
             indexYear = dataYear - 1970
 
             # Gather relevant data into a dictionary.
-            countrySectorDict = {
-                # "Name": splitRow[0],
-                # "Other": valueTest(splitRow[3]),
-                # "internationalBunkers": valueTest(splitRow[4]),
-                # "waste": valueTest(splitRow[5]),
-                # "industry": valueTest(splitRow[6]),
-                # "residentialAndCommercial": valueTest(splitRow[7]),
-                # "transport": valueTest(splitRow[8]),
-                # "agriculture": valueTest(splitRow[9]),
-                # "forrestry": valueTest(splitRow[10]),
-                # "landUseSources": valueTest(splitRow[11]),
-                "energy": valueTest(splitRow[12])
+            sectorDict = {
+                "Name": splitRow[0],
+                "Other": valueTest(splitRow[3]),
+                "InternationalBunkers": valueTest(splitRow[4]),
+                "Waste": valueTest(splitRow[5]),
+                "Industry": valueTest(splitRow[6]),
+                "ResidentialAndCommercial": valueTest(splitRow[7]),
+                "Transport": valueTest(splitRow[8]),
+                "Agriculture": valueTest(splitRow[9]),
+                "Forestry": valueTest(splitRow[10]),
+                "LandUseSources": valueTest(splitRow[11]),
+                "Energy": valueTest(splitRow[12])
             }
 
-            dataList[indexYear][countryCode] = countrySectorDict
+            # Merge dictionaries.
+            try:
+                mergeDict = {**sectorDict, **dataList[indexYear][countryCode]}
+                dataList[indexYear][countryCode] = mergeDict
+            except:
+                nothing = "placehold"
+
 
     # Dumps every dictionary into the json
     jsonFile.write("[")
@@ -177,9 +160,10 @@ def getSectorData():
 
         json.dump(entry, jsonFile)
         firstEntry = False
+        jsonFile.write("\n")
+
     jsonFile.write("]")
 
 
 if __name__ == '__main__':
     getMapData()
-    getSectorData()
