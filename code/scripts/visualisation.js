@@ -8,6 +8,12 @@
  * StudentID: 10722432
  */
 
+//
+var countryPlotList = ["NLD", "USA", "CHN", "DEU", "RUS", "KOR"];
+var sectorPlotList = ["InternationalBunkers", "Waste", "Industry", "Agriculture", "ResidentialAndCommercial", "Transport", "Forestry", "LandUseSources", "Energy", "Other"]
+
+
+
 // ------------------- INITIALISATIONS -----------------------------------------
 
 // Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp
@@ -103,7 +109,8 @@ function main() {
         .text("total GHG emission (Mt CO2 equivalent)");
 
 
-    updateScatterYear(yearIndex, data, x, y);
+
+    updateScatter(yearIndex, data, x, y, countryPlotList);
 
     // ------------------- BAR CHART -------------------------------------------
 
@@ -120,8 +127,6 @@ function main() {
         .attr("class", "barChartTransform")
         .attr("transform", "translate(" + barMargin.left + "," + barMargin.top + ")");
 
-    var countryPlotList = ["NLD", "USA", "CHN", "DEU", "RUS", "KOR"];
-    var sectorPlotList = ["InternationalBunkers", "Waste", "Industry", "Agriculture", "ResidentialAndCommercial", "Transport", "Forestry", "LandUseSources", "Energy", "Other"]
     updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
 
 
@@ -133,7 +138,7 @@ function main() {
       updateColour(yearIndex, data, colourRange);
 
       // Update scatterplot year data.
-      updateScatterYear(yearIndex, data, x, y);
+      updateScatter(yearIndex, data, x, y, countryPlotList);
 
       //Update barchart year data.
       updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
@@ -150,29 +155,36 @@ function main() {
  *  data: data object from which the data is retrieved.
  *  xScale, yScale: data scales to correctly place dots in the chart.
  */
-function updateScatterYear(yearIndex, data, xScale, yScale){
+function updateScatter(yearIndex, data, xScale, yScale, countryPlotList) {
   // Remove all dots.
   d3.select("#theScatterPlot").selectAll(".scatterDot").remove();
 
-  /* Iterates through all the keys (except "year") in a year and adds a dot
-   * for every country */
-  keysList = Object.keys(data[yearIndex]);
-  for (i in keysList) {
-    key = keysList[i];
+  // Iterates through all the countries that need to be plotted.
+  for (i in countryPlotList) {
+    key = countryPlotList[i];
 
     // If the key is for country data: add dot at position based on GDP and GHG.
-    if (key != "year") {
-      var GDPval = data[yearIndex][key]["GDP"];
-      var GHGval = data[yearIndex][key]["GHG"];
+    var GDPval = data[yearIndex][key]["GDP"];
+    var GHGval = data[yearIndex][key]["GHG"];
 
-      // Only place dot if both data is available.
-      if ((isNaN(GDPval) != true) && (isNaN(GHGval) != true)){
-        d3.select("#allDots").append("circle")
-          .attr("class", "scatterDot")
-          .attr("cx", xScale(GDPval / 1000000.)) // million USD
-          .attr("cy", yScale(GHGval / 1000.)) // Mt CO2 eq
+    // Only place dot if both data is available.
+    if ((isNaN(GDPval) != true) && (isNaN(GHGval) != true)){
+      var xPos = xScale(GDPval / 1000000.);
+      var yPos = yScale(GHGval / 1000.);
+
+      var newDot = d3.select("#allDots").append("g")
+          .attr("class", "scatterDot");
+
+      newDot.append("circle")
+          .attr("cx", xPos) // million USD
+          .attr("cy", yPos) // Mt CO2 eq
           .attr("r", 2);
-      };
+
+      newDot.append("text")
+          .attr("x", xPos)
+          .attr("y", yPos + 8)
+          .style("font", "8px sans-serif")
+          .text(function() { return data[yearIndex][key]["Name"];});
     };
   };
 };
