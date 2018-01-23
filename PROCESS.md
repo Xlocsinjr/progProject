@@ -131,4 +131,7 @@ countries.
 impossible to use. Either a linear scale has to be used or the absolute value
 can be taken. If the absolute value is taken, the user should be informed
 somewhere that the value the user will read in the chart for forestry should be
-read as a negative.
+read as a negative. For nor the absolute value is shown.
+- Removed unnecessary files in the repository. Mostly unused data files. 
+- Fixed the axes on the bar chart. The bar chart now also shows data on all
+sectors if available.

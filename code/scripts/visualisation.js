@@ -41,7 +41,7 @@ function main() {
     // From example: https://bost.ocks.org/mike/bar/3/
 
     // Sets the margins for the chart and sets the width and height.
-    var margin = {top: 20, right: 30, bottom: 40, left: 40},
+    var margin = {top: 20, right: 30, bottom: 40, left: 50},
         width = 400 - margin.left - margin.right,
         height = 350 - margin.top - margin.bottom;
 
@@ -96,7 +96,7 @@ function main() {
         .call(yAxis)
       .append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 6)
+        .attr("y", -45)
         .attr("dy", ".71em")
         .style("font", "11px sans-serif")
         .style("text-anchor", "end")
@@ -108,7 +108,7 @@ function main() {
     // ------------------- BAR CHART -------------------------------------------
 
     // Sets the margins for the bar chart and sets the width and height
-    var barMargin = {top: 20, right: 50, bottom: 40, left: 20},
+    var barMargin = {top: 20, right: 50, bottom: 40, left: 50},
       barChartWidth = 400 - barMargin.left - barMargin.right,
       barChartHeight = 350 - barMargin.top - barMargin.bottom;
 
@@ -262,10 +262,10 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
 
     /**
      * Padding value definitions.
-     * groupPadding is set to 1% of a group's width.
+     * groupPadding is set to 0.5% of a group's width.
      * rectPadding has to be more than groupPadding.
      */
-    var groupPadding = 0.01 * rectGroupWidth;
+    var groupPadding = 0.005 * rectGroupWidth;
     var rectPadding = groupPadding + 1;
 
 
@@ -299,7 +299,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
     .append("text")
       .attr("class", "axisLabel")
       .attr("x", barChartWidth)
-      .attr("y", 35)
+      .attr("y", 30)
       .style("font", "11px sans-serif")
       .style("text-anchor", "end")
       .text("Country");
@@ -312,7 +312,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
       .attr("transform", "rotate(-90)")
       .attr("y", -45)
       .attr("dy", ".71em")
-      .style("font", "20px sans-serif")
+      .style("font", "11px sans-serif")
       .style("text-anchor", "end")
       .text("GHG emission (Mt CO2 equivalent) (\xB0C)");
 };

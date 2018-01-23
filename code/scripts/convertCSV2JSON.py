@@ -1,8 +1,10 @@
 # convertCSV2JSON.py
 #
-# converts a csv file into a json file
+# Takes data from multiple csv files and creates a json file containing all
+# relevant data for the visualisations in visualisation.js.
 #
-# Xander Locsin 10722432
+# Author: Xander Locsin
+# StudentID: 10722432
 # ------------------------------------------
 import csv
 import json
