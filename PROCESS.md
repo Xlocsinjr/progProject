@@ -119,4 +119,16 @@ except for the reason that it "shows up nicely" in the charts.
 - It would be best if the world map colour scale was quantised, assigning a
 colour for certain ranges of values.
 - The bar chart is now a grouped bar chart showing real data for 3 countries and
-4 sectors. 
+4 sectors.
+
+#### 23-01-2018   week3 - tuesday
+- New idea: Implement a dropdown menu for adding countries to the scatterplot
+and barchart as well. Then there will be a dropdown for both adding and removing
+countries.
+- Scatterplot x-axis range lower boundary to 1. Since it is a log scale, having
+0.001 as the lower bound makes the x-axis range too large.
+- Barchart forestry data has a negative value. This makes the log scale
+impossible to use. Either a linear scale has to be used or the absolute value
+can be taken. If the absolute value is taken, the user should be informed
+somewhere that the value the user will read in the chart for forestry should be
+read as a negative.

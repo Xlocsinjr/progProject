@@ -47,7 +47,7 @@ function main() {
 
     // Sets x-axis scale for GDP.
     var x = d3.scale.log()
-        .domain([0.001, 16200000.])  // World GDP 2012
+        .domain([1, 16200000.])  // World GDP 2012
         .range([0, width]);
 
     // Sets y-axis scale for GHG emissions.
@@ -119,8 +119,8 @@ function main() {
       .append("g")
         .attr("transform", "translate(" + barMargin.left + "," + barMargin.top + ")");
 
-    var countryPlotList = ["NLD", "USA", "CHN"];
-    var sectorPlotList = ["Agriculture", "ResidentialAndCommercial", "Transport", "Energy"]
+    var countryPlotList = ["NLD", "USA", "CHN", "DEU", "RUS", "KOR"];
+    var sectorPlotList = ["InternationalBunkers", "Waste", "Industry", "Agriculture", "ResidentialAndCommercial", "Transport", "Forestry", "LandUseSources", "Energy", "Other"]
     updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
 
 
@@ -217,7 +217,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
 
   // Linear scale to properly set the length of the bars.
   var barYScale = d3.scale.log()
-    .domain([10000, 10000000])
+    .domain([1000, 10000000])
     .range([0, barChartHeight]);
 
   // Defines the x-axis. Placed at the bottom.
@@ -246,17 +246,18 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
     var barGroup = d3.select(".barChart").append("g")
         .attr("class", "barRect");
 
-
+    //["InternationalBunkers", "Waste", "Industry", "Agriculture", "ResidentialAndCommercial", "Transport", "Forestry", "LandUseSources", "Energy", "Other"]
     // Colour definition of the sectors.
-    colourStuff = ["orange", "yellow", "steelblue", "red"]
+    colourStuff = ["#808080", "#606060", "404040", "orange", "yellow", "steelblue", "#007f0e", "#4cff00", "#0094ff", "c0c0c0"]
 
     /**
      * Padding value definitions.
      * groupPadding is set to 5% of a group's width.
      * rectPadding has to be more than groupPadding.
      */
-    var groupPadding = 0.05 * rectGroupWidth;
-    var rectPadding = groupPadding + 2;
+    var groupPadding = 0.01 * rectGroupWidth;
+    var rectPadding = groupPadding + 1;
+
 
     // Loop through all sectors that need to be plotted.
     for (j in sectorPlotList) {

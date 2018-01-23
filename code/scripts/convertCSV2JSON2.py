@@ -136,7 +136,7 @@ def getMapData():
                 "ResidentialAndCommercial": valueTest(splitRow[7]),
                 "Transport": valueTest(splitRow[8]),
                 "Agriculture": valueTest(splitRow[9]),
-                "Forrestry": valueTest(splitRow[10]),
+                "Forestry": valueTest(splitRow[10]),
                 "LandUseSources": valueTest(splitRow[11]),
                 "Energy": valueTest(splitRow[12])
             }
