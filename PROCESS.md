@@ -146,5 +146,5 @@ bootstrap.
 - Looked up bootstrap. Seems like too much work figuring out how it works.
 All visualisations should be visible on the screen and no bootstrap template is
 needed.
-- Started on the page layout. The different divs in the html have temporarily
-been given a 1px border.
+- Created a layout for the page. It might be improved on later but the current
+layout will suffice for now.
