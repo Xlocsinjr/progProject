@@ -16,14 +16,20 @@
 
   </head>
   <body>
-    <div id="worldMap"></div>
-    <div class="slidecontainer">
-      <input type="range" min="0" max="42" value="42" class="slider" id="myRange">
+    <div id="mapContainer" style="width: 70%">
+      <div id="worldMap"></div>
     </div>
-    <div>
+    <div id="plotsContainer" style="border: 1px solid; width: 70%">
+      <div class="slidecontainer" style="border: 1px solid; height: 50px; width: 80%;" id="1">
+        <input type="range" min="0" max="42" value="42" class="slider" id="myRange">
+      </div>
+      <div style="border: 1px solid; width: 80%; height: 400px;" id="1">
+        <svg class="scatterPlot"></svg>
+        <svg class="barChart"></svg>
+      </div>
+      <div id="countryAndSector">
 
-      <svg class="scatterPlot"></svg>
-      <svg class="barChart"></svg>
+      </div>
     </div>
 
     <script src="../scripts/visualisation.js"></script>

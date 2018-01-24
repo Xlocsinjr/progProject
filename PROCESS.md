@@ -141,3 +141,10 @@ their country name.
 - Next step: It would be best to get the layout of the page in order before
 putting any interactive elements on the page. Might be useful to check
 bootstrap.
+
+#### 24-01-2018   week3 - wednesday
+- Looked up bootstrap. Seems like too much work figuring out how it works.
+All visualisations should be visible on the screen and no bootstrap template is
+needed.
+- Started on the page layout. The different divs in the html have temporarily
+been given a 1px border.
