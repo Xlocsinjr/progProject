@@ -16,21 +16,34 @@
 
   </head>
   <body>
-    <div id="mapContainer" style="width: 70%">
-      <div id="worldMap"></div>
-    </div>
-    <div id="plotsContainer" style="border: 1px solid; width: 70%">
-      <div class="slidecontainer" style="border: 1px solid; height: 50px; width: 80%;" id="1">
-        <input type="range" min="0" max="42" value="42" class="slider" id="myRange">
+    <div id="vis" style="border: 1px solid; width: 80%">
+      <div id="mapContainer" style="border: 1px solid; width: 800px; height: 400px">
+        map
+        <div id="worldMap" ></div>
       </div>
-      <div style="border: 1px solid; width: 80%; height: 400px;" id="1">
-        <svg class="scatterPlot"></svg>
-        <svg class="barChart"></svg>
-      </div>
-      <div id="countryAndSector">
+      <div id="bottomContainer" style="border: 1px solid">
+        bottom
+
+        <div id="bottomLeft" style="border: 1px solid; width: 850px">
+          bottomleft
+          <div class="slidecontainer" style="border: 1px solid; height: 50px; width: 100%;" id="1">
+            <input type="range" min="0" max="42" value="42" class="slider" id="myRange">
+          </div>
+          <div style="border: 1px solid; width: 100%; height: 400px;" id="1">
+            <svg class="scatterPlot"></svg>
+            <svg class="barChart"></svg>
+          </div>
+        </div>
+        <div id="countryAndSector" style="border: 1px solid; width: 49%">
+          Lorem ipsum dolor set amet. Lorem ipsum dolor set amet.Lorem ipsum dolor set amet.Lorem ipsum dolor set amet.Lorem ipsum dolor set amet.Lorem ipsum dolor set amet.Lorem ipsum dolor set amet.Lorem ipsum dolor set amet.
+        </div>
 
       </div>
     </div>
+    <div id="text" style="border: 1px solid; float: right; width = 10%">
+      Lorem ipsum dolor set amet. Lorem ipsum dolor set amet.Lorem ipsum dolor set amet.Lorem ipsum dolor set amet.Lorem ipsum dolor set amet.Lorem ipsum dolor set amet.Lorem ipsum dolor set amet.Lorem ipsum dolor set amet.
+    </div>
+
 
     <script src="../scripts/visualisation.js"></script>
   </body>
