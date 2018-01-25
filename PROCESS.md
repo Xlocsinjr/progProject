@@ -154,3 +154,5 @@ layout will suffice for now.
 menu can also act as the legend for the barchart.
 - Padding/grouping of the bars in the barchart needs to be tweaked to always
 display correctly.
+- Working country removal dropdown has been implemented. The code for this
+functionality still needs to be cleaned up.

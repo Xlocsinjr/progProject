@@ -40,7 +40,7 @@ window.onclick = function(event) {
 
 
 // ------------------- INITIALISATIONS -----------------------------------------
-  var countryPlotList = ["NLD", "USA", "CHN", "DEU", "RUS", "KOR"];
+var countryPlotList = ["NLD", "USA", "CHN", "DEU", "RUS", "KOR"];
 
 
 // Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp
@@ -170,30 +170,43 @@ function main() {
 
     // ------------------- SLIDER UPDATE ---------------------------------------
     slider.oninput = function() {
+      // Update global variable yearIndex.
       yearIndex = slider.value;
 
-      // Update world map country colours.
+      // Update all visualisations.
       updateColour(yearIndex, data, colourRange);
-
-      // Update scatterplot.
       updateScatter(yearIndex, data, x, y, countryPlotList);
-
-      //Update barchart.
       updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
     };
 
     // ------------------- SECTOR CHECKBOXES -----------------------------------
     d3.selectAll(".sectorCheck").on("change", function() {
+      // Update global variable sectorPlotList.
       sectorPlotList = getSectorChecks();
+
       //Update barchart.
       updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
     });
 
     // ------------------- REMOVE COUNTRY DROPDOWN -----------------------------
+    removeDropdownWriter(countryPlotList, data);
 
 
-    removeDropdownWriter(countryPlotList, data)
+    function recursiveListener() {
+      d3.selectAll(".removalButton").on("click", function() {
+        removeDropdownWriter(countryPlotList, data);
 
+        // Apply the listener to the new buttons.
+        recursiveListener();
+
+        // Update scatterplot.
+        updateScatter(yearIndex, data, x, y, countryPlotList);
+
+        //Update barchart.
+        updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
+      });
+    };
+    recursiveListener();
   });
 };
 
@@ -428,31 +441,42 @@ function removeDropdownWriter(countryPlotList, data) {
   // Clears the div.
   document.getElementById("myDropdown").innerHTML = "";
 
+  // Creates a button for every country in countryPlotList.
   for (var i in countryPlotList) {
-    countryCode = countryPlotList[i];
+    var countryCode = countryPlotList[i];
     var country = data[0][countryCode]["Name"];
+
     document.getElementById("myDropdown").innerHTML += (
-      "<a onclick=\"countryRemove()\" "
-      + "href=\"#\">"
-      + country + "</a>" + "\0"
+      "<button type=\"button\""
+      + " id=\"removal" + i + "\""
+      + " class=\"removalButton\""
+      + "onclick=\'countryRemove(\"" + countryCode + "\")\'"
+      + " value=\'" + countryCode + "\'>"
+      + country
+      + "</button>"
+      + "<br> \0"
     );
   };
 };
 
 /**
  * Removes a countrycode from a countryPlotList by duplicating each element in
- * countryPlotList except the one that had to be removed.
+ * countryPlotList except the one that had to be removed. Updates global
+ * variable countryPlotList.
+ * To be used by the buttons in the removal dropdown menu.
  */
-function countryRemove(countryPlotList, countryCode) {
+function countryRemove(removeCode) {
   var newPlotList = [];
   for (i in countryPlotList) {
     var duplicate = countryPlotList[i];
-    if (duplicate != countryCode) {
+    if (duplicate != removeCode) {
       newPlotList.push(duplicate);
     };
   };
-  return newPlotList;
+  countryPlotList = newPlotList;
 };
+
+
 
 // ------------------- WHEN LOADED ---------------------------------------------
 window.onload = function() {
