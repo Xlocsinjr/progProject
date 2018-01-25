@@ -4,24 +4,20 @@
 }
 
 #mapContainer {
-  border: 1px solid;
   height: 400px;
 }
 
 #bottom {
-  border: 1px solid;
   width: 100%;
   height: 450px;
 }
 
 #bottomLeft {
-  border: 1px solid;
   float: left;
   width: 810px;
 }
 
 #countryAndSector {
-  border: 1px solid;
   float: right;
   width: 180px
 }
@@ -29,7 +25,6 @@
 /* ------------------------ SLIDER ------------------------------------------ */
 /* Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp */
 .slidecontainer {
-    border: 1px solid;
     height: 50px;
     width: 100%;
 }

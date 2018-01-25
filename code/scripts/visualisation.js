@@ -9,18 +9,16 @@
  */
 
 
+var countries = Datamap.prototype.worldTopo.objects.world.geometries;
 
-
-
-
-
-
-
-
+ // console.log(countries);
+ // for (var i = 0, j = countries.length; i < j; i++) {
+ //   console.log(countries[i].id);
+ // }
 
 
 // ------------------- INITIALISATIONS -----------------------------------------
-var countryPlotList = ["NLD", "USA", "CHN", "DEU", "RUS", "KOR"];
+
 
 
 // Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp
@@ -39,8 +37,7 @@ function myFunction() {
 // Get interactive element values.
 var yearIndex = slider.value;
 var sectorPlotList = getSectorChecks();
-
-
+var countryPlotList = ["NLD", "USA", "CHN", "DEU", "RUS", "KOR"];
 
 // Generate world map.
 var map = new Datamap({
@@ -50,8 +47,15 @@ var map = new Datamap({
   },
 });
 
-
-
+// Defines the tooltip for the map. The tooltip shows GHG emission data.
+map.options.geographyConfig.popupTemplate = function(geo) {
+  return ['<div class="hoverinfo"><strong>',
+    geo.properties.name,
+    "</strong><br>",
+    map.options.data[geo.id]["GHG"] + " kT CO2 equivalent",
+    "<br>",
+    "</div>"].join('');
+};
 
 
 function main() {
@@ -67,7 +71,9 @@ function main() {
       // 12500000 : China 2012 GHG emission
 
     // Initial colouring.
-    updateColour(yearIndex, data, colourRange);
+    updateMap(yearIndex, data, colourRange);
+
+
 
     // ------------------- SCATTERPLOT -----------------------------------------
     // From example: https://bost.ocks.org/mike/bar/3/
@@ -162,7 +168,7 @@ function main() {
       yearIndex = slider.value;
 
       // Update all visualisations.
-      updateColour(yearIndex, data, colourRange);
+      updateMap(yearIndex, data, colourRange);
       updateScatter(yearIndex, data, x, y, countryPlotList);
       updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
     };
@@ -176,26 +182,53 @@ function main() {
       updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
     });
 
-    // ------------------- REMOVE COUNTRY DROPDOWN -----------------------------
+    // ------------------- ADD COUNTRY MAP CLICK -------------------------------
     removeDropdownWriter(countryPlotList, data);
 
+    function recursiveListener2() {
+      // Adds an onclick listener for the countries.
+      map.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
 
-    function recursiveListener() {
+        // Adds the clicked country to the countryPlotList if not already in it.
+        if (countryPlotList.includes(geography.id) == false) {
+          countryPlotList.push(geography.id);
+        };
+
+        // Update the country removal dropdown.
+        removeDropdownWriter(countryPlotList, data);
+
+        recursiveListener2();
+
+        // Update the scatterplot and the barchart.
+        updateScatter(yearIndex, data, x, y, countryPlotList);
+        updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
+      });
+    };
+
+    recursiveListener2();
+
+
+
+
+
+
+    // ------------------- REMOVE COUNTRY DROPDOWN -----------------------------
+
+
+    function recursiveListener2() {
       d3.selectAll(".removalButton").on("click", function() {
         // Recreate the dropdown list elements.
         removeDropdownWriter(countryPlotList, data);
 
         // Apply the listener to the new buttons.
-        recursiveListener();
+        recursiveListener2();
 
-        // Update scatterplot.
+        // Update scatterplot and barchart.
         updateScatter(yearIndex, data, x, y, countryPlotList);
-
-        //Update barchart.
         updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
       });
     };
-    recursiveListener();
+    recursiveListener2();
   });
 };
 
@@ -207,6 +240,32 @@ function main() {
 
 
 // ------------------- FUNCTIONS -----------------------------------------------
+
+
+
+/**
+ * Updates the world map country colours to data of a different year.
+ * Also changes the data property of the world map so the tooltip can access
+ * the GHG emission values.
+ */
+function updateMap(yearIndex, data, colourScale) {
+  updateDict = {};
+  map["options"]["data"] = {};
+
+  keysList = Object.keys(data[yearIndex]);
+  for (var i = 0; i < keysList.length; i++) {
+    key = keysList[i];
+    if (key != "year") {
+      var val = data[yearIndex][key]["GHG"];
+      updateDict[key] = colourScale(val);
+
+      map["options"]["data"][key] = {"GHG": val};
+    };
+  };
+
+  map.updateChoropleth(updateDict);
+};
+
 
 /**
  * Updates the Scatterplot to data of a different year.
@@ -249,24 +308,6 @@ function updateScatter(yearIndex, data, xScale, yScale, countryPlotList) {
   };
 };
 
-/**
- * Updates the  world map country colours to data of a different year.
- * Parameters:
- *  yearIndex: index for the year of data (1970 has index 0).
- *  data: data object from which the data is retrieved.
- */
-function updateColour(yearIndex, data, colourScale) {
-  updateDict = {};
-  keysList = Object.keys(data[yearIndex]);
-  for (var i = 0; i < keysList; i++) {
-    key = keysList[i];
-    if (key != "year") {
-      val = data[yearIndex][key]["GHG"];
-      updateDict[key] = colourScale(val);
-    };
-  };
-  map.updateChoropleth(updateDict);
-};
 
 
 /**
@@ -290,7 +331,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
 
   // Linear scale to properly set the length of the bars.
   var barYScale = d3.scale.log()
-    .domain([100, 10000000])
+    .domain([1, 10000000])
     .range([0, barChartHeight]);
 
   // Defines the x-axis. Placed at the bottom.
@@ -456,7 +497,7 @@ function removeDropdownWriter(countryPlotList, data) {
  */
 function countryRemove(removeCode) {
   var newPlotList = [];
-  for (var i = 0; countryPlotList.length; i++) {
+  for (var i = 0; i < countryPlotList.length; i++) {
     var duplicate = countryPlotList[i];
     if (duplicate != removeCode) {
       newPlotList.push(duplicate);
