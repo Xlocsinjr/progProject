@@ -150,3 +150,7 @@ needed.
 layout will suffice for now.
 
 #### 25-01-2018   week3 - thursday
+- Checkboxes to select which sectors are shown in the barchart now work. This
+menu can also act as the legend for the barchart.
+- Padding/grouping of the bars in the barchart needs to be tweaked to always
+display correctly.

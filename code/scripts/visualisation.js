@@ -8,29 +8,62 @@
  * StudentID: 10722432
  */
 
-//
-var countryPlotList = ["NLD", "USA", "CHN", "DEU", "RUS", "KOR"];
-//var sectorPlotList = ["InternationalBunkers", "Waste", "Industry", "Agriculture", "ResidentialAndCommercial", "Transport", "Forestry", "LandUseSources", "Energy", "Other"]
+
+
+
+// From: https://www.w3schools.com/howto/howto_js_dropdown.asp
+
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it.
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    for (var i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      };
+    };
+  };
+};
+
+
+
+
 
 
 
 // ------------------- INITIALISATIONS -----------------------------------------
+  var countryPlotList = ["NLD", "USA", "CHN", "DEU", "RUS", "KOR"];
+
 
 // Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp
 var slider = document.getElementById("myRange");
 
-var sectorRadio = document.getElementById("myRange");
+var sectorRadio = document.getElementById("checkForm");
 
 // Get interactive element values.
 var yearIndex = slider.value;
 var sectorPlotList = getSectorChecks();
 
+
+
+// Generate world map.
 var map = new Datamap({
   element: document.getElementById('worldMap'),
   fills: {
     defaultFill: "#ABDDA4",
   },
 });
+
+
+
 
 
 function main() {
@@ -132,7 +165,6 @@ function main() {
         .attr("class", "barChartTransform")
         .attr("transform", "translate(" + barMargin.left + "," + barMargin.top + ")");
 
-    console.log(sectorPlotList);
     updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
 
 
@@ -143,28 +175,34 @@ function main() {
       // Update world map country colours.
       updateColour(yearIndex, data, colourRange);
 
-      // Update scatterplot year data.
+      // Update scatterplot.
       updateScatter(yearIndex, data, x, y, countryPlotList);
 
-      //Update barchart year data.
+      //Update barchart.
       updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
     };
 
-    // ------------------- SECTOR RADIO BUTTONS --------------------------------
-    slider.oninput = function() {
-      yearIndex = slider.value;
-
-      // Update world map country colours.
-      updateColour(yearIndex, data, colourRange);
-
-      // Update scatterplot year data.
-      updateScatter(yearIndex, data, x, y, countryPlotList);
-
-      //Update barchart year data.
+    // ------------------- SECTOR CHECKBOXES -----------------------------------
+    d3.selectAll(".sectorCheck").on("change", function() {
+      sectorPlotList = getSectorChecks();
+      //Update barchart.
       updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
-    };
+    });
+
+    // ------------------- REMOVE COUNTRY DROPDOWN -----------------------------
+
+
+    removeDropdownWriter(countryPlotList, data)
+
   });
 };
+
+
+
+
+
+
+
 
 // ------------------- FUNCTIONS -----------------------------------------------
 
@@ -285,7 +323,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
       "Industry": "404040",
       "Agriculture": "orange",
       "ResidentialAndCommercial": "yellow",
-      "Transport": "steelblue",
+      "Transport": "blue",
       "Forestry": "#007f0e",
       "LandUseSources": "#4cff00",
       "Energy": "#0094ff",
@@ -294,11 +332,12 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
 
     /**
      * Padding value definitions.
-     * groupPadding is set to 0.5% of a group's width.
-     * rectPadding has to be more than groupPadding.
+     * groupPadding is set to 2 + 5./countriesCount. So if more than 5 countries
+     * have to be plotted, there'll still be at least 2 pixels to separate the
+     * groups.
      */
-    var groupPadding = 0.05 * rectGroupWidth;
-    var rectPadding = groupPadding + 1;
+    var groupPadding = 2 + 5./countriesCount;
+    var rectPadding = 1;
 
 
     // Loop through all sectors that need to be plotted.
@@ -313,7 +352,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
         d3.select(".barChartTransform").select(".barRect")
           .append("rect")
             .attr("class", "barRect")
-            .attr("x", (i * rectGroupWidth) + (j * (rectWidth - groupPadding)) + groupPadding)
+            .attr("x", (i * (rectGroupWidth + groupPadding)) + (j * rectWidth) + groupPadding)
             .attr("y", barChartHeight - barYScale(Math.abs(countryData[sectorKey])))
             .attr("height", barYScale(Math.abs(countryData[sectorKey])))
             .attr("width", rectWidth - rectPadding)
@@ -376,12 +415,44 @@ function getBoxCheck(plotList, id) {
   var pushedPlot = plotList;
   var checkbox = document.getElementById(id);
   if (checkbox.checked == true) {
-    console.log(pushedPlot);
     pushedPlot.push(checkbox.value);
   };
   return pushedPlot;
 };
 
+
+/**
+ *
+ */
+function removeDropdownWriter(countryPlotList, data) {
+  // Clears the div.
+  document.getElementById("myDropdown").innerHTML = "";
+
+  for (var i in countryPlotList) {
+    countryCode = countryPlotList[i];
+    var country = data[0][countryCode]["Name"];
+    document.getElementById("myDropdown").innerHTML += (
+      "<a onclick=\"countryRemove()\" "
+      + "href=\"#\">"
+      + country + "</a>" + "\0"
+    );
+  };
+};
+
+/**
+ * Removes a countrycode from a countryPlotList by duplicating each element in
+ * countryPlotList except the one that had to be removed.
+ */
+function countryRemove(countryPlotList, countryCode) {
+  var newPlotList = [];
+  for (i in countryPlotList) {
+    var duplicate = countryPlotList[i];
+    if (duplicate != countryCode) {
+      newPlotList.push(duplicate);
+    };
+  };
+  return newPlotList;
+};
 
 // ------------------- WHEN LOADED ---------------------------------------------
 window.onload = function() {
