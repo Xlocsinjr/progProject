@@ -148,3 +148,5 @@ All visualisations should be visible on the screen and no bootstrap template is
 needed.
 - Created a layout for the page. It might be improved on later but the current
 layout will suffice for now.
+
+#### 25-01-2018   week3 - thursday

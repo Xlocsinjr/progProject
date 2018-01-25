@@ -10,7 +10,7 @@
 
 //
 var countryPlotList = ["NLD", "USA", "CHN", "DEU", "RUS", "KOR"];
-var sectorPlotList = ["InternationalBunkers", "Waste", "Industry", "Agriculture", "ResidentialAndCommercial", "Transport", "Forestry", "LandUseSources", "Energy", "Other"]
+//var sectorPlotList = ["InternationalBunkers", "Waste", "Industry", "Agriculture", "ResidentialAndCommercial", "Transport", "Forestry", "LandUseSources", "Energy", "Other"]
 
 
 
@@ -18,7 +18,12 @@ var sectorPlotList = ["InternationalBunkers", "Waste", "Industry", "Agriculture"
 
 // Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp
 var slider = document.getElementById("myRange");
+
+var sectorRadio = document.getElementById("myRange");
+
+// Get interactive element values.
 var yearIndex = slider.value;
+var sectorPlotList = getSectorChecks();
 
 var map = new Datamap({
   element: document.getElementById('worldMap'),
@@ -127,10 +132,25 @@ function main() {
         .attr("class", "barChartTransform")
         .attr("transform", "translate(" + barMargin.left + "," + barMargin.top + ")");
 
+    console.log(sectorPlotList);
     updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
 
 
     // ------------------- SLIDER UPDATE ---------------------------------------
+    slider.oninput = function() {
+      yearIndex = slider.value;
+
+      // Update world map country colours.
+      updateColour(yearIndex, data, colourRange);
+
+      // Update scatterplot year data.
+      updateScatter(yearIndex, data, x, y, countryPlotList);
+
+      //Update barchart year data.
+      updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
+    };
+
+    // ------------------- SECTOR RADIO BUTTONS --------------------------------
     slider.oninput = function() {
       yearIndex = slider.value;
 
@@ -277,7 +297,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
      * groupPadding is set to 0.5% of a group's width.
      * rectPadding has to be more than groupPadding.
      */
-    var groupPadding = 0.005 * rectGroupWidth;
+    var groupPadding = 0.05 * rectGroupWidth;
     var rectPadding = groupPadding + 1;
 
 
@@ -329,6 +349,38 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
       .text("GHG emission (Mt CO2 equivalent) (\xB0C)");
 };
 
+
+/**
+ *
+ */
+function getSectorChecks() {
+  var plotList = [];
+  plotList = getBoxCheck(plotList, "box1");
+  plotList = getBoxCheck(plotList, "box2");
+  plotList = getBoxCheck(plotList, "box3");
+  plotList = getBoxCheck(plotList, "box4");
+  plotList = getBoxCheck(plotList, "box5");
+  plotList = getBoxCheck(plotList, "box6");
+  plotList = getBoxCheck(plotList, "box7");
+  plotList = getBoxCheck(plotList, "box8");
+  plotList = getBoxCheck(plotList, "box9");
+  plotList = getBoxCheck(plotList, "box10");
+  return plotList;
+
+};
+
+/**
+ *
+ */
+function getBoxCheck(plotList, id) {
+  var pushedPlot = plotList;
+  var checkbox = document.getElementById(id);
+  if (checkbox.checked == true) {
+    console.log(pushedPlot);
+    pushedPlot.push(checkbox.value);
+  };
+  return pushedPlot;
+};
 
 
 // ------------------- WHEN LOADED ---------------------------------------------
