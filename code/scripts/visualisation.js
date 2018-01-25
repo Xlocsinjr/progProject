@@ -11,27 +11,7 @@
 
 
 
-// From: https://www.w3schools.com/howto/howto_js_dropdown.asp
 
-/* When the user clicks on the button,
-toggle between hiding and showing the dropdown content */
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// Close the dropdown menu if the user clicks outside of it.
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    for (var i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      };
-    };
-  };
-};
 
 
 
@@ -46,7 +26,15 @@ var countryPlotList = ["NLD", "USA", "CHN", "DEU", "RUS", "KOR"];
 // Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp
 var slider = document.getElementById("myRange");
 
-var sectorRadio = document.getElementById("checkForm");
+
+
+// From: https://www.w3schools.com/howto/howto_js_dropdown.asp
+/* When the user clicks on the button,
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
 
 // Get interactive element values.
 var yearIndex = slider.value;
@@ -194,6 +182,7 @@ function main() {
 
     function recursiveListener() {
       d3.selectAll(".removalButton").on("click", function() {
+        // Recreate the dropdown list elements.
         removeDropdownWriter(countryPlotList, data);
 
         // Apply the listener to the new buttons.
@@ -231,7 +220,7 @@ function updateScatter(yearIndex, data, xScale, yScale, countryPlotList) {
   d3.select("#theScatterPlot").selectAll(".scatterDot").remove();
 
   // Iterates through all the countries that need to be plotted.
-  for (i in countryPlotList) {
+  for (var i = 0; i < countryPlotList.length; i++) {
     key = countryPlotList[i];
 
     // If the key is for country data: add dot at position based on GDP and GHG.
@@ -269,7 +258,7 @@ function updateScatter(yearIndex, data, xScale, yScale, countryPlotList) {
 function updateColour(yearIndex, data, colourScale) {
   updateDict = {};
   keysList = Object.keys(data[yearIndex]);
-  for (i in keysList) {
+  for (var i = 0; i < keysList; i++) {
     key = keysList[i];
     if (key != "year") {
       val = data[yearIndex][key]["GHG"];
@@ -289,7 +278,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
 
   // Gather country names.
   var countryNames = [];
-  for (i in countryPlotList) {
+  for (var i = 0; i < countriesCount; i++) {
     countryKey = countryPlotList[i];
     countryNames[i] = data[yearIndex][countryKey]["Name"];
   };
@@ -322,7 +311,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
   var rectGroupWidth = barChartWidth / countriesCount;
 
   // Loop through all countries that need to be plotted.
-  for (i in countryPlotList) {
+  for (var i = 0; i < countryPlotList.length; i++) {
     plotKey = countryPlotList[i];
     countryData = data[yearIndex][plotKey];
 
@@ -442,7 +431,7 @@ function removeDropdownWriter(countryPlotList, data) {
   document.getElementById("myDropdown").innerHTML = "";
 
   // Creates a button for every country in countryPlotList.
-  for (var i in countryPlotList) {
+  for (var i = 0; i < countryPlotList.length; i++) {
     var countryCode = countryPlotList[i];
     var country = data[0][countryCode]["Name"];
 
@@ -467,7 +456,7 @@ function removeDropdownWriter(countryPlotList, data) {
  */
 function countryRemove(removeCode) {
   var newPlotList = [];
-  for (i in countryPlotList) {
+  for (var i = 0; countryPlotList.length; i++) {
     var duplicate = countryPlotList[i];
     if (duplicate != removeCode) {
       newPlotList.push(duplicate);
