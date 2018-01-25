@@ -155,6 +155,6 @@ menu can also act as the legend for the barchart.
 - Padding/grouping of the bars in the barchart needs to be tweaked to always
 display correctly.
 - Working country removal dropdown has been implemented. The code for this
-functionality still needs to be cleaned up. UPDATE: Suddenly doesn't work
-anymore. The whole page crashes after clicking on a removal button.
+functionality still needs to be cleaned up.
 - Added a tooltip for the world map.
+- Can now add countries to the other plots by clicking on the worldmap.

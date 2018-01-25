@@ -44,8 +44,20 @@ var map = new Datamap({
   element: document.getElementById('worldMap'),
   fills: {
     defaultFill: "#ABDDA4",
-  },
+  }
 });
+
+
+map.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
+  console.log(countryPlotList);
+  // Adds the clicked country to the countryPlotList if not already in it.
+  if (countryPlotList.includes(geography.id) == false) {
+    countryPlotList.push(geography.id);
+  };
+
+})
+
+
 
 // Defines the tooltip for the map. The tooltip shows GHG emission data.
 map.options.geographyConfig.popupTemplate = function(geo) {
@@ -182,49 +194,49 @@ function main() {
       updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
     });
 
-    // ------------------- ADD COUNTRY MAP CLICK -------------------------------
-    removeDropdownWriter(countryPlotList, data);
-
-
-    // Adds an onclick listener for the countries.
-    map.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
-
-      // Adds the clicked country to the countryPlotList if not already in it.
-      if (countryPlotList.includes(geography.id) == false) {
-        countryPlotList.push(geography.id);
-      };
-
-      // Update the country removal dropdown.
-      removeDropdownWriter(countryPlotList, data);
-
-      // Update the scatterplot and the barchart.
-      updateScatter(yearIndex, data, x, y, countryPlotList);
-      updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
-    });
-
-
-
 
 
 
 
     // ------------------- REMOVE COUNTRY DROPDOWN -----------------------------
+    removeDropdownWriter(countryPlotList, data);
 
-
-    function recursiveListener2() {
+    // Adds a recursive listener for buttons in the country removal dropdown.
+    function recursiveListener() {
       d3.selectAll(".removalButton").on("click", function() {
         // Recreate the dropdown list elements.
         removeDropdownWriter(countryPlotList, data);
 
         // Apply the listener to the new buttons.
-        recursiveListener2();
+        recursiveListener();
 
         // Update scatterplot and barchart.
         updateScatter(yearIndex, data, x, y, countryPlotList);
         updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
       });
     };
-    recursiveListener2();
+    recursiveListener();
+
+
+
+    // ------------------- ADD COUNTRY MAP CLICK -------------------------------
+
+    map.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
+      // Adds the clicked country to the countryPlotList if not already in it.
+      if (countryPlotList.includes(geography.id) == false) {
+        countryPlotList.push(geography.id);
+      };
+
+      // Recreate the dropdown list elements.
+      removeDropdownWriter(countryPlotList, data);
+
+      // Apply the listener to the new buttons.
+      recursiveListener();
+
+      // Update scatterplot and barchart.
+      updateScatter(yearIndex, data, x, y, countryPlotList);
+      updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
+    });
   });
 };
 
