@@ -185,27 +185,23 @@ function main() {
     // ------------------- ADD COUNTRY MAP CLICK -------------------------------
     removeDropdownWriter(countryPlotList, data);
 
-    function recursiveListener2() {
-      // Adds an onclick listener for the countries.
-      map.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
 
-        // Adds the clicked country to the countryPlotList if not already in it.
-        if (countryPlotList.includes(geography.id) == false) {
-          countryPlotList.push(geography.id);
-        };
+    // Adds an onclick listener for the countries.
+    map.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
 
-        // Update the country removal dropdown.
-        removeDropdownWriter(countryPlotList, data);
+      // Adds the clicked country to the countryPlotList if not already in it.
+      if (countryPlotList.includes(geography.id) == false) {
+        countryPlotList.push(geography.id);
+      };
 
-        recursiveListener2();
+      // Update the country removal dropdown.
+      removeDropdownWriter(countryPlotList, data);
 
-        // Update the scatterplot and the barchart.
-        updateScatter(yearIndex, data, x, y, countryPlotList);
-        updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
-      });
-    };
+      // Update the scatterplot and the barchart.
+      updateScatter(yearIndex, data, x, y, countryPlotList);
+      updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
+    });
 
-    recursiveListener2();
 
 
 
