@@ -37,7 +37,7 @@ function myFunction() {
 // Get interactive element values.
 var yearIndex = slider.value;
 var sectorPlotList = getSectorChecks();
-var countryPlotList = ["NLD", "USA", "CHN", "DEU", "RUS", "KOR"];
+var countryPlotList = ["NLD", "USA", "CHN", "DEU", "RUS"];
 
 // Generate world map.
 var map = new Datamap({
