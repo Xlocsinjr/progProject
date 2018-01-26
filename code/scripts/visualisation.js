@@ -77,9 +77,9 @@ function main() {
     // ------------------- MAP -------------------------------------------------
 
     // Colour range
-    var colourRange = d3.scale.linear()
+    var colourRange = d3.scale.log()
       .range(["#ABDDA4", "red"])
-      .domain([0, 12500000]);
+      .domain([1000, 12500000]);
       // 12500000 : China 2012 GHG emission
 
     // Initial colouring.
