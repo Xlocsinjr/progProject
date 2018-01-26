@@ -102,7 +102,7 @@ function main() {
 
     // Sets y-axis scale for GHG emissions.
     var y = d3.scale.log()
-      .domain([0.001, 12500])  // China GHG 2012
+      .domain([1, 12500])  // China GHG 2012
       .range([height, 0]);
 
     // Defines the x-axis. Placed at the bottom.

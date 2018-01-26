@@ -158,3 +158,12 @@ display correctly.
 functionality still needs to be cleaned up.
 - Added a tooltip for the world map.
 - Can now add countries to the other plots by clicking on the worldmap.
+
+#### 26-01-2018   week3 - friday
+- Presentation notes:
+  - Look back to MVP. Are the conditions met?
+  - Perhaps add functionality that countries can be removed from the bottom
+  charts by clicking on the dots or the bars. This will make the country removal
+  dropdown obsolete.
+  - Maybe the barchart can be a bit larger since it gets crowded very quickly
+  when adding more countries.
