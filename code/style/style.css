@@ -12,18 +12,21 @@ body {
 }
 
 #visualisations {
+  width: 1000px;
   height: 900px;
 }
 
 #mapContainer {
-  width: 840px;
-  height: 400px;
   background-color: white;
-  margin: 20px;
+  margin: 10px;
+  float: left;
+  width: 900px;
+  height: 400px;
 }
 
 #worldMap {
   border-style: inset;
+  position: relative;
 }
 
 #bottom {
@@ -37,7 +40,6 @@ body {
 }
 
 #countryAndSector {
-  float: right;
   width: 180px
 }
 
