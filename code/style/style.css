@@ -1,10 +1,20 @@
 /* ------------------------ PAGE LAYOUT ------------------------------------- */
+body {
+  background-color: #e5e5e5;
+}
+
 #visualisations {
   height: 900px;
 }
 
 #mapContainer {
   height: 400px;
+  background-color: white;
+  margin: 20px;
+}
+
+#worldMap {
+  border-style: inset;
 }
 
 #bottom {
@@ -21,6 +31,8 @@
   float: right;
   width: 180px
 }
+
+
 
 /* ------------------------ SLIDER ------------------------------------------ */
 /* Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp */

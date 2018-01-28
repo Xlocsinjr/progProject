@@ -11,12 +11,6 @@
 
 var countries = Datamap.prototype.worldTopo.objects.world.geometries;
 
- // console.log(countries);
- // for (var i = 0, j = countries.length; i < j; i++) {
- //   console.log(countries[i].id);
- // }
-
-
 // ------------------- INITIALISATIONS -----------------------------------------
 
 
