@@ -167,3 +167,6 @@ functionality still needs to be cleaned up.
   dropdown obsolete.
   - Maybe the barchart can be a bit larger since it gets crowded very quickly
   when adding more countries.
+
+#### 28-01-2018   week3 - sunday
+- Continued working on the layout of the page.
