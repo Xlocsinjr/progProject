@@ -1,13 +1,17 @@
 /* ------------------------ PAGE LAYOUT ------------------------------------- */
 body {
-  background-color: #e5e5e5;
+  background-color: #F2F2F2;
+}
+
+.container {
+  background-color: white;
+  margin: 10px;
 }
 
 #infoBox {
-  background-color: white;
-  margin: 10px;
   float: left;
-  width: 300px;
+  width: calc(20% - 40px);
+  min-width: 300px;
   height: 400px;
 }
 
@@ -17,15 +21,13 @@ body {
 }
 
 #mapContainer {
-  background-color: white;
-  margin: 10px;
   float: left;
-  width: 900px;
-  height: 400px;
+  width: calc(80% - 40px);
+  min-width: 880px;
+  height: 430px;
 }
 
 #worldMap {
-  border-style: inset;
   position: relative;
 }
 
@@ -60,10 +62,6 @@ body {
 .slidecontainer {
     height: 50px;
     width: 100%;
-}
-
-.mapContainer {
-
 }
 
 /* The slider itself */
@@ -102,6 +100,7 @@ body {
 }
 
 /* ------------------------ REMOVE COUNTRY DROPDOWN ------------------------- */
+/* From: https://www.w3schools.com/howto/howto_js_dropdown.asp */
 
 /* Dropdown Button */
 .dropbtn {
