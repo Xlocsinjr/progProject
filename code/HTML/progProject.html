@@ -16,61 +16,80 @@
 
   </head>
   <body>
-    <div id="infoBox" class="container">
-      <div class="boxHeader">
-        INFO
+    <div id="topBody">
+      <div id="infoBox" class="container">
+        <div class="boxHeader">
+          INFO
+        </div>
+        <div class="boxContent">
+          asdafs, <br>
+          asdasd, asdasdasd, asdasdad. <br>
+          Great! <br>
+          Instructions <br>
+          story
+          <hr>
+          <h4> Emissions world map </h4>
+          This chart shows things. <br>
+          Do things to see things. <br>
+          <hr>
+          <h4> Scatterplot </h4>
+          This chart shows things. <br>
+          Do things to see things. <br>
+          <hr>
+          <h4> Bar chart </h4>
+          This chart shows things. <br>
+          Do things to see things. <br>
+          <hr>
+
+
+        </div>
       </div>
-      <div class="boxText">
-        asdafs, <br>
-        asdasd, asdasdasd, asdasdad. <br>
-        Great! <br>
-        Instructions <br>
-        story
-      </div>
-    </div>
-    <div id="mapContainer" class="container">
-      <div>
-        <div class="boxHeader"> Emissions world map </div>
-        <div id="worldMap" class="boxText"></div>
-      </div>
-      <div class="slidecontainer">
-        <input type="range" min="0" max="42" value="42" class="slider" id="myRange">
-      </div>
-      <div>
-        <svg class="scatterPlot"></svg>
-        <svg class="barChart"></svg>
-      </div>
-      <div id="countryAndSector">
-        <div class="dropdown">
-          <button onclick="myFunction()" class="dropbtn">Remove a country</button>
-          <div id="myDropdown" class="dropdown-content">
-          </div>
+      <div id="mapContainer" class="container">
+        <div>
+          <div class="boxHeader"> Emissions world map </div>
+          <div id="worldMap" class="boxContent"></div>
+        </div>
+        <div class="slidecontainer">
+          <input type="range" min="0" max="42" value="42" class="slider" id="myRange">
         </div>
         <div>
-          <input type="checkbox" class="sectorCheck" id="box1" name="InternationalBunkers" value="InternationalBunkers"> International bunkers <br>
-          <input type="checkbox" class="sectorCheck" id="box2" name="Waste" value="Waste"> Waste <br>
-          <input type="checkbox" class="sectorCheck" id="box3" name="Industry" value="Industry" checked> Industry <br>
-          <input type="checkbox" class="sectorCheck" id="box4" name="Agriculture" value="Agriculture" checked> Agriculture <br>
-          <input type="checkbox" class="sectorCheck" id="box5" name="ResidentialAndCommercial" value="ResidentialAndCommercial"> Residential and commercial <br>
-          <input type="checkbox" class="sectorCheck" id="box6" name="Transport" value="Transport"> Transport <br>
-          <input type="checkbox" class="sectorCheck" id="box7" name="Forestry" value="Forestry" checked> Forestry <br>
-          <input type="checkbox" class="sectorCheck" id="box8" name="LandUseSources" value="LandUseSources"> Land use sources <br>
-          <input type="checkbox" class="sectorCheck" id="box9" name="Energy" value="Energy" checked> Energy <br>
-          <input type="checkbox" class="sectorCheck" id="box10" name="Other" value="Other"> Other
+          <svg class="scatterPlot"></svg>
+          <svg class="barChart"></svg>
+        </div>
+        <div id="countryAndSector">
+          <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn">Remove a country</button>
+            <div id="myDropdown" class="dropdown-content">
+            </div>
+          </div>
+          <div>
+            <input type="checkbox" class="sectorCheck" id="box1" name="InternationalBunkers" value="InternationalBunkers"> International bunkers <br>
+            <input type="checkbox" class="sectorCheck" id="box2" name="Waste" value="Waste"> Waste <br>
+            <input type="checkbox" class="sectorCheck" id="box3" name="Industry" value="Industry" checked> Industry <br>
+            <input type="checkbox" class="sectorCheck" id="box4" name="Agriculture" value="Agriculture" checked> Agriculture <br>
+            <input type="checkbox" class="sectorCheck" id="box5" name="ResidentialAndCommercial" value="ResidentialAndCommercial"> Residential and commercial <br>
+            <input type="checkbox" class="sectorCheck" id="box6" name="Transport" value="Transport"> Transport <br>
+            <input type="checkbox" class="sectorCheck" id="box7" name="Forestry" value="Forestry" checked> Forestry <br>
+            <input type="checkbox" class="sectorCheck" id="box8" name="LandUseSources" value="LandUseSources"> Land use sources <br>
+            <input type="checkbox" class="sectorCheck" id="box9" name="Energy" value="Energy" checked> Energy <br>
+            <input type="checkbox" class="sectorCheck" id="box10" name="Other" value="Other"> Other
+          </div>
         </div>
       </div>
     </div>
-    <footer>
-      <div>
-        Author
+    <div id="bottomBody" class="container">
+      <div id="bottomHeader">
+        asd
       </div>
-      <div>
-        StudentID
+      <div class="boxContent">
+        Author: Xander Locsin <br>
+        StudentID:  10722432 <br>
+        Minor programmeren <br>
+        Programmeerproject
+
       </div>
-      <div>
-        ???
-      </div>
-    </footer>
+    </div>
+
     <script src="../scripts/visualisation.js"></script>
   </body>
 </html>
