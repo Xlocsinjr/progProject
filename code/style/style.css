@@ -3,6 +3,17 @@ body {
   background-color: #e5e5e5;
 }
 
+#infoBox {
+  background-color: #FFFFFF;
+  margin: 10px;
+  float: left;
+  width: 300px;
+}
+
+#infoBoxText {
+  padding: 20px;
+}
+
 #visualisations {
   height: 900px;
 }
