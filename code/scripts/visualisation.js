@@ -9,7 +9,7 @@
  */
 
 
-var countries = Datamap.prototype.worldTopo.objects.world.geometries;
+// var countries = Datamap.prototype.worldTopo.objects.world.geometries;
 
 // ------------------- INITIALISATIONS -----------------------------------------
 
@@ -172,11 +172,14 @@ function main() {
     slider.oninput = function() {
       // Update global variable yearIndex.
       yearIndex = slider.value;
+      var year = parseInt(yearIndex) + 1970;
 
       // Update all visualisations.
       updateMap(yearIndex, data, colourRange);
       updateScatter(yearIndex, data, x, y, countryPlotList);
       updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
+
+      document.getElementById("yearText").innerHTML = year;
     };
 
     // ------------------- SECTOR CHECKBOXES -----------------------------------

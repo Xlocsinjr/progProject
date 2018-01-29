@@ -47,31 +47,36 @@
           <div class="boxHeader"> Emissions world map </div>
           <div id="worldMap" class="boxContent"></div>
         </div>
+
+      </div>
+      <div id="sliderBox" class="container">
+        <div id="yearText" class="boxHeader"></div>
         <div class="slidecontainer">
           <input type="range" min="0" max="42" value="42" class="slider" id="myRange">
         </div>
-        <div>
-          <svg class="scatterPlot"></svg>
-          <svg class="barChart"></svg>
+      </div>
+
+      <div>
+        <svg class="scatterPlot"></svg>
+        <svg class="barChart"></svg>
+      </div>
+      <div id="countryAndSector">
+        <div class="dropdown">
+          <button onclick="myFunction()" class="dropbtn">Remove a country</button>
+          <div id="myDropdown" class="dropdown-content">
+          </div>
         </div>
-        <div id="countryAndSector">
-          <div class="dropdown">
-            <button onclick="myFunction()" class="dropbtn">Remove a country</button>
-            <div id="myDropdown" class="dropdown-content">
-            </div>
-          </div>
-          <div>
-            <input type="checkbox" class="sectorCheck" id="box1" name="InternationalBunkers" value="InternationalBunkers"> International bunkers <br>
-            <input type="checkbox" class="sectorCheck" id="box2" name="Waste" value="Waste"> Waste <br>
-            <input type="checkbox" class="sectorCheck" id="box3" name="Industry" value="Industry" checked> Industry <br>
-            <input type="checkbox" class="sectorCheck" id="box4" name="Agriculture" value="Agriculture" checked> Agriculture <br>
-            <input type="checkbox" class="sectorCheck" id="box5" name="ResidentialAndCommercial" value="ResidentialAndCommercial"> Residential and commercial <br>
-            <input type="checkbox" class="sectorCheck" id="box6" name="Transport" value="Transport"> Transport <br>
-            <input type="checkbox" class="sectorCheck" id="box7" name="Forestry" value="Forestry" checked> Forestry <br>
-            <input type="checkbox" class="sectorCheck" id="box8" name="LandUseSources" value="LandUseSources"> Land use sources <br>
-            <input type="checkbox" class="sectorCheck" id="box9" name="Energy" value="Energy" checked> Energy <br>
-            <input type="checkbox" class="sectorCheck" id="box10" name="Other" value="Other"> Other
-          </div>
+        <div>
+          <input type="checkbox" class="sectorCheck" id="box1" name="InternationalBunkers" value="InternationalBunkers"> International bunkers <br>
+          <input type="checkbox" class="sectorCheck" id="box2" name="Waste" value="Waste"> Waste <br>
+          <input type="checkbox" class="sectorCheck" id="box3" name="Industry" value="Industry" checked> Industry <br>
+          <input type="checkbox" class="sectorCheck" id="box4" name="Agriculture" value="Agriculture" checked> Agriculture <br>
+          <input type="checkbox" class="sectorCheck" id="box5" name="ResidentialAndCommercial" value="ResidentialAndCommercial"> Residential and commercial <br>
+          <input type="checkbox" class="sectorCheck" id="box6" name="Transport" value="Transport"> Transport <br>
+          <input type="checkbox" class="sectorCheck" id="box7" name="Forestry" value="Forestry" checked> Forestry <br>
+          <input type="checkbox" class="sectorCheck" id="box8" name="LandUseSources" value="LandUseSources"> Land use sources <br>
+          <input type="checkbox" class="sectorCheck" id="box9" name="Energy" value="Energy" checked> Energy <br>
+          <input type="checkbox" class="sectorCheck" id="box10" name="Other" value="Other"> Other
         </div>
       </div>
     </div>

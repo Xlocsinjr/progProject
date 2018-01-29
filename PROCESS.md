@@ -170,3 +170,6 @@ functionality still needs to be cleaned up.
 
 #### 28-01-2018   week3 - sunday
 - Continued working on the layout of the page.
+
+#### 29-01-2018   week4 - monday
+- Created properly sized boxes for an info box, the world map and the slider.

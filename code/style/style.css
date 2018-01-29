@@ -8,10 +8,26 @@ body {
   margin: 10px;
 }
 
+.boxHeader {
+  background-color: #FF6A00;
+  padding: 10px;
+  text-align: center;
+  font-size: 20px;
+  color: white;
+}
+
+.boxContent {
+  padding: 20px;
+}
+
 #infoBox {
   float: left;
   width: 300px;
   height: 100%;
+}
+
+#yearText {
+  background-color: #808080;
 }
 
 #visualisations {
@@ -22,7 +38,12 @@ body {
 #mapContainer {
   float: left;
   width: 880px;
-  height: 800px;
+  height: 430px;
+}
+
+#sliderBox {
+  width: 880px;
+  float: left;
 }
 
 #worldMap {
@@ -43,17 +64,7 @@ body {
   width: 180px
 }
 
-.boxHeader {
-  background-color: #FF6A00;
-  padding: 10px;
-  text-align: center;
-  font-size: 20px;
-  color:white;
-}
 
-.boxContent {
-  padding: 20px;
-}
 
 #bottomBody {
   float: left;
@@ -72,15 +83,16 @@ body {
 /* ------------------------ SLIDER ------------------------------------------ */
 /* Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp */
 .slidecontainer {
-    height: 50px;
-    width: 100%;
+  padding: 10px;
+  height: 50px;
+  width: 100%;
 }
 
 /* The slider itself */
 .slider {
     -webkit-appearance: none;  /* Override default CSS styles */
     appearance: none;
-    width: 80%;
+    width: 90%;
     height: 25px; /* Specified height */
     background: #d3d3d3; /* Grey background */
     outline: none; /* Remove outline */
