@@ -85,9 +85,9 @@ function main() {
     // From example: https://bost.ocks.org/mike/bar/3/
 
     // Sets the margins for the chart and sets the width and height.
-    var margin = {top: 20, right: 30, bottom: 40, left: 50},
-        width = 400 - margin.left - margin.right,
-        height = 350 - margin.top - margin.bottom;
+    var margin = {top: 20, right: 60, bottom: 80, left: 50},
+        width = 500 - margin.left - margin.right,
+        height = 450 - margin.top - margin.bottom;
 
     // Sets x-axis scale for GDP.
     var x = d3.scale.log()
@@ -130,8 +130,6 @@ function main() {
         .attr("class", "axisLabel")
         .attr("x", width)
         .attr("y", 30)
-        .style("font", "11px sans-serif")
-        .style("text-anchor", "end")
         .text("GDP (million US$)");
 
     // Adds a g element for a Y axis
@@ -142,8 +140,6 @@ function main() {
         .attr("transform", "rotate(-90)")
         .attr("y", -45)
         .attr("dy", ".71em")
-        .style("font", "11px sans-serif")
-        .style("text-anchor", "end")
         .text("total GHG emission (Mt CO2 equivalent)");
 
 
@@ -153,9 +149,9 @@ function main() {
     // ------------------- BAR CHART -------------------------------------------
 
     // Sets the margins for the bar chart and sets the width and height
-    var barMargin = {top: 20, right: 50, bottom: 40, left: 50},
-      barChartWidth = 400 - barMargin.left - barMargin.right,
-      barChartHeight = 350 - barMargin.top - barMargin.bottom;
+    var barMargin = {top: 20, right: 20, bottom: 80, left: 50},
+      barChartWidth = 600 - barMargin.left - barMargin.right,
+      barChartHeight = 450 - barMargin.top - barMargin.bottom;
 
     // Selects the chart in the html and gives it width, height and margins.
     var barChart = d3.select(".barChart")
@@ -169,17 +165,21 @@ function main() {
 
 
     // ------------------- SLIDER UPDATE ---------------------------------------
+
+    // Initial year display.
+    d3.selectAll(".yearText").innerHTML = parseInt(yearIndex) + 1970;
+
     slider.oninput = function() {
       // Update global variable yearIndex.
       yearIndex = slider.value;
-      var year = parseInt(yearIndex) + 1970;
 
       // Update all visualisations.
       updateMap(yearIndex, data, colourRange);
       updateScatter(yearIndex, data, x, y, countryPlotList);
       updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
 
-      document.getElementById("yearText").innerHTML = year;
+      // Update year indicator.
+      document.getElementsByClassName("yearText").innerHTML = parseInt(yearIndex) + 1970;
     };
 
     // ------------------- SECTOR CHECKBOXES -----------------------------------
@@ -380,11 +380,10 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
 
     /**
      * Padding value definitions.
-     * groupPadding is set to 2 + 5./countriesCount. So if more than 5 countries
-     * have to be plotted, there'll still be at least 2 pixels to separate the
-     * groups.
+     * groupPadding defines the space before and after a group of bars.
+     * rectPadding defines the space between individual bars.
      */
-    var groupPadding = 2 + 5./countriesCount;
+    var groupPadding = 5;
     var rectPadding = 1;
 
 
@@ -395,12 +394,12 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
 
       // Only plot if data is usable.
       if (isNaN(countryData[sectorKey]) == false) {
-        var rectWidth = rectGroupWidth / sectorBarsCount;
+        var rectWidth = (rectGroupWidth - 2 * groupPadding) / sectorBarsCount;
 
         d3.select(".barChartTransform").select(".barRect")
           .append("rect")
             .attr("class", "barRect")
-            .attr("x", (i * (rectGroupWidth + groupPadding)) + (j * rectWidth) + groupPadding)
+            .attr("x", ((i * rectGroupWidth + groupPadding) + j * rectWidth))
             .attr("y", barChartHeight - barYScale(Math.abs(countryData[sectorKey])))
             .attr("height", barYScale(Math.abs(countryData[sectorKey])))
             .attr("width", rectWidth - rectPadding)
@@ -413,6 +412,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
   // Adds a g element for an X axis
   d3.select(".barChartTransform").append("g")
       .attr("class", "barAxis")
+      .attr("id", "barXAxis")
       .attr("transform", "translate(0," + barChartHeight + ")")
       .call(barXAxis)
     .append("text")
@@ -420,7 +420,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
       .attr("x", barChartWidth)
       .attr("y", 30)
       .style("font", "11px sans-serif")
-      .style("text-anchor", "end")
+      .style("text-anchor", "start")
       .text("Country");
 
   // Adds a g element for a Y axis
@@ -434,6 +434,8 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
       .style("font", "11px sans-serif")
       .style("text-anchor", "end")
       .text("GHG emission (Mt CO2 equivalent) (\xB0C)");
+
+  d3.select(".barChartTransform").select("#barXAxis").selectAll("text").style("text-anchor", "start");
 };
 
 

@@ -173,3 +173,6 @@ functionality still needs to be cleaned up.
 
 #### 29-01-2018   week4 - monday
 - Created properly sized boxes for an info box, the world map and the slider.
+- Manual name change of "Congo_the Democratic Republic of the" to "The
+Democratic Republic of the Congo" in worldGDP.csv.
+- Separate boxes for the scatter plot, bar chart and the chart options.

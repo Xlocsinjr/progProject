@@ -1,11 +1,13 @@
 /* ------------------------ PAGE LAYOUT ------------------------------------- */
 body {
   background-color: #F2F2F2;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .container {
   background-color: white;
   margin: 10px;
+  float: left;
 }
 
 .boxHeader {
@@ -27,7 +29,9 @@ body {
 }
 
 #yearText {
-  background-color: #808080;
+  background-color: white;
+  padding: 1px;
+  color: black;
 }
 
 #visualisations {
@@ -61,7 +65,8 @@ body {
 }
 
 #countryAndSector {
-  width: 180px
+  float: left;
+  width: 200px
 }
 
 
@@ -91,6 +96,7 @@ body {
 /* The slider itself */
 .slider {
     -webkit-appearance: none;  /* Override default CSS styles */
+    border: 2px inset;
     appearance: none;
     width: 90%;
     height: 25px; /* Specified height */
@@ -132,7 +138,7 @@ body {
     background-color: #3498DB;
     color: white;
     padding: 16px;
-    font-size: 16px;
+    font-size: 14px;
     border: none;
     cursor: pointer;
 }
@@ -233,5 +239,11 @@ body {
 }
 
 .barAxis text {
+  text-anchor: end;
   font: 11px sans-serif;
+}
+
+#barXAxis text{
+  transform: rotate(45deg);
+  text-anchor: start;
 }
