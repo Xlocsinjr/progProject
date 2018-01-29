@@ -86,7 +86,7 @@ function main() {
 
     // Sets the margins for the chart and sets the width and height.
     var margin = {top: 20, right: 60, bottom: 80, left: 50},
-        width = 500 - margin.left - margin.right,
+        width = 300 - margin.left - margin.right,
         height = 450 - margin.top - margin.bottom;
 
     // Sets x-axis scale for GDP.
@@ -167,7 +167,8 @@ function main() {
     // ------------------- SLIDER UPDATE ---------------------------------------
 
     // Initial year display.
-    d3.selectAll(".yearText").innerHTML = parseInt(yearIndex) + 1970;
+    changeYearTexts(yearIndex);
+
 
     slider.oninput = function() {
       // Update global variable yearIndex.
@@ -179,7 +180,7 @@ function main() {
       updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
 
       // Update year indicator.
-      document.getElementsByClassName("yearText").innerHTML = parseInt(yearIndex) + 1970;
+      changeYearTexts(yearIndex);
     };
 
     // ------------------- SECTOR CHECKBOXES -----------------------------------
@@ -245,6 +246,13 @@ function main() {
 
 
 // ------------------- FUNCTIONS -----------------------------------------------
+
+function changeYearTexts(yearIndex) {
+  var yearTexts = d3.selectAll(".yearText")
+  for (var i = 0; i < yearTexts[0].length; i++) {
+    yearTexts[0][i].innerHTML = parseInt(yearIndex) + 1970;
+  };
+};
 
 
 
@@ -383,7 +391,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
      * groupPadding defines the space before and after a group of bars.
      * rectPadding defines the space between individual bars.
      */
-    var groupPadding = 5;
+    var groupPadding = 5 * (6./countriesCount);
     var rectPadding = 1;
 
 

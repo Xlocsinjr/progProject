@@ -21,24 +21,45 @@
         <div class="boxHeader">
           INFO
         </div>
-        <div class="boxContent">
+        <div id="infoBoxText" class="boxContent">
           asdafs, <br>
           asdasd, asdasdasd, asdasdad. <br>
           Great! <br>
           Instructions <br>
           story
           <hr>
+
           <h4> Emissions world map </h4>
-          This chart shows things. <br>
-          Do things to see things. <br>
+          The world map shows the GHG emissions of countries. <br>
+          <br>
+          Hover over a country to see its GHG emission in kt CO2 equivalent. <br>
+          Click on a country to add the country to the scatter plot and the
+          bar chart. <br>
           <hr>
-          <h4> Scatterplot </h4>
-          This chart shows things. <br>
-          Do things to see things. <br>
+
+          <h4> GHG emissions and GDP </h4>
+          The scatter plot shows the GHG emissions and GDP of the countries
+          selected in the world map. <br>
+          <br>
+          *** Hover over a dot to see the exact GHG emission and GDP. <br>
+          *** Tick the checkbox to change the y-axis from GHG emission to
+          GHG emission per GDP. <br>
           <hr>
-          <h4> Bar chart </h4>
-          This chart shows things. <br>
-          Do things to see things. <br>
+
+          <h4> GHG emission per commercial sector </h4>
+          The grouped bar chart shows the GHG emissions per commercial sector
+          of the countries selected in the world map. <br>
+          <br>
+          *** Hover over a bar to see the exact GHG emission. <br>
+          <hr>
+
+          <h4> Chart options </h4>
+          Click on the dropdown button to reveal a menu to remove countries from
+          the scatter plot and the bar chart. Click on the buttons with a
+          country name to remove that country from the scatter plot and the bar
+          chart. <br>
+          Tick the checkboxes of the commercial sectors of which the GHG
+          emissions will be shown. <br>
           <hr>
         </div>
       </div>
@@ -63,14 +84,14 @@
       </div>
 
       <div id="scatterContainer" class="container">
-        <div class="boxHeader"> Scatterplot</div>
+        <div class="boxHeader"> GHG emissions and GDP </div>
         <div class="boxContent">
           <svg class="scatterPlot"></svg>
         </div>
       </div>
 
       <div id="barContainer" class="container">
-        <div class="boxHeader"> Bar chart</div>
+        <div class="boxHeader"> GHG emission per commercial sector </div>
         <div class="boxContent">
           <svg class="barChart"></svg>
         </div>
