@@ -144,9 +144,9 @@ function main() {
     // ------------------- BAR CHART -------------------------------------------
 
     // Sets the margins for the bar chart and sets the width and height
-    var barMargin = {top: 20, right: 20, bottom: 80, left: 50},
-      barChartWidth = 670 - barMargin.left - barMargin.right,
-      barChartHeight = 320 - barMargin.top - barMargin.bottom;
+    var barMargin = {top: 20, right: 20, bottom: 100, left: 50},
+      barChartWidth = 820 - barMargin.left - barMargin.right,
+      barChartHeight = 350 - barMargin.top - barMargin.bottom;
 
     // Selects the chart in the html and gives it width, height and margins.
     var barChart = d3.select(".barChart")
