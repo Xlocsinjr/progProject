@@ -16,7 +16,77 @@
 
   </head>
   <body>
-    <div id="topBody">
+    <div id="topTitle" class="container">
+      <div class="bottomHeader">
+        Greenhouse gas emissions
+      </div>
+    </div>
+
+
+
+    <div id="leftSide">
+      <div id="mapContainer" class="container">
+        <div class="boxHeader"> Emissions world map </div>
+        <div>
+          World greenhouse gas emissions in
+          <span class="yearText"></span>
+        </div>
+        <div id="worldMap" class="boxContent">
+        </div>
+      </div>
+
+      
+
+      <div id="sliderBox" class="container">
+        <div class="boxHeader">
+          <div class="yearText"></div>
+        </div>
+        <div class="slidecontainer">
+          <input type="range" min="0" max="42" value="42" class="slider" id="myRange">
+        </div>
+      </div>
+
+      <div id="scatterContainer" class="container">
+        <div class="boxHeader"> GHG emissions and GDP </div>
+        <div class="boxContent">
+          <svg class="scatterPlot"></svg>
+        </div>
+      </div>
+
+      <div id="countryAndSector" class="container">
+        <div class="boxHeader">
+          Chart options
+        </div>
+        <div class="boxContent">
+          <div class="dropdown">
+            <button onclick="dropdownToggle()" class="dropbtn">Remove a country</button>
+            <div id="myDropdown" class="dropdown-content">
+            </div>
+          </div>
+          <div>
+            <input type="checkbox" class="sectorCheck" id="box1" name="InternationalBunkers" value="InternationalBunkers"> International bunkers <br>
+            <input type="checkbox" class="sectorCheck" id="box2" name="Waste" value="Waste"> Waste <br>
+            <input type="checkbox" class="sectorCheck" id="box3" name="Industry" value="Industry" checked> Industry <br>
+            <input type="checkbox" class="sectorCheck" id="box4" name="Agriculture" value="Agriculture" checked> Agriculture <br>
+            <input type="checkbox" class="sectorCheck" id="box5" name="ResidentialAndCommercial" value="ResidentialAndCommercial"> Residential and commercial <br>
+            <input type="checkbox" class="sectorCheck" id="box6" name="Transport" value="Transport"> Transport <br>
+            <input type="checkbox" class="sectorCheck" id="box7" name="Forestry" value="Forestry" checked> Forestry <br>
+            <input type="checkbox" class="sectorCheck" id="box8" name="LandUseSources" value="LandUseSources"> Land use sources <br>
+            <input type="checkbox" class="sectorCheck" id="box9" name="Energy" value="Energy" checked> Energy <br>
+            <input type="checkbox" class="sectorCheck" id="box10" name="Other" value="Other"> Other
+          </div>
+        </div>
+      </div>
+
+      <div id="barContainer" class="container">
+        <div class="boxHeader"> GHG emission per commercial sector </div>
+        <div class="boxContent">
+          <svg class="barChart"></svg>
+        </div>
+      </div>
+    </div>
+
+    <div id="rightSide">
       <div id="infoBox" class="container">
         <div class="boxHeader">
           INFO
@@ -62,80 +132,19 @@
           emissions will be shown. <br>
           <hr>
         </div>
-      </div>
+        <div class="bottomHeader">
 
-      <div id="mapContainer" class="container">
-        <div class="boxHeader"> Emissions world map </div>
-        <div>
-          World greenhouse gas emissions in
-          <div class="yearText"></div>
-        </div>
-        <div id="worldMap" class="boxContent">
-        </div>
-      </div>
-
-      <div id="sliderBox" class="container">
-        <div class="boxHeader">
-          <div class="yearText"></div>
-        </div>
-        <div class="slidecontainer">
-          <input type="range" min="0" max="42" value="42" class="slider" id="myRange">
-        </div>
-      </div>
-
-      <div id="scatterContainer" class="container">
-        <div class="boxHeader"> GHG emissions and GDP </div>
-        <div class="boxContent">
-          <svg class="scatterPlot"></svg>
-        </div>
-      </div>
-
-      <div id="barContainer" class="container">
-        <div class="boxHeader"> GHG emission per commercial sector </div>
-        <div class="boxContent">
-          <svg class="barChart"></svg>
-        </div>
-      </div>
-
-      <div id="countryAndSector" class="container">
-        <div class="boxHeader">
-          Chart options
         </div>
         <div class="boxContent">
-          <div class="dropdown">
-            <button onclick="myFunction()" class="dropbtn">Remove a country</button>
-            <div id="myDropdown" class="dropdown-content">
-            </div>
-          </div>
-          <div>
-            <input type="checkbox" class="sectorCheck" id="box1" name="InternationalBunkers" value="InternationalBunkers"> International bunkers <br>
-            <input type="checkbox" class="sectorCheck" id="box2" name="Waste" value="Waste"> Waste <br>
-            <input type="checkbox" class="sectorCheck" id="box3" name="Industry" value="Industry" checked> Industry <br>
-            <input type="checkbox" class="sectorCheck" id="box4" name="Agriculture" value="Agriculture" checked> Agriculture <br>
-            <input type="checkbox" class="sectorCheck" id="box5" name="ResidentialAndCommercial" value="ResidentialAndCommercial"> Residential and commercial <br>
-            <input type="checkbox" class="sectorCheck" id="box6" name="Transport" value="Transport"> Transport <br>
-            <input type="checkbox" class="sectorCheck" id="box7" name="Forestry" value="Forestry" checked> Forestry <br>
-            <input type="checkbox" class="sectorCheck" id="box8" name="LandUseSources" value="LandUseSources"> Land use sources <br>
-            <input type="checkbox" class="sectorCheck" id="box9" name="Energy" value="Energy" checked> Energy <br>
-            <input type="checkbox" class="sectorCheck" id="box10" name="Other" value="Other"> Other
-          </div>
+          Author: Xander Locsin <br>
+          StudentID:  10722432 <br>
+          <hr>
+          Minor programmeren <br>
+          Programmeerproject
+
         </div>
       </div>
     </div>
-    <div id="bottomBody" class="container">
-      <div id="bottomHeader">
-
-      </div>
-      <div class="boxContent">
-        Author: Xander Locsin <br>
-        StudentID:  10722432 <br>
-        <hr>
-        Minor programmeren <br>
-        Programmeerproject
-
-      </div>
-    </div>
-
     <script src="../scripts/visualisation.js"></script>
   </body>
 </html>

@@ -176,3 +176,13 @@ functionality still needs to be cleaned up.
 - Manual name change of "Congo_the Democratic Republic of the" to "The
 Democratic Republic of the Congo" in worldGDP.csv.
 - Separate boxes for the scatter plot, bar chart and the chart options.
+
+#### 30-01-2018   week4 - tuesday
+- Wrote a function to find the minimum and maximum values for GHG emission, GDP
+and GHG emission per sector.
+- Even though the minimum value of GHG emission is 0.02, the lower boundary for
+the world map colour scale will be set to 1000. Countries (Greenland) with
+emissions lower than 1000 kt CO2 equivalent will show up in the colour of 1000
+kt CO2 equivalent.
+- Minimum sector GHG emission is 0 kt CO2 equivalent, which can not be plotted
+in a log scale.

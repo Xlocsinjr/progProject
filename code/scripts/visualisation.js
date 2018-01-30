@@ -9,13 +9,10 @@
  */
 
 
-// var countries = Datamap.prototype.worldTopo.objects.world.geometries;
-
 // ------------------- INITIALISATIONS -----------------------------------------
 
-
-
 // Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp
+// Looks for the slider in the document.
 var slider = document.getElementById("myRange");
 
 
@@ -23,7 +20,7 @@ var slider = document.getElementById("myRange");
 // From: https://www.w3schools.com/howto/howto_js_dropdown.asp
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
-function myFunction() {
+function dropdownToggle() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
 
@@ -42,16 +39,6 @@ var map = new Datamap({
 });
 
 
-map.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
-  console.log(countryPlotList);
-  // Adds the clicked country to the countryPlotList if not already in it.
-  if (countryPlotList.includes(geography.id) == false) {
-    countryPlotList.push(geography.id);
-  };
-
-})
-
-
 
 // Defines the tooltip for the map. The tooltip shows GHG emission data.
 map.options.geographyConfig.popupTemplate = function(geo) {
@@ -68,35 +55,41 @@ function main() {
   d3.json("../../data/jsons/allData.json", function(error, data) {
     if (error) throw error;
 
+    // Find minimum and maximum values of GHG emission, GDP and Sector emission.
+    var minMaxList = minMaxFinder(data);
+    var minGHG = minMaxList[0];
+    var maxGHG = minMaxList[1];
+    var minGDP = minMaxList[2];
+    var maxGDP = minMaxList[3];
+    var minSector = minMaxList[4];
+    var maxSector = minMaxList[5];
+
     // ------------------- MAP -------------------------------------------------
 
     // Colour range
     var colourRange = d3.scale.log()
       .range(["#ABDDA4", "red"])
-      .domain([1000, 12500000]);
-      // 12500000 : China 2012 GHG emission
+      .domain([1000, maxGHG]);
 
     // Initial colouring.
     updateMap(yearIndex, data, colourRange);
-
-
 
     // ------------------- SCATTERPLOT -----------------------------------------
     // From example: https://bost.ocks.org/mike/bar/3/
 
     // Sets the margins for the chart and sets the width and height.
-    var margin = {top: 20, right: 60, bottom: 80, left: 50},
-        width = 300 - margin.left - margin.right,
-        height = 450 - margin.top - margin.bottom;
+    var margin = {top: 20, right: 60, bottom: 30, left: 50},
+        width = 670 - margin.left - margin.right,
+        height = 320 - margin.top - margin.bottom;
 
     // Sets x-axis scale for GDP.
     var x = d3.scale.log()
-        .domain([1, 16200000.])  // World GDP 2012
+        .domain([minGDP, maxGDP])
         .range([0, width]);
 
     // Sets y-axis scale for GHG emissions.
     var y = d3.scale.log()
-      .domain([1, 12500])  // China GHG 2012
+      .domain([minGHG, maxGHG])  // China GHG 2012
       .range([height, 0]);
 
     // Defines the x-axis. Placed at the bottom.
@@ -130,17 +123,19 @@ function main() {
         .attr("class", "axisLabel")
         .attr("x", width)
         .attr("y", 30)
-        .text("GDP (million US$)");
+        .style("text-anchor", "end")
+        .text("GDP (USD)");
 
     // Adds a g element for a Y axis
     scatterPlot.append("g")
         .attr("class", "y axis")
         .call(yAxis)
       .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", -45)
+        .attr("y", -40)
         .attr("dy", ".71em")
-        .text("total GHG emission (Mt CO2 equivalent)");
+        .attr("transform", "rotate(-90)")
+        .style("text-anchor", "end")
+        .text("total GHG emission (lt CO2 equivalent)");
 
 
 
@@ -150,8 +145,8 @@ function main() {
 
     // Sets the margins for the bar chart and sets the width and height
     var barMargin = {top: 20, right: 20, bottom: 80, left: 50},
-      barChartWidth = 600 - barMargin.left - barMargin.right,
-      barChartHeight = 450 - barMargin.top - barMargin.bottom;
+      barChartWidth = 670 - barMargin.left - barMargin.right,
+      barChartHeight = 320 - barMargin.top - barMargin.bottom;
 
     // Selects the chart in the html and gives it width, height and margins.
     var barChart = d3.select(".barChart")
@@ -161,7 +156,7 @@ function main() {
         .attr("class", "barChartTransform")
         .attr("transform", "translate(" + barMargin.left + "," + barMargin.top + ")");
 
-    updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
+    updateBar(yearIndex, data, barChartWidth, barChartHeight, maxSector, countryPlotList, sectorPlotList);
 
 
     // ------------------- SLIDER UPDATE ---------------------------------------
@@ -177,7 +172,7 @@ function main() {
       // Update all visualisations.
       updateMap(yearIndex, data, colourRange);
       updateScatter(yearIndex, data, x, y, countryPlotList);
-      updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
+      updateBar(yearIndex, data, barChartWidth, barChartHeight, maxSector, countryPlotList, sectorPlotList);
 
       // Update year indicator.
       changeYearTexts(yearIndex);
@@ -189,7 +184,7 @@ function main() {
       sectorPlotList = getSectorChecks();
 
       //Update barchart.
-      updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
+      updateBar(yearIndex, data, barChartWidth, barChartHeight, maxSector, countryPlotList, sectorPlotList);
     });
 
 
@@ -210,7 +205,7 @@ function main() {
 
         // Update scatterplot and barchart.
         updateScatter(yearIndex, data, x, y, countryPlotList);
-        updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
+        updateBar(yearIndex, data, barChartWidth, barChartHeight, maxSector, countryPlotList, sectorPlotList);
       });
     };
     recursiveListener();
@@ -233,7 +228,7 @@ function main() {
 
       // Update scatterplot and barchart.
       updateScatter(yearIndex, data, x, y, countryPlotList);
-      updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList);
+      updateBar(yearIndex, data, barChartWidth, barChartHeight, maxSector, countryPlotList, sectorPlotList);
     });
   });
 };
@@ -247,6 +242,80 @@ function main() {
 
 // ------------------- FUNCTIONS -----------------------------------------------
 
+function minMaxFinder(data){
+  var minGDP = 100000000000000;
+  var maxGDP = 0;
+  var minGHG = 100000000000000;
+  var maxGHG = 0;
+  var minSector = 100000000000000;
+  var maxSector = 0;
+
+  for (var i = 0; i < data.length; i++) {
+    var yearData = data[i];
+    var yearKeys = Object.keys(yearData);
+
+    // Iterate through all keys of year data.
+    for (var j = 0; j < yearKeys.length; j++) {
+      var key = yearKeys[j];
+
+      // Only check key if continuing to country data.
+      if (key != "year") {
+        var countryData = yearData[key];
+        var countryKeys = Object.keys(countryData);
+
+        // Iterate through all keys of country data.
+        for (var k = 0; k < countryKeys.length; k++) {
+          var countryKey = countryKeys[k];
+
+          // Only check if continuing to datavalues.
+          if (countryKey != "Name") {
+            var dataValue = countryData[countryKey];
+
+            // Only continue if data is available.
+            if (dataValue != "NAV") {
+
+              // Check min and max for GHG emissions.
+              if (countryKey == "GHG") {
+                if (dataValue < minGHG) {
+                  minGHG = dataValue;
+                };
+                if (dataValue > maxGHG) {
+                  maxGHG = dataValue;
+                };
+              }
+
+              // Check min and max for GDP.
+              else if (countryKey == "GDP") {
+                if (dataValue < minGDP) {
+                  minGDP = dataValue;
+                };
+                if (dataValue > maxGDP) {
+                  maxGDP = dataValue;
+                };
+              }
+
+              // Check min and max for sector GHG emissions.
+              else {
+                if (Math.abs(dataValue) < minSector) {
+                  minSector = Math.abs(dataValue);
+                };
+                if (Math.abs(dataValue) > maxSector) {
+                  maxSector = Math.abs(dataValue);
+                };
+              }
+            };
+          };
+        };
+      };
+    };
+  };
+  var resultList = [minGHG, maxGHG, minGDP, maxGDP, minSector, maxSector];
+  return resultList;
+};
+
+/**
+ *
+ */
 function changeYearTexts(yearIndex) {
   var yearTexts = d3.selectAll(".yearText")
   for (var i = 0; i < yearTexts[0].length; i++) {
@@ -301,15 +370,15 @@ function updateScatter(yearIndex, data, xScale, yScale, countryPlotList) {
 
     // Only place dot if both data is available.
     if ((isNaN(GDPval) != true) && (isNaN(GHGval) != true)){
-      var xPos = xScale(GDPval / 1000000.);
-      var yPos = yScale(GHGval / 1000.);
+      var xPos = xScale(GDPval);
+      var yPos = yScale(GHGval);
 
       var newDot = d3.select("#allDots").append("g")
           .attr("class", "scatterDot");
 
       newDot.append("circle")
-          .attr("cx", xPos) // million USD
-          .attr("cy", yPos) // Mt CO2 eq
+          .attr("cx", xPos)
+          .attr("cy", yPos)
           .attr("r", 2);
 
       newDot.append("text")
@@ -326,7 +395,7 @@ function updateScatter(yearIndex, data, xScale, yScale, countryPlotList) {
 /**
  *
  */
-function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotList, sectorPlotList) {
+function updateBar(yearIndex, data, barChartWidth, barChartHeight, YUpper, countryPlotList, sectorPlotList) {
   var keysList = Object.keys(data[yearIndex]);
   var countriesCount = countryPlotList.length;
 
@@ -344,7 +413,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, countryPlotLi
 
   // Linear scale to properly set the length of the bars.
   var barYScale = d3.scale.log()
-    .domain([1, 10000000])
+    .domain([1, YUpper])
     .range([0, barChartHeight]);
 
   // Defines the x-axis. Placed at the bottom.

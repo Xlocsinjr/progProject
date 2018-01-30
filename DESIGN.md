@@ -18,9 +18,9 @@ From this link, time series data for GDP for countries over the years can be
 found.
 
 - https://ourworldindata.org/co2-and-other-greenhouse-gas-emissions#emissions-by-sector
-At emissions by sector. Here a data file can be found for GHG emission for countries
-mostly in the years 1990 to 2010. Some countries do have data for years outside this
-range but then it is only for certain sectors.
+At emissions by sector. Here a data file can be found for GHG emission for
+countries mostly in the years 1990 to 2010. Some countries do have data for
+years outside this range but then it is only for certain sectors.
 
 ##### Data reworking
 The data for GHG emissions is given in excel files (.xlsx).
@@ -89,8 +89,7 @@ which means all other countries are barely coloured.
 ```
 
 ###### Grouped bar chart
-- Bars can either be grouped by sector and have the countries identified by colour,
-or the bars can be grouped by country and have the sectors identified by the colour.
+- Bars will be grouped by country
 
 
 ### Scripts and functions
@@ -100,10 +99,22 @@ or the bars can be grouped by country and have the sectors identified by the col
 ##### Functions
 - NOTE: All functions are defined in visualisations.js.
 - NOTE: every interactive element will have its own update function
-- function updateScatterYear: This function updates the scatter plot to data
-of a different year.
-- function updateColour: This function updates the world map's country's colours
-to data of a different year.
+- function changeYearTexts changes the mentions of the year in text an other
+year.
+- function updateMap: This function updates the world map's country's colours
+and the datamaps data to data of an other year.
+- function updateScatter: This function updates the scatter plot to data
+of a different year, and for different selections of countries.
+- function updateBar updates the bar chart to different selections of year,
+countries and sectors.
+- function getSectorChecks creates a list of the elements checked in the sector
+selection checkbox menu/legend.
+- function getBoxCheck checks if a specific box is checked. This function is
+used by getSectorChecks.
+- function removeDropdownWriter clears the dropdown buttons to remove countries
+and remakes the list with a different selection of countries.
+- function countryRemove removes a country from the "to plot" list.
+
 
 ### Design diagram
 ![](doc/designSketch.png)
