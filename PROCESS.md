@@ -186,3 +186,5 @@ emissions lower than 1000 kt CO2 equivalent will show up in the colour of 1000
 kt CO2 equivalent.
 - Minimum sector GHG emission is 0 kt CO2 equivalent, which can not be plotted
 in a log scale.
+- Layout can now be considered done. It might get tweaked later on but the
+current layout is good enough.

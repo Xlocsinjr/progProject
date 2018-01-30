@@ -78,9 +78,9 @@ function main() {
     // From example: https://bost.ocks.org/mike/bar/3/
 
     // Sets the margins for the chart and sets the width and height.
-    var margin = {top: 20, right: 60, bottom: 30, left: 50},
-        width = 670 - margin.left - margin.right,
-        height = 320 - margin.top - margin.bottom;
+    var margin = {top: 20, right: 40, bottom: 30, left: 50},
+        width = 600 - margin.left - margin.right,
+        height = 275 - margin.top - margin.bottom;
 
     // Sets x-axis scale for GDP.
     var x = d3.scale.log()

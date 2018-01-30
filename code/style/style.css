@@ -33,7 +33,7 @@ body {
 #leftSide {
   float: left;
   width: 75%;
-  min-width: 860px;
+  min-width: 900px;
 }
 
 #rightSide {
@@ -60,13 +60,13 @@ body {
 #mapContainer {
   float: left;
   width: calc(100% - 20px);
-  min-width: 920px;
+  min-width: 880px;
   height: 450px;
 }
 
 #sliderBox {
   width: calc(100% - 20px);
-  min-width: 920px;
+  min-width: 880px;
   float: left;
 }
 
@@ -74,19 +74,29 @@ body {
   position: relative;
 }
 
-#bottom {
-  width: 100%;
-  height: 450px;
+
+#barContainer {
+  float: left;
+  width: calc(100% - 20px);
+  min-width: 680px;
+  height: 360px;
 }
 
-#bottomLeft {
+#scatterContainer {
   float: left;
-  width: 810px;
+  width: calc(75% - 20px);
+  min-width: 620px;
+  height: 360px;
 }
 
 #countryAndSector {
   float: left;
-  width: 200px
+  width: calc(25% - 20px);
+  height: 360px;
+}
+
+#countryAndSectorContent {
+  font: 13px sans-serif;
 }
 
 #topTitle {
@@ -152,7 +162,7 @@ body {
 .dropbtn {
     background-color: #3498DB;
     color: white;
-    padding: 16px;
+    padding: 5px;
     font-size: 14px;
     border: none;
     cursor: pointer;
