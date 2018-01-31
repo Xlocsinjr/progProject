@@ -195,3 +195,6 @@ for the grouped bar chart.
 - It is now possible to switch the y-axis between GHG emission
 (Mt CO2 equivalent) and GHG emission per GDP (Kg CO2 equivalent per USD) in the
 scatter plot.
+- The scatterplot dots now have a tooltip to show GDP and GHG emission or GHG
+emission per GDP values. Also the dots get highlighted in red when hovering over
+them.

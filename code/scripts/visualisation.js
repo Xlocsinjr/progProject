@@ -119,10 +119,6 @@ function main() {
         .attr("id", "scatterTransform")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var dots = d3.select(".scatterPlot").select("#scatterTransform").append("g")
-      .attr("id", "allDots");
-
-
     // Adds a g element for an X axis
     scatterPlot.append("g")
         .attr("class", "x axis")
@@ -372,12 +368,42 @@ function updateMap(yearIndex, data, colourScale) {
  *  xScale, yScale: data scales to correctly place dots in the chart.
  */
 function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotList, YChecked) {
-  //
+  // Magic number to convert Megaton to Kilogram.
   var MtToKg = 1000000;
 
+  var scatterPlot = d3.select("#theScatterPlot").select("#scatterTransform");
+
+
+  // Form data dictionary.
+  var plotData = [];
+
+  for (var i = 0; i < countryPlotList.length; i++) {
+    var valuesDict = {};
+    key = countryPlotList[i];
+
+    var GDPval = data[yearIndex][key]["GDP"];
+    var GHGval = data[yearIndex][key]["GHG"];
+
+    valuesDict["GDP"] = GDPval;
+    valuesDict["GHG"] = GHGval;
+    valuesDict["Name"] = data[yearIndex][key]["Name"];
+
+    // Only register if both GDP and GHG data is available.
+    if ((isNaN(GDPval) != true) && (isNaN(GHGval) != true)){
+      plotData[i] = valuesDict;
+    };
+  };
+
   // Remove all dots and the y axis.
-  d3.select("#theScatterPlot").selectAll(".scatterDot").remove();
+  d3.select("#theScatterPlot").selectAll(".scatterDotCircle").remove();
+  d3.select("#theScatterPlot").selectAll(".scatterDotText").remove();
   d3.select("#theScatterPlot").select("#scatterYAxis").remove();
+
+  var scatterTip = d3.tip()
+    .attr("class", "scatterTip");
+
+
+  scatterPlot.call(scatterTip);
 
   var yScale;
   var yAxis;
@@ -401,49 +427,67 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
       .orient("left");
   };
 
-  // Iterates through all the countries that need to be plotted.
-  for (var i = 0; i < countryPlotList.length; i++) {
-    key = countryPlotList[i];
 
-    // If the key is for country data: add dot at position based on GDP and GHG.
-    var GDPval = data[yearIndex][key]["GDP"];
-    var GHGval = data[yearIndex][key]["GHG"];
+  // Adds a dot for every country.
+  scatterPlot.selectAll(".scatterDot")
+  .data(plotData)
+  .enter()
+  .append("circle")
+    .attr("class", "scatterDotCircle")
 
-    // Only place dot if both data is available.
-    if ((isNaN(GDPval) != true) && (isNaN(GHGval) != true)){
-      var xPos = xScale(GDPval);
+    .attr("cx", function(d) { return xScale(d["GDP"]); })
+    .attr("cy", function(d) {
+      if (YChecked == true) { return (yScale(d["GHG"] / d["GDP"]) * MtToKg); };
+      if (YChecked == false) { return (yScale(d["GHG"])); };
+    })
+    .attr("r", 4)
 
-      if (YChecked == false) {
-        var yPos = yScale(GHGval);
-      };
-
+    // Shows and hides the calendar tooltip.
+    .on("mouseover", function(d) {
       if (YChecked == true) {
-        var yPos = yScale((GHGval / GDPval) * MtToKg);
+        scatterTip.html(
+          "<div class='scatterTipText'>"
+          + "<span class='tipTitle'>" + d["Name"] + "</span><br>"
+          + "GHG/GDP: " + (d["GHG"] / d["GDP"]) * MtToKg + "<br>"
+          + "GDP: " + d["GDP"] + "</div>"
+        );
       };
-
-      var newDot = d3.select("#allDots").append("g")
-          .attr("class", "scatterDot");
-
-      newDot.append("circle")
-          .attr("class", "scatterDotCircle")
-          .attr("cx", xPos)
-          .attr("cy", yPos)
-          .attr("r", 2);
-
-      newDot.append("text")
-          .attr("class", "scatterDotText")
-          .attr("x", xPos)
-          .attr("y", yPos + 8)
-          .style("font", "8px sans-serif")
-          .text(function() { return data[yearIndex][key]["Name"];});
+      if (YChecked == false) {
+        scatterTip.html(
+          "<div class='scatterTipText'>"
+          + "<span class='tipTitle'>" + d["Name"] + "</span><br>"
+          + "GHG: " + d["GHG"] + "<br>"
+          + "GDP: " + d["GDP"] + "</div>"
+        );
+      };
+      scatterTip.show();
+    })
+    .on("mouseout", scatterTip.hide);
 
 
+  // Adds a dot for every country.
+  scatterPlot.selectAll(".scatterDotText")
+  .data(plotData)
+  .enter()
+  .append("text")
+    .attr("class", "scatterDotText")
+    .attr("x", function(d) { return xScale(d["GDP"]) + 3; })
+    .attr("y", function(d) {
+      if (YChecked == true) {
+        return (yScale(d["GHG"] / d["GDP"]) * MtToKg) + 4;
+       };
+      if (YChecked == false) {
+        return (yScale(d["GHG"]) + 8);
+      };
+    })
+    .style("font", "8px sans-serif")
+    .text(function(d) { return d["Name"];});;
 
-    };
-  };
+
+
 
   // Adds a g element for a Y axis
-  var yAxisElement = d3.select("#theScatterPlot").select("#scatterTransform").append("g")
+  var yAxisElement = scatterPlot.append("g")
       .attr("id", "scatterYAxis")
       .attr("class", "y axis")
       .call(yAxis)
@@ -453,7 +497,8 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
       .attr("dy", ".71em")
       .attr("transform", "rotate(-90)")
       .style("text-anchor", "end");
-      //.text("total GHG emission (kt CO2 equivalent)");
+
+
 
   if (YChecked == false) {
     d3.select("#yAxisLabelText")
@@ -463,7 +508,6 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
     d3.select("#yAxisLabelText")
       .text("GHG emission per GDP (Kg CO2 equivalent / USD)");
   };
-
 };
 
 
