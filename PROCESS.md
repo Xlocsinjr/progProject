@@ -192,3 +192,6 @@ current layout is good enough.
 #### 31-01-2018   week4 - wedensday
 - Created boxes in the sector checkbox list so the list can double as a legend
 for the grouped bar chart.
+- It is now possible to switch the y-axis between GHG emission
+(Mt CO2 equivalent) and GHG emission per GDP (Kg CO2 equivalent per USD) in the
+scatter plot.

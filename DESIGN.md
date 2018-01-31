@@ -99,12 +99,16 @@ which means all other countries are barely coloured.
 ##### Functions
 - NOTE: All functions are defined in visualisations.js.
 - NOTE: every interactive element will have its own update function
-- function changeYearTexts changes the mentions of the year in text an other
+- function minMaxFinder finds the minimum and maximum value of the GDP, the GHG
+emissions and the GHG emissions per sector in the data. This function returns
+the minima and maxima in a list.
+- function changeYearTexts changes the mentions of the year in text to an other
 year.
 - function updateMap: This function updates the world map's country's colours
 and the datamaps data to data of an other year.
 - function updateScatter: This function updates the scatter plot to data
 of a different year, and for different selections of countries.
+- function scatterYChange ================
 - function updateBar updates the bar chart to different selections of year,
 countries and sectors.
 - function getSectorChecks creates a list of the elements checked in the sector

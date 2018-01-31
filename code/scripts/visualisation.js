@@ -29,6 +29,7 @@ function dropdownToggle() {
 var yearIndex = slider.value;
 var sectorPlotList = getSectorChecks();
 var countryPlotList = ["NLD", "USA", "CHN", "DEU", "RUS"];
+var YChecked = document.getElementById("YCheck").checked;
 
 // Generate world map.
 var map = new Datamap({
@@ -104,20 +105,10 @@ function main() {
         .domain([minGDP, maxGDP])
         .range([0, width]);
 
-    // Sets y-axis scale for GHG emissions.
-    var y = d3.scale.log()
-      .domain([minGHG, maxGHG])  // China GHG 2012
-      .range([height, 0]);
-
     // Defines the x-axis. Placed at the bottom.
     var xAxis = d3.svg.axis()
         .scale(x)
         .orient("bottom");
-
-    // Defines the y-axis. Placed on the left.
-    var yAxis = d3.svg.axis()
-        .scale(y)
-        .orient("left");
 
     // Selects the chart in the html and gives it width, height and margins.
     var scatterPlot = d3.select(".scatterPlot")
@@ -125,9 +116,10 @@ function main() {
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
       .append("g")
+        .attr("id", "scatterTransform")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var dots = scatterPlot.append("g")
+    var dots = d3.select(".scatterPlot").select("#scatterTransform").append("g")
       .attr("id", "allDots");
 
 
@@ -143,20 +135,7 @@ function main() {
         .style("text-anchor", "end")
         .text("GDP (USD)");
 
-    // Adds a g element for a Y axis
-    scatterPlot.append("g")
-        .attr("class", "y axis")
-        .call(yAxis)
-      .append("text")
-        .attr("y", -40)
-        .attr("dy", ".71em")
-        .attr("transform", "rotate(-90)")
-        .style("text-anchor", "end")
-        .text("total GHG emission (lt CO2 equivalent)");
-
-
-
-    updateScatter(yearIndex, data, x, y, countryPlotList);
+    updateScatter(yearIndex, data, height, minGHG, maxGHG, x, countryPlotList, YChecked);
 
     // ------------------- BAR CHART -------------------------------------------
 
@@ -187,7 +166,7 @@ function main() {
 
       // Update all visualisations.
       updateMap(yearIndex, data, colourRange);
-      updateScatter(yearIndex, data, x, y, countryPlotList);
+      updateScatter(yearIndex, data, height, minGHG, maxGHG, x, countryPlotList, YChecked);
       updateBar(yearIndex, data, barChartWidth, barChartHeight, maxSector, countryPlotList, sectorPlotList);
 
       // Update year indicator.
@@ -227,12 +206,11 @@ function main() {
         recursiveListener();
 
         // Update scatterplot and barchart.
-        updateScatter(yearIndex, data, x, y, countryPlotList);
+        updateScatter(yearIndex, data, height, minGHG, maxGHG, x, countryPlotList, YChecked);
         updateBar(yearIndex, data, barChartWidth, barChartHeight, maxSector, countryPlotList, sectorPlotList);
       });
     };
     recursiveListener();
-
 
 
     // ------------------- ADD COUNTRY MAP CLICK -------------------------------
@@ -250,10 +228,21 @@ function main() {
       recursiveListener();
 
       // Update scatterplot and barchart.
-      updateScatter(yearIndex, data, x, y, countryPlotList);
+      updateScatter(yearIndex, data, height, minGHG, maxGHG, x, countryPlotList, YChecked);
       updateBar(yearIndex, data, barChartWidth, barChartHeight, maxSector, countryPlotList, sectorPlotList);
     });
+
+
+    // ------------------- SCATTER PLOT Y AXIS CHANGE --------------------------
+
+    document.getElementById("YCheck").onclick = function () {
+      YChecked = document.getElementById("YCheck").checked;
+      console.log(YChecked);
+
+      updateScatter(yearIndex, data, height, minGHG, maxGHG, x, countryPlotList, YChecked);
+    };
   });
+
 };
 
 
@@ -265,6 +254,10 @@ function main() {
 
 // ------------------- FUNCTIONS -----------------------------------------------
 
+/**
+ * Finds the minimum and maximum value of the GDP, the GHG emissions and from
+ * the GHG emissions of all sectors.
+ */
 function minMaxFinder(data){
   var minGDP = 100000000000000;
   var maxGDP = 0;
@@ -337,7 +330,7 @@ function minMaxFinder(data){
 };
 
 /**
- *
+ * Changes text mentions of the year the data is showing to the correct year.
  */
 function changeYearTexts(yearIndex) {
   var yearTexts = d3.selectAll(".yearText")
@@ -379,9 +372,35 @@ function updateMap(yearIndex, data, colourScale) {
  *  data: data object from which the data is retrieved.
  *  xScale, yScale: data scales to correctly place dots in the chart.
  */
-function updateScatter(yearIndex, data, xScale, yScale, countryPlotList) {
-  // Remove all dots.
+function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotList, YChecked) {
+  //
+  var MtToKg = 1000000;
+
+  // Remove all dots and the y axis.
   d3.select("#theScatterPlot").selectAll(".scatterDot").remove();
+  d3.select("#theScatterPlot").select("#scatterYAxis").remove();
+
+  var yScale;
+  var yAxis;
+
+  if (YChecked == false) {
+    yScale = d3.scale.log()
+      .domain([min, max])
+      .range([height, 0]);
+
+    yAxis = d3.svg.axis()
+        .scale(yScale)
+        .orient("left");
+  };
+  if (YChecked == true) {
+    yScale = d3.scale.log()
+      .domain([0.01, max / MtToKg])
+      .range([height, 0]);
+
+    yAxis = d3.svg.axis()
+      .scale(yScale)
+      .orient("left");
+  };
 
   // Iterates through all the countries that need to be plotted.
   for (var i = 0; i < countryPlotList.length; i++) {
@@ -394,29 +413,64 @@ function updateScatter(yearIndex, data, xScale, yScale, countryPlotList) {
     // Only place dot if both data is available.
     if ((isNaN(GDPval) != true) && (isNaN(GHGval) != true)){
       var xPos = xScale(GDPval);
-      var yPos = yScale(GHGval);
+
+      if (YChecked == false) {
+        var yPos = yScale(GHGval);
+      };
+
+      if (YChecked == true) {
+        var yPos = yScale((GHGval / GDPval) * MtToKg);
+      };
 
       var newDot = d3.select("#allDots").append("g")
           .attr("class", "scatterDot");
 
       newDot.append("circle")
+          .attr("class", "scatterDotCircle")
           .attr("cx", xPos)
           .attr("cy", yPos)
           .attr("r", 2);
 
       newDot.append("text")
+          .attr("class", "scatterDotText")
           .attr("x", xPos)
           .attr("y", yPos + 8)
           .style("font", "8px sans-serif")
           .text(function() { return data[yearIndex][key]["Name"];});
+
+
+
     };
   };
+
+  // Adds a g element for a Y axis
+  var yAxisElement = d3.select("#theScatterPlot").select("#scatterTransform").append("g")
+      .attr("id", "scatterYAxis")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("id", "yAxisLabelText")
+      .attr("y", -40)
+      .attr("dy", ".71em")
+      .attr("transform", "rotate(-90)")
+      .style("text-anchor", "end");
+      //.text("total GHG emission (kt CO2 equivalent)");
+
+  if (YChecked == false) {
+    d3.select("#yAxisLabelText")
+      .text("total GHG emission (kt CO2 equivalent)");
+  };
+  if (YChecked == true) {
+    d3.select("#yAxisLabelText")
+      .text("GHG emission per GDP (Kg CO2 equivalent / USD)");
+  };
+
 };
 
 
-
 /**
- *
+ * Recreates the bar chart with a selection of sectors to plot, a selection of
+ * countries to plot and on a specific year.
  */
 function updateBar(yearIndex, data, barChartWidth, barChartHeight, YUpper, countryPlotList, sectorPlotList) {
   var keysList = Object.keys(data[yearIndex]);
@@ -528,7 +582,8 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, YUpper, count
 
 
 /**
- *
+ * Checks all boxes related to the sector selection for the bar chart and
+ * forms a "to plot" list to be used by the bar chart.
  */
 function getSectorChecks() {
   var plotList = [];
@@ -547,7 +602,8 @@ function getSectorChecks() {
 };
 
 /**
- *
+ * Checks if a specific box is checked and adds it to the "to plot" list if it
+ * is.
  */
 function getBoxCheck(plotList, id) {
   var pushedPlot = plotList;
@@ -560,7 +616,8 @@ function getBoxCheck(plotList, id) {
 
 
 /**
- *
+ * Renews the menu from the dropdown to the show removal buttons for a new
+ * selection of countries.
  */
 function removeDropdownWriter(countryPlotList, data) {
   // Clears the div.

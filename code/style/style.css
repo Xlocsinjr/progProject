@@ -86,13 +86,13 @@ body {
   float: left;
   width: calc(75% - 20px);
   min-width: 620px;
-  height: 360px;
+  height: 400px;
 }
 
 #countryAndSector {
   float: left;
   width: calc(25% - 20px);
-  height: 360px;
+  height: 400px;
 }
 
 #countryAndSectorContent {
@@ -104,19 +104,8 @@ body {
   height: 50px;
 }
 
-#bottomBody {
-  float: right;
-  width: 300px;
-  height: 200px;
-}
 
 
-
-.legendBox {
-  width: 10px;
-  height: 10px;
-  border: 1px solid;
-}
 
 /* ------------------------ SLIDER ------------------------------------------ */
 /* Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp */
@@ -218,6 +207,12 @@ body {
 }
 
 /* ------------------------ SCATTERPLOT ------------------------------------- */
+.legendBox {
+  width: 10px;
+  height: 10px;
+  border: 1px solid;
+}
+
 .chart text {
   fill: black;
   font: 10px sans-serif;
