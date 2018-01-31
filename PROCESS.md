@@ -197,4 +197,4 @@ for the grouped bar chart.
 scatter plot.
 - The scatterplot dots now have a tooltip to show GDP and GHG emission or GHG
 emission per GDP values. Also the dots get highlighted in red when hovering over
-them.
+them. Switching to GHG per GDP does not work anymore however.
