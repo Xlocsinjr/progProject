@@ -16,7 +16,6 @@
 var slider = document.getElementById("myRange");
 
 
-
 // From: https://www.w3schools.com/howto/howto_js_dropdown.asp
 /* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
@@ -82,6 +81,8 @@ function main() {
     var minSector = minMaxList[4];
     var maxSector = minMaxList[5];
 
+    console.log(minGHG, maxGHG);
+
     // ------------------- MAP -------------------------------------------------
 
     // Colour range
@@ -93,7 +94,6 @@ function main() {
     updateMap(yearIndex, data, colourRange);
 
     // ------------------- SCATTERPLOT -----------------------------------------
-    // From example: https://bost.ocks.org/mike/bar/3/
 
     // Sets the margins for the chart and sets the width and height.
     var margin = {top: 20, right: 40, bottom: 30, left: 50},
@@ -165,11 +165,13 @@ function main() {
       updateScatter(yearIndex, data, height, minGHG, maxGHG, x, countryPlotList, YChecked);
       updateBar(yearIndex, data, barChartWidth, barChartHeight, maxSector, countryPlotList, sectorPlotList);
 
-      // Update year indicator.
+      // Update year indicators in the html.
       changeYearTexts(yearIndex);
     };
 
     // ------------------- SECTOR CHECKBOXES -----------------------------------
+
+    // Adds a listener for change on all sector check boxes.
     d3.selectAll(".sectorCheck").on("change", function() {
       // Update global variable sectorPlotList.
       sectorPlotList = getSectorChecks();
@@ -182,6 +184,7 @@ function main() {
     var boxes = document.getElementsByClassName("legendBox");
     var sectorKeys = Object.keys(sectorColour);
 
+    // Applies the correct background color for the boxes for the legend.
     for (var i = 0; i < boxes.length; i++) {
       var box = boxes[i];
       box.style["background-color"] = sectorColour[sectorKeys[i]];
@@ -190,6 +193,8 @@ function main() {
 
 
     // ------------------- REMOVE COUNTRY DROPDOWN -----------------------------
+
+    // Form the dropdown buttons.
     removeDropdownWriter(countryPlotList, data);
 
     // Adds a recursive listener for buttons in the country removal dropdown.
@@ -211,6 +216,7 @@ function main() {
 
     // ------------------- ADD COUNTRY MAP CLICK -------------------------------
 
+    // Adds a listener for clicking to the countries in the map.
     map.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
       // Adds the clicked country to the countryPlotList if not already in it.
       if (countryPlotList.includes(geography.id) == false) {
@@ -231,9 +237,12 @@ function main() {
 
     // ------------------- SCATTER PLOT Y AXIS CHANGE --------------------------
 
+    // Adds a listener for clicking that changes the y axis of the scatter plot.
     document.getElementById("YCheck").onclick = function () {
+      // Update the global variable that tracks if the checkbox is checked.
       YChecked = document.getElementById("YCheck").checked;
 
+      // Updates the scatterplot.
       updateScatter(yearIndex, data, height, minGHG, maxGHG, x, countryPlotList, YChecked);
     };
   });
@@ -324,6 +333,7 @@ function minMaxFinder(data){
   return resultList;
 };
 
+
 /**
  * Changes text mentions of the year the data is showing to the correct year.
  */
@@ -373,10 +383,8 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
 
   var scatterPlot = d3.select("#theScatterPlot").select("#scatterTransform");
 
-
   // Form data dictionary.
   var plotData = [];
-
   for (var i = 0; i < countryPlotList.length; i++) {
     var valuesDict = {};
     key = countryPlotList[i];
@@ -390,7 +398,7 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
 
     // Only register if both GDP and GHG data is available.
     if ((isNaN(GDPval) != true) && (isNaN(GHGval) != true)){
-      plotData[i] = valuesDict;
+      plotData.push(valuesDict);
     };
   };
 
@@ -419,7 +427,7 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
   };
   if (YChecked == true) {
     yScale = d3.scale.log()
-      .domain([0.01, max / MtToKg])
+      .domain([0.001, max / MtToKg])
       .range([height, 0]);
 
     yAxis = d3.svg.axis()
@@ -434,10 +442,9 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
   .enter()
   .append("circle")
     .attr("class", "scatterDotCircle")
-
     .attr("cx", function(d) { return xScale(d["GDP"]); })
     .attr("cy", function(d) {
-      if (YChecked == true) { return (yScale(d["GHG"] / d["GDP"]) * MtToKg); };
+      if (YChecked == true) { return (yScale((d["GHG"] / d["GDP"])* MtToKg) ); };
       if (YChecked == false) { return (yScale(d["GHG"])); };
     })
     .attr("r", 4)
@@ -474,7 +481,7 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
     .attr("x", function(d) { return xScale(d["GDP"]) + 3; })
     .attr("y", function(d) {
       if (YChecked == true) {
-        return (yScale(d["GHG"] / d["GDP"]) * MtToKg) + 4;
+        return (yScale((d["GHG"] / d["GDP"]) * MtToKg) ) + 4;
        };
       if (YChecked == false) {
         return (yScale(d["GHG"]) + 8);
@@ -482,9 +489,6 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
     })
     .style("font", "8px sans-serif")
     .text(function(d) { return d["Name"];});;
-
-
-
 
   // Adds a g element for a Y axis
   var yAxisElement = scatterPlot.append("g")
@@ -497,8 +501,6 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
       .attr("dy", ".71em")
       .attr("transform", "rotate(-90)")
       .style("text-anchor", "end");
-
-
 
   if (YChecked == false) {
     d3.select("#yAxisLabelText")
@@ -533,7 +535,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, YUpper, count
 
   // Linear scale to properly set the length of the bars.
   var barYScale = d3.scale.log()
-    .domain([1, YUpper])
+    .domain([0.001, YUpper])
     .range([0, barChartHeight]);
 
   // Defines the x-axis. Placed at the bottom.
@@ -561,8 +563,6 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, YUpper, count
     var barGroup = d3.select(".barChartTransform").append("g")
         .attr("class", "barRect");
 
-
-
     /**
      * Padding value definitions.
      * groupPadding defines the space before and after a group of bars.
@@ -571,22 +571,35 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, YUpper, count
     var groupPadding = 5 * (6./countriesCount);
     var rectPadding = 1;
 
-
     // Loop through all sectors that need to be plotted.
     for (j in sectorPlotList) {
       sectorKey = sectorPlotList[j];
       sectorBarsCount = sectorPlotList.length;
 
       // Only plot if data is usable.
-      if (isNaN(countryData[sectorKey]) == false) {
+      if (isNaN(countryData[sectorKey]) != true) {
         var rectWidth = (rectGroupWidth - 2 * groupPadding) / sectorBarsCount;
 
         d3.select(".barChartTransform").select(".barRect")
           .append("rect")
             .attr("class", "barRect")
             .attr("x", ((i * rectGroupWidth + groupPadding) + j * rectWidth))
-            .attr("y", barChartHeight - barYScale(Math.abs(countryData[sectorKey])))
-            .attr("height", barYScale(Math.abs(countryData[sectorKey])))
+            .attr("y", function() {
+              // Plot by scale if not 0, else set y to 0.
+              var value = Math.abs(countryData[sectorKey]);
+              if (value != 0) { return barChartHeight - barYScale(value); }
+              else { return 0; }
+            })
+            .attr("height", function() {
+              // Plot by scale if not 0, else set height to 0.
+              var value = Math.abs(countryData[sectorKey]);
+              if (value != 0) {
+                return barYScale(value);
+              }
+              else {
+                return 0;
+              }
+            })
             .attr("width", rectWidth - rectPadding)
             .style("fill", sectorColour[sectorKey]);
       };

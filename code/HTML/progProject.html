@@ -1,19 +1,24 @@
 <!--
+progProject.html
+
+This file determines the layout and look of the page. The visualisations are
+loaded in via javascript files.
+
+Author: Xander Locsin
+StudentID: 10722432
 // python -m http.server 8888 & for server
 -->
 
 <!DOCTYPE html>
 <html>
   <head>
-    <title> progProject </title>
+    <title> World greenhouse gas emissions </title>
     <link rel="stylesheet" href="../style/style.css">
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <script src="https://d3js.org/queue.v1.min.js"></script>
     <script src="https://d3js.org/topojson.v1.min.js"></script>
     <script src="../plugins/datamaps.world.min.js"></script>
-
-
   </head>
   <body>
     <div id="topTitle" class="container">
@@ -21,8 +26,6 @@
         Greenhouse gas emissions
       </div>
     </div>
-
-
 
     <div id="leftSide">
       <div id="mapContainer" class="container">
@@ -34,8 +37,6 @@
         <div id="worldMap" class="boxContent">
         </div>
       </div>
-
-
 
       <div id="sliderBox" class="container">
         <div class="boxHeader">
