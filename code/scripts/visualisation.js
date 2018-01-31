@@ -98,7 +98,7 @@ function main() {
     // Sets the margins for the chart and sets the width and height.
     var margin = {top: 20, right: 40, bottom: 30, left: 50},
         width = 600 - margin.left - margin.right,
-        height = 275 - margin.top - margin.bottom;
+        height = 300 - margin.top - margin.bottom;
 
     // Sets x-axis scale for GDP.
     var x = d3.scale.log()
@@ -237,7 +237,6 @@ function main() {
 
     document.getElementById("YCheck").onclick = function () {
       YChecked = document.getElementById("YCheck").checked;
-      console.log(YChecked);
 
       updateScatter(yearIndex, data, height, minGHG, maxGHG, x, countryPlotList, YChecked);
     };
@@ -450,7 +449,7 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
       .call(yAxis)
     .append("text")
       .attr("id", "yAxisLabelText")
-      .attr("y", -40)
+      .attr("y", -45)
       .attr("dy", ".71em")
       .attr("transform", "rotate(-90)")
       .style("text-anchor", "end");

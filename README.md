@@ -6,7 +6,7 @@ Relate the greenhouse gas emissions of the world by emission source and country
 GDP.
 
 ## Solution
-Visualization for greenhouse gas emission by country over time, greenhouse gas
+Visualisation for greenhouse gas emission by country over time, greenhouse gas
 emission by source, and the greenhouse gas emission for a country's GDP.
 
 #### Features
@@ -15,23 +15,22 @@ visualized by a map chart coloring the countries by either their
 total greenhouse gas emission, the greenhouse gas emission per capita or the
 greenhouse gas emission per GDP.
 
-- Chart 2: The greenhouse gas emission by source.
-This can be visualised by a bar chart.
+- Chart 2: The greenhouse gas emission by source (economic sector).
+This can be visualised by a grouped bar chart.
 
 - Chart 3: A scatterplot relating a country's GDP to its GHG emissions. This
-chart shows GDP on the x-axis and GHG emission or GHG emission per GDP. Each dot
-will be labeled with the country's name.
+chart shows GDP on the x-axis and GHG emission or GHG emission per GDP on the
+y-axis. Each dot will be labeled with the country's name.
 
-- The time element of chart 1 can be interactive by having the user have control
-over a range slider or a scroll bar that determines which data of a year will be
-shown.
+- The time element of the charts is made interactive by having the user have
+control over a slider that determines which data of a year will be shown.
 
-- In chart 1, a tooltip will show a country's true data value. This will allow
-the user to get to know the exact data value of emission for a country instead
-of having to guess it off the colour in the legend.
+- In chart 1 (world map), a tooltip will show a country's true data value.
+This will allow the user to get to know the exact data value of emission for a
+country instead of having to guess it off the colour in the legend.
 
 - Via an interactive element the user could switch the y axis between total
-GHG emission and GHG emission per GDP in the chart 3 (scatterplot).
+GHG emission and GHG emission per GDP in chart 3 (scatterplot).
 
 - Clicking countries on the world map will show data for those
 countries in the other charts. In a menu to the side, these countries can
