@@ -188,3 +188,7 @@ kt CO2 equivalent.
 in a log scale.
 - Layout can now be considered done. It might get tweaked later on but the
 current layout is good enough.
+
+#### 31-01-2018   week4 - wedensday
+- Created boxes in the sector checkbox list so the list can double as a legend
+for the grouped bar chart.

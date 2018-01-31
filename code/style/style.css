@@ -110,6 +110,14 @@ body {
   height: 200px;
 }
 
+
+
+.legendBox {
+  width: 10px;
+  height: 10px;
+  border: 1px solid;
+}
+
 /* ------------------------ SLIDER ------------------------------------------ */
 /* Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp */
 .slidecontainer {

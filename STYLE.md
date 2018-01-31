@@ -22,5 +22,6 @@
 ## persoonlijke style: Xander Locsin
 - Indentatie van 2 spaces.
 - Comments zijn single line of multiline afhangend van hoe lang de comment wordt.
-- Attributes selecteren via object[“key”] in plaats van object.key.
+- Attributes selecteren via object[“key”] in plaats wanneer met de data gewerkt
+wordt. Voor de rest wordt object.key gebruikt.
 - Comment met spatie na // met hoofdletter en punt.

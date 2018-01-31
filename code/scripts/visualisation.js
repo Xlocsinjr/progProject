@@ -51,6 +51,23 @@ map.options.geographyConfig.popupTemplate = function(geo) {
 };
 
 
+// Colour definition of the sectors.
+var sectorColour = {
+  "InternationalBunkers": "#a6cee3",
+  "Waste": "#1f78b4",
+  "Industry": "#b2df8a",
+  "Agriculture": "#33a02c",
+  "ResidentialAndCommercial": "#fb9a99",
+  "Transport": "#e31a1c",
+  "Forestry": "#fdbf6f",
+  "LandUseSources": "#ff7f00",
+  "Energy": "#cab2d6",
+  "Other": "#6a3d9a"
+};
+
+
+
+
 function main() {
   d3.json("../../data/jsons/allData.json", function(error, data) {
     if (error) throw error;
@@ -158,7 +175,6 @@ function main() {
 
     updateBar(yearIndex, data, barChartWidth, barChartHeight, maxSector, countryPlotList, sectorPlotList);
 
-
     // ------------------- SLIDER UPDATE ---------------------------------------
 
     // Initial year display.
@@ -187,7 +203,14 @@ function main() {
       updateBar(yearIndex, data, barChartWidth, barChartHeight, maxSector, countryPlotList, sectorPlotList);
     });
 
+    // Add coloured boxes to the legend / checkbox list.
+    var boxes = document.getElementsByClassName("legendBox");
+    var sectorKeys = Object.keys(sectorColour);
 
+    for (var i = 0; i < boxes.length; i++) {
+      var box = boxes[i];
+      box.style["background-color"] = sectorColour[sectorKeys[i]];
+    }
 
 
 
@@ -441,19 +464,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, YUpper, count
     var barGroup = d3.select(".barChartTransform").append("g")
         .attr("class", "barRect");
 
-    // Colour definition of the sectors.
-    var sectorColour = {
-      "InternationalBunkers": "808080",
-      "Waste": "#606060",
-      "Industry": "404040",
-      "Agriculture": "orange",
-      "ResidentialAndCommercial": "yellow",
-      "Transport": "blue",
-      "Forestry": "#007f0e",
-      "LandUseSources": "#4cff00",
-      "Energy": "#0094ff",
-      "Other": "c0c0c0"
-    };
+
 
     /**
      * Padding value definitions.
