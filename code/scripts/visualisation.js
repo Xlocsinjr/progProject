@@ -16,7 +16,7 @@
  */
 
 
-// ------------------- INITIALISATIONS -----------------------------------------
+// =================== INITIALISATIONS =========================================
 
 // Copied from https://www.w3schools.com/howto/howto_js_rangeslider.asp
 // Looks for the slider in the document.
@@ -74,6 +74,7 @@ var sectorColour = {
 
 
 
+// =================== MAIN FUNCTION DATA LOAD =================================
 
 function main() {
   d3.json("../../data/jsons/allData.json", function(error, data) {
@@ -313,7 +314,7 @@ function main() {
 
 
 
-// ------------------- FUNCTIONS -----------------------------------------------
+// =================== FUNCTIONS ===============================================
 
 /**
  * Finds the minimum and maximum value of the GDP, the GHG emissions and from
@@ -327,6 +328,7 @@ function minMaxFinder(data){
   var minSector = 100000000000000;
   var maxSector = 0;
 
+  // Iterate through all years.
   for (var i = 0; i < data.length; i++) {
     var yearData = data[i];
     var yearKeys = Object.keys(yearData);
@@ -386,6 +388,7 @@ function minMaxFinder(data){
       };
     };
   };
+  // Form list of the results.
   var resultList = [minGHG, maxGHG, minGDP, maxGDP, minSector, maxSector];
   return resultList;
 };
@@ -669,7 +672,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, YUpper, count
     .attr("x", 20)
     .attr("y", -10)
     .text(
-      "GHG emission per commercial sector in the year "
+      "GHG emission per economic sector in the year "
       + (parseInt(yearIndex) + 1970)
     );
 

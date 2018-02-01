@@ -1,7 +1,29 @@
 # Final report
 ## Description
+### Method
 The page aims to visualise the world's greenhouse gas (GHG) emissions from 1970
-to 2012 and how these emissions relate to a country's GDP.
+to 2012 and how these emissions relate to a country's GDP. This is done by
+a world map for the world's greenhouse gas emissions, a grouped bar chart for
+greenhouse gas emission per country by source (economic sector), and a
+scatterplot for greenhouse gas emission and country GDP.
+
+### Functionality
+- The world map shows the GHG emission of countries for a specific year.
+- The scatter plot shows GDP and GHG emissions for various countries.
+- The bar chart shows GHG emission per economic sector for various countries.
+- The slider can be used to change for which year the data is shown in all
+visualisations.
+- Clicking on countries on the world map adds those countries to the bar chart
+and the scatter plot.
+- Countries can be removed from the bar chart and the scatter plot via a
+dropdown menu with buttons.
+- Via a checkbox the y axis of the scatter plot can be changed to GHG emission
+per GDP.
+- Via a checkbox list the economic sectors that will be shown in the scatter
+plot can be selected. This checkbox list also doubles as a legend for the
+scatter plot.
+- Hovering over countries, dots, and bars will show the specific data for that
+country, dot or bar.
 
 ## Design
 ### Scripts
@@ -37,8 +59,6 @@ it is a number.
 thereafter the relevant visualisations are updated.
 - Every visualisation has an update function which removes and recreates a chart
 based on the global "to plot" variables.
-
-
 - function minMaxFinder finds the minimum and maximum value of the GDP, the GHG
 emissions and the GHG emissions per sector in the data. This function returns
 the minima and maxima in a list.
@@ -74,4 +94,5 @@ relative to others. This resulted in many dots/countries/bars getting grouped
 near the axes of the charts. The outliers caused the ranges to stretch.
 To "spread out" the data over the visualisations, all axis and colour scales
 were changed to log scales so an even distribution of colours, dots and bars
-were seen in the visualisations.
+were seen in the visualisations while still showing whether GHG emissions
+increased or decreased.
