@@ -23,18 +23,24 @@ StudentID: 10722432
   <body>
     <div id="topTitle" class="container">
       <div class="bottomHeader">
-        Greenhouse gas emissions
+        World greenhouse gas emissions
       </div>
     </div>
 
     <div id="leftSide">
       <div id="mapContainer" class="container">
         <div class="boxHeader"> Emissions world map </div>
-        <div>
-          World greenhouse gas emissions in
-          <span class="yearText"></span>
-        </div>
-        <div id="worldMap" class="boxContent">
+        <div class="boxContent">
+
+          <div>
+            World greenhouse gas emissions in
+            <span class="yearText"></span>
+          </div>
+          <span>
+            <div id="worldMap"></div>
+            <div id="mapLegend"></div>
+          </span>
+
         </div>
       </div>
 
@@ -139,6 +145,10 @@ StudentID: 10722432
           <h4> GHG emission per commercial sector </h4>
           The grouped bar chart shows the GHG emissions per commercial sector
           of the countries selected in the world map. <br>
+          <br>
+          NOTE: the GHG emission for the forestry sector should be read as a
+          negative number, as greenhouse gases are removed from the atmosphare
+          by forestry. <br>
           <br>
           <li> Hover over a bar to see the exact GHG emission. <br>
           <hr>

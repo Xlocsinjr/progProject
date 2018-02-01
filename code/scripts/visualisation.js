@@ -83,13 +83,60 @@ function main() {
 
     // ------------------- MAP -------------------------------------------------
 
-    // Colour range
+    // Colour range.
     var colourRange = d3.scale.log()
       .range(["#ABDDA4", "red"])
       .domain([1000, maxGHG]);
 
     // Initial colouring.
     updateMap(yearIndex, data, colourRange);
+
+    var mapLegendWidth = 20;
+    var mapLegendHeight = 200;
+
+    // Legend colour range
+    var legendColourRange = d3.scale.linear()
+      .range(["#ABDDA4", "red"])
+      .domain([0, mapLegendHeight]);
+
+    var mapLegend = d3.select("#mapLegend").append("svg")
+        .attr("id", "mapLegendSVG")
+      .append("g")
+        .attr("id", "mapLegendInner")
+        .attr("transform", "translate(5, 0)");
+
+    var mapLegendPixelWidth = d3.select("#mapLegend").select("#mapLegendInner")
+      .append("g")
+        .attr("id", "mapLegendPixelWidth");
+
+    for (var i = 0; i < mapLegendHeight; i++) {
+      mapLegendPixelWidth.append("rect")
+        .attr("width", mapLegendWidth)
+        .attr("height", 2)
+        .attr("y", mapLegendHeight - i - 2)
+        .style("fill", legendColourRange(i));
+    };
+
+    var mapLegendScale = d3.scale.log()
+      .domain([1000, maxGHG])
+      .range([mapLegendHeight, 0]);
+
+    var mapLegendAxis = d3.svg.axis()
+      .scale(mapLegendScale)
+      .orient("right");
+
+    mapLegend.append("g")
+        .attr("class", "axis")
+        .attr("transform", "translate(20, 0)")
+        .call(mapLegendAxis)
+      .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 35)
+        .attr("dy", ".71em")
+        .style("font", "11px sans-serif")
+        .style("text-anchor", "end")
+        .text("GHG emission (kt CO2 equivalent)");
+
 
     // ------------------- SCATTERPLOT -----------------------------------------
 
@@ -377,7 +424,7 @@ function updateMap(yearIndex, data, colourScale) {
  */
 function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotList, YChecked) {
   // Magic number to convert Megaton to Kilogram.
-  var MtToKg = 1000000;
+  var ktToKg = 1000000;
 
   var scatterPlot = d3.select("#theScatterPlot").select("#scatterTransform");
 
@@ -425,7 +472,7 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
   };
   if (YChecked == true) {
     yScale = d3.scale.log()
-      .domain([0.001, max / MtToKg])
+      .domain([0.001, max / ktToKg])
       .range([height, 0]);
 
     yAxis = d3.svg.axis()
@@ -442,7 +489,7 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
     .attr("class", "scatterDotCircle")
     .attr("cx", function(d) { return xScale(d["GDP"]); })
     .attr("cy", function(d) {
-      if (YChecked == true) { return (yScale((d["GHG"] / d["GDP"])* MtToKg) ); };
+      if (YChecked == true) { return (yScale((d["GHG"] / d["GDP"])* ktToKg) ); };
       if (YChecked == false) { return (yScale(d["GHG"])); };
     })
     .attr("r", 4)
@@ -453,7 +500,7 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
         scatterTip.html(
           "<div class='chartToolTipText'>"
           + "<span class='tipTitle'>" + d["Name"] + "</span><br>"
-          + "emission/GDP: " + (d["GHG"] / d["GDP"]) * MtToKg
+          + "emission/GDP: " + (d["GHG"] / d["GDP"]) * ktToKg
           + " Kg CO2 equivalent / USD) <br>"
           + "GDP: " + d["GDP"] + " USD </div>"
         );
@@ -481,7 +528,7 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
     .attr("x", function(d) { return xScale(d["GDP"]) + 3; })
     .attr("y", function(d) {
       if (YChecked == true) {
-        return (yScale((d["GHG"] / d["GDP"]) * MtToKg) ) + 4;
+        return (yScale((d["GHG"] / d["GDP"]) * ktToKg) ) + 8;
        };
       if (YChecked == false) {
         return (yScale(d["GHG"]) + 8);
@@ -633,7 +680,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, YUpper, count
           "<div class='chartToolTipText'>"
           + "<span class='tipTitle'>" + d["country"] + "</span><br>"
           + "Sector: " + d["sectorKey"] + "<br>"
-          + "GHG: " + d["sectorEmission"] + "</div>"
+          + "GHG emission: " + d["sectorEmission"] + " kt CO2 equivalent </div>"
         )
         barTip.show();
       })
@@ -664,7 +711,7 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, YUpper, count
       .attr("dy", ".71em")
       .style("font", "11px sans-serif")
       .style("text-anchor", "end")
-      .text("GHG emission (Mt CO2 equivalent) (\xB0C)");
+      .text("GHG emission (kt CO2 equivalent)");
 
   d3.select(".barChartTransform").select("#barXAxis").selectAll("text").style("text-anchor", "start");
 };

@@ -189,7 +189,7 @@ in a log scale.
 - Layout can now be considered done. It might get tweaked later on but the
 current layout is good enough.
 
-#### 31-01-2018   week4 - wedensday
+#### 31-01-2018   week4 - wednesday
 - Created boxes in the sector checkbox list so the list can double as a legend
 for the grouped bar chart.
 - It is now possible to switch the y-axis between GHG emission
@@ -201,3 +201,6 @@ them. Switching to GHG per GDP does not work anymore however. UPDATE:
 Switching to GHG per GDP works again.
 - The bar chart now has a tooltip showing the country, sector and GHG emission
 of the sector of a bar in the chart.
+
+#### 01-02-2018   week4 - thursday
+- Added a legend to the world map.
