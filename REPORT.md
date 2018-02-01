@@ -7,6 +7,8 @@ a world map for the world's greenhouse gas emissions, a grouped bar chart for
 greenhouse gas emission per country by source (economic sector), and a
 scatterplot for greenhouse gas emission and country GDP.
 
+![](doc/finalProjectScreenshot.png)
+
 ### Functionality
 - The world map shows the GHG emission of countries for a specific year.
 - The scatter plot shows GDP and GHG emissions for various countries.
