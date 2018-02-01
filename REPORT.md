@@ -59,3 +59,19 @@ and remakes the list with a different selection of countries.
 - function countryRemove removes a country from the "to plot" list.
 
 ## Developments
+- Initially, one of the visualisations was planned to be a pie chart showing
+which gasses the emitted greenhouse gasses were composed of. This chart did not
+tie in well with the overall story the page was meant to tell so this chart was
+switched out for a scatterplot that relates the GHG emission of a country to
+the GDP. This chart can show how efficient a country is in generating GDP with
+respect to its GHG emission.
+- At first the intention was to create a different data json file for every
+visualisation. Every data json file could use the same structure which allowed
+all relevant data to be able to be collected into a single json file.
+- GHG emission values vary significantly. Plotting these into the visualisations
+required large axis/colour ranges because some values were significantly large
+relative to others. This resulted in many dots/countries/bars getting grouped
+near the axes of the charts. The outliers caused the ranges to stretch.
+To "spread out" the data over the visualisations, all axis and colour scales
+were changed to log scales so an even distribution of colours, dots and bars
+were seen in the visualisations.
