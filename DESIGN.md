@@ -31,11 +31,10 @@ The data for the GDP is a csv, which can be directly read by d3, but could first
 be converted to a json.
 
 All data sources should be trimmed to only contain the relevant data. Then the
-data files can be saves as .csv after which a script can create usable jsons for
+data files can be saved as .csv after which a script can create usable jsons for
 the visualisations.
 
-For the world map GHG emissions: China dominates with their high GHG emission
-which means all other countries are barely coloured.
+All relevant data will be collected into a single json file: allData.json.
 
 ##### json structure
 ```
@@ -88,21 +87,39 @@ which means all other countries are barely coloured.
 ]
 ```
 
-###### Grouped bar chart
-- Bars will be grouped by country
+### Scripts
+#### convertCSV2JSON
+A script to convert a datasource to json in python.
 
+#### visualisations.js
+A script to create the graphs for progProject.html
+- The script first initialises the interactive elements and defines some
+global variables.
+- Functions are then defined.
+- Then data is loaded in and the charts are created.
+- The "to plot" lists/variables that define what gets shown in the plots are
+global variables. These are:
+  - yearIndex: index to determine of which year the data is shown.
+  - countryPlotList: A list to determine which countries are shown in the
+  scatter plot and the bar chart.
+  - sectorPlotList: A list to determine which sectors are shown in the bar
+  chart.
+- Every interactive element, except the scatterplot y axis change, will change a
+ "to plot" variable in some way. When these elements are manipulated the
+relevant global "to plot" variables are updated, after which the relevant
+viualisations are updated.
 
-### Scripts and functions
-##### Scripts
-- convertCSV2JSON: A script to convert a datasource to json in python.
-- visualisations.js: A script for the graphs in JavaScript
-##### Python functions
+### Python functions
 - function valueTest checks if a given value can be converted to float to ensure
 it is a number.
 - function getData retrieves all relevant information from allData.json.
-##### JavaScript functions
-- NOTE: All functions are defined in visualisations.js.
-- NOTE: every interactive element will have its own update function
+
+### JavaScript functions
+- All functions are defined in visualisations.js.
+- Every interactive element updates the global "to plot" variables, immediately
+thereafter the relevant visualisations are updated.
+- Every visualisation has an update function which removes and recreates a chart
+based on the global "to plot" variables.
 - function minMaxFinder finds the minimum and maximum value of the GDP, the GHG
 emissions and the GHG emissions per sector in the data. This function returns
 the minima and maxima in a list.

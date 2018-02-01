@@ -415,17 +415,22 @@ function updateMap(yearIndex, data, colourScale) {
   updateDict = {};
   map["options"]["data"] = {};
 
+  // Iterates through all countries in the data.
   keysList = Object.keys(data[yearIndex]);
   for (var i = 0; i < keysList.length; i++) {
     key = keysList[i];
+
+    // Only take country data.
     if (key != "year") {
+
+      // Retrieve GHG emission data and determine the colour.
       var val = data[yearIndex][key]["GHG"];
       updateDict[key] = colourScale(val);
 
+      // Add data to the map data.
       map["options"]["data"][key] = {"GHG": val};
     };
   };
-
   map.updateChoropleth(updateDict);
 };
 
@@ -811,6 +816,7 @@ function removeDropdownWriter(countryPlotList, data) {
     var countryCode = countryPlotList[i];
     var country = data[0][countryCode]["Name"];
 
+    // Form the buttons by html.
     document.getElementById("myDropdown").innerHTML += (
       "<button type=\"button\""
       + " id=\"removal" + i + "\""
@@ -831,9 +837,14 @@ function removeDropdownWriter(countryPlotList, data) {
  * To be used by the buttons in the removal dropdown menu.
  */
 function countryRemove(removeCode) {
+  // Initialise duplicate "to plot" list.
   var newPlotList = [];
+
+  // Iterates through the country "to plot" list.
   for (var i = 0; i < countryPlotList.length; i++) {
     var duplicate = countryPlotList[i];
+
+    // Adds country to duplicate list if it isn't the country for removal.
     if (duplicate != removeCode) {
       newPlotList.push(duplicate);
     };

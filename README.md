@@ -58,9 +58,5 @@ different countries easier.
 - https://ourworldindata.org/co2-and-other-greenhouse-gas-emissions#emissions-by-sector
 
 #### External components
-Most, if not all, visualizations will be made in JavaScript using d3. These
-scripts will then be loaded in by a html page.
-
-#### Difficulties
-- There might not be data for every country for chart 2 and 3.
-- For chart 2, only data on UN countries were found.
+All visualisations are created by a javascript script. This script is loaded in
+by the html.
