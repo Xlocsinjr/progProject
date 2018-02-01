@@ -66,4 +66,4 @@ by the html.
   - d3-tip: https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js
   - d3 topojson: https://d3js.org/topojson.v1.min.js
 
-&copy 2018 Xander Locsin
+&copy; 2018 Xander Locsin
