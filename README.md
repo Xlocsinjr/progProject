@@ -1,4 +1,4 @@
-# progProject readme
+# Readme
 ## Link
 https://xlocsinjr.github.io/progProject/code/HTML/progProject.html
 ## Problem
