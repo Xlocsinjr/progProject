@@ -108,7 +108,6 @@ year.
 and the datamaps data to data of an other year.
 - function updateScatter: This function updates the scatter plot to data
 of a different year, and for different selections of countries.
-- function scatterYChange ================
 - function updateBar updates the bar chart to different selections of year,
 countries and sectors.
 - function getSectorChecks creates a list of the elements checked in the sector
