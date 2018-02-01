@@ -88,7 +88,7 @@ All relevant data will be collected into a single json file: allData.json.
 ```
 
 ### Scripts
-#### convertCSV2JSON
+#### convertCSV2JSON.py
 A script to convert a datasource to json in python.
 
 #### visualisations.js
