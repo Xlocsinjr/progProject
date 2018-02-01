@@ -630,7 +630,6 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, YUpper, count
 
   barChart.call(barTip);
 
-
   // Ordinal scale for the x-axis to display country names.
   var barXScale = d3.scale.ordinal()
     .domain(countryNames)
@@ -651,11 +650,21 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, YUpper, count
     .scale(barYScale)
     .orient("left");
 
-  // Remove all old bars and the axes.
+  // Remove all old bars, the axes and the title.
   d3.selectAll(".barRect").remove();
   d3.selectAll(".barAxis").remove();
+  d3.select("#barTitle").remove();
 
-
+  // Create chart title.
+  var barTitle = barChart.append("text")
+    .attr("class", "title")
+    .attr("id", "barTitle")
+    .attr("x", 20)
+    .attr("y", -10)
+    .text(
+      "GHG emission per commercial sector in the year "
+      + (parseInt(yearIndex) + 1970)
+    );
 
   /**
    * Padding value definitions.
