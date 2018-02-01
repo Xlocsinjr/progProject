@@ -520,13 +520,40 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
 function updateBar(yearIndex, data, barChartWidth, barChartHeight, YUpper, countryPlotList, sectorPlotList) {
   var keysList = Object.keys(data[yearIndex]);
   var countriesCount = countryPlotList.length;
+  var sectorBarsCount = sectorPlotList.length;
 
-  // Gather country names.
+
+  // Form data dictionary and a list of country names.
+  var plotData = [];
   var countryNames = [];
-  for (var i = 0; i < countriesCount; i++) {
-    countryKey = countryPlotList[i];
-    countryNames[i] = data[yearIndex][countryKey]["Name"];
+  for (var i = 0; i < countryPlotList.length; i++) {
+    key = countryPlotList[i];
+
+    var countryName = data[yearIndex][key]["Name"];
+
+    countryNames.push(countryName);
+
+    for (var j = 0; j < sectorPlotList.length; j++) {
+      var sectorKey = sectorPlotList[j];
+
+      var valuesDict = {};
+      valuesDict["country"] = countryName;
+      valuesDict["sectorKey"] = sectorKey;
+      valuesDict["sectorEmission"] = data[yearIndex][key][sectorKey];
+      valuesDict["countryIndex"] = i;
+      valuesDict["sectorIndex"] = j;
+
+      plotData.push(valuesDict);
+    };
   };
+
+  var barTip = d3.tip()
+    .attr("class", "barTip");
+
+  var barChart = d3.select(".barChartTransform");
+
+  barChart.call(barTip);
+
 
   // Ordinal scale for the x-axis to display country names.
   var barXScale = d3.scale.ordinal()
@@ -552,60 +579,49 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, YUpper, count
   d3.selectAll(".barRect").remove();
   d3.selectAll(".barAxis").remove();
 
+
+
+  /**
+   * Padding value definitions.
+   * groupPadding defines the space before and after a group of bars.
+   * rectPadding defines the space between individual bars.
+   */
+  var groupPadding = 2 + 5 * (6./countriesCount);
+  var rectPadding = 1;
+
   // Set width of a group of bars to chart width divided by number of countries.
   var rectGroupWidth = barChartWidth / countriesCount;
+  var rectWidth = (rectGroupWidth - 2 * groupPadding) / sectorBarsCount;
 
-  // Loop through all countries that need to be plotted.
-  for (var i = 0; i < countryPlotList.length; i++) {
-    plotKey = countryPlotList[i];
-    countryData = data[yearIndex][plotKey];
+  barChart.selectAll(".barRect")
+    .data(plotData)
+    .enter()
+    .append("rect")
+      .attr("class", "barRect")
+      .attr("x", function(d) {
+        return (d["countryIndex"] * rectGroupWidth + groupPadding) + d["sectorIndex"] * rectWidth;
+      })
+      .attr("y", function(d) {
+        // Plot by scale if not 0, else set y to 0.
+        var value = Math.abs(d["sectorEmission"]);
+        if (value != 0 && isNaN(value) != true) {
+          return barChartHeight - barYScale(value);
+        }
+        else { return 0; }
+      })
+      .attr("height", function(d) {
+        // Plot by scale if not 0, else set height to 0.
+        var value = Math.abs(d["sectorEmission"]);
+        if (value != 0 && isNaN(value) != true) {
+          return barYScale(value);
+        }
+        else {
+          return 0;
+        }
+      })
+      .attr("width", rectWidth - rectPadding)
+      .style("fill", function(d) { return sectorColour[d["sectorKey"]]; });
 
-    var barGroup = d3.select(".barChartTransform").append("g")
-        .attr("class", "barRect");
-
-    /**
-     * Padding value definitions.
-     * groupPadding defines the space before and after a group of bars.
-     * rectPadding defines the space between individual bars.
-     */
-    var groupPadding = 5 * (6./countriesCount);
-    var rectPadding = 1;
-
-    // Loop through all sectors that need to be plotted.
-    for (j in sectorPlotList) {
-      sectorKey = sectorPlotList[j];
-      sectorBarsCount = sectorPlotList.length;
-
-      // Only plot if data is usable.
-      if (isNaN(countryData[sectorKey]) != true) {
-        var rectWidth = (rectGroupWidth - 2 * groupPadding) / sectorBarsCount;
-
-        d3.select(".barChartTransform").select(".barRect")
-          .append("rect")
-            .attr("class", "barRect")
-            .attr("x", ((i * rectGroupWidth + groupPadding) + j * rectWidth))
-            .attr("y", function() {
-              // Plot by scale if not 0, else set y to 0.
-              var value = Math.abs(countryData[sectorKey]);
-              if (value != 0) { return barChartHeight - barYScale(value); }
-              else { return 0; }
-            })
-            .attr("height", function() {
-              // Plot by scale if not 0, else set height to 0.
-              var value = Math.abs(countryData[sectorKey]);
-              if (value != 0) {
-                return barYScale(value);
-              }
-              else {
-                return 0;
-              }
-            })
-            .attr("width", rectWidth - rectPadding)
-            .style("fill", sectorColour[sectorKey]);
-      };
-    };
-
-  };
 
   // Adds a g element for an X axis
   d3.select(".barChartTransform").append("g")
