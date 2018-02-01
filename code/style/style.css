@@ -298,7 +298,7 @@ body {
 
 #barXAxis text{
   font: 8px sans-serif;
-  transform: rotate(45deg);
+  transform: rotate(25deg);
   text-anchor: start;
 }
 

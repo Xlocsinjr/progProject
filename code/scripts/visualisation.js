@@ -94,21 +94,24 @@ function main() {
     var mapLegendWidth = 20;
     var mapLegendHeight = 200;
 
-    // Legend colour range
+    // Legend colour range.
     var legendColourRange = d3.scale.linear()
       .range(["#ABDDA4", "red"])
       .domain([0, mapLegendHeight]);
 
+    // Creates an inner g element (as to create margins).
     var mapLegend = d3.select("#mapLegend").append("svg")
         .attr("id", "mapLegendSVG")
       .append("g")
         .attr("id", "mapLegendInner")
         .attr("transform", "translate(5, 0)");
 
+    // Create a g element for the colour gradient bar.
     var mapLegendPixelWidth = d3.select("#mapLegend").select("#mapLegendInner")
       .append("g")
         .attr("id", "mapLegendPixelWidth");
 
+    // Create a colour gradient by stacking 2px height rectangles.
     for (var i = 0; i < mapLegendHeight; i++) {
       mapLegendPixelWidth.append("rect")
         .attr("width", mapLegendWidth)
@@ -117,6 +120,7 @@ function main() {
         .style("fill", legendColourRange(i));
     };
 
+    // Defines scale and axis for the legend.
     var mapLegendScale = d3.scale.log()
       .domain([1000, maxGHG])
       .range([mapLegendHeight, 0]);
@@ -125,6 +129,7 @@ function main() {
       .scale(mapLegendScale)
       .orient("right");
 
+    // Creates a g element for the legend axis.
     mapLegend.append("g")
         .attr("class", "axis")
         .attr("transform", "translate(20, 0)")
@@ -141,7 +146,7 @@ function main() {
     // ------------------- SCATTERPLOT -----------------------------------------
 
     // Sets the margins for the chart and sets the width and height.
-    var margin = {top: 20, right: 40, bottom: 30, left: 50},
+    var margin = {top: 30, right: 40, bottom: 30, left: 50},
         width = 600 - margin.left - margin.right,
         height = 360 - margin.top - margin.bottom;
 
@@ -181,7 +186,7 @@ function main() {
     // ------------------- BAR CHART -------------------------------------------
 
     // Sets the margins for the bar chart and sets the width and height
-    var barMargin = {top: 20, right: 20, bottom: 100, left: 50},
+    var barMargin = {top: 30, right: 20, bottom: 100, left: 50},
       barChartWidth = 820 - barMargin.left - barMargin.right,
       barChartHeight = 350 - barMargin.top - barMargin.bottom;
 
@@ -447,20 +452,42 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
     };
   };
 
-  // Remove all dots and the y axis.
+  // Remove all dots, the y axis and the title.
   d3.select("#theScatterPlot").selectAll(".scatterDotCircle").remove();
   d3.select("#theScatterPlot").selectAll(".scatterDotText").remove();
   d3.select("#theScatterPlot").select("#scatterYAxis").remove();
+  d3.select("#theScatterPlot").select("#scatterTitle").remove();
 
+  // Create chart title.
+  var scatterTitle = scatterPlot.append("text")
+    .attr("class", "title")
+    .attr("id", "scatterTitle")
+    .attr("x", 20)
+    .attr("y", -10);
+
+  // Different title depending on if the y axis change checkbox is checked.
+  if (YChecked == false) {
+    scatterTitle.text(
+      "GHG emissions and GDP of countries in the year "
+      + (parseInt(yearIndex) + 1970)
+    );
+  };
+  if (YChecked == true) {
+    scatterTitle.text(
+      "GHG per GDP and GDP of countries in the year "
+      + (parseInt(yearIndex) + 1970)
+    );
+  };
+
+  // Define and call the tooltip.
   var scatterTip = d3.tip()
     .attr("class", "chartToolTip");
-
-
   scatterPlot.call(scatterTip);
 
   var yScale;
   var yAxis;
 
+  // Define y axis scale and axis depending on if the checkbox was checked.
   if (YChecked == false) {
     yScale = d3.scale.log()
       .domain([min, max])
@@ -472,7 +499,7 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
   };
   if (YChecked == true) {
     yScale = d3.scale.log()
-      .domain([0.001, max / ktToKg])
+      .domain([0.001, 1000])
       .range([height, 0]);
 
     yAxis = d3.svg.axis()
@@ -549,6 +576,7 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
       .attr("transform", "rotate(-90)")
       .style("text-anchor", "end");
 
+  // Different y axis label depending on if the checkbox is checked.
   if (YChecked == false) {
     d3.select("#yAxisLabelText")
       .text("total GHG emission (kt CO2 equivalent)");

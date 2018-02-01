@@ -204,3 +204,9 @@ of the sector of a bar in the chart.
 
 #### 01-02-2018   week4 - thursday
 - Added a legend to the world map.
+- Manual name country name changes in worldGHG.csv:
+  - "Democratic People's Republic of Korea" to North Korea
+  - "Republic of Korea" to South Korea
+  - "Macedonia; the former Yugoslav Republic of" to Macedonia
+  - "Micronesia; Federated States of" to Micronesia
+  - "Moldova; Republic of" to Moldova
