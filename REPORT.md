@@ -29,7 +29,7 @@ country, dot or bar.
 
 ## Design
 ### Scripts
-#### convertCSV2JSON
+#### convertCSV2JSON.py
 A script to convert a datasource to json in python.
 
 #### visualisations.js

@@ -46,17 +46,19 @@ different countries easier.
 
 
 
-#### Sketch
-![](doc/ideaSketch3.png)
+#### Screenshot
+![](doc/finalProjectScreenshot.png)
 
 ## Prerequisites
-#### Possible sources
-- http://unfccc.int/ghg_data/ghg_data_unfccc/items/4146.php
+#### Data sources links
 - http://edgar.jrc.ec.europa.eu/overview.php?v=CO2ts1990-2015#
 - http://di.unfccc.int/time_series
  (multiple data sources. Can be used for emission per sector)
 - https://ourworldindata.org/co2-and-other-greenhouse-gas-emissions#emissions-by-sector
+- https://data.worldbank.org/indicator/NY.GDP.MKTP.CD
 
 #### External components
-All visualisations are created by a javascript script. This script is loaded in
+- All visualisations are created by a javascript script. This script is loaded in
 by the html.
+- Datamaps is used for the world map.
+- All visualisations are created with d3.
