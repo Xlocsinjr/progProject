@@ -199,4 +199,5 @@ scatter plot.
 emission per GDP values. Also the dots get highlighted in red when hovering over
 them. Switching to GHG per GDP does not work anymore however. UPDATE:
 Switching to GHG per GDP works again.
--
+- The bar chart now has a tooltip showing the country, sector and GHG emission
+of the sector of a bar in the chart.

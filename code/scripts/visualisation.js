@@ -81,8 +81,6 @@ function main() {
     var minSector = minMaxList[4];
     var maxSector = minMaxList[5];
 
-    console.log(minGHG, maxGHG);
-
     // ------------------- MAP -------------------------------------------------
 
     // Colour range
@@ -408,7 +406,7 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
   d3.select("#theScatterPlot").select("#scatterYAxis").remove();
 
   var scatterTip = d3.tip()
-    .attr("class", "scatterTip");
+    .attr("class", "chartToolTip");
 
 
   scatterPlot.call(scatterTip);
@@ -449,22 +447,24 @@ function updateScatter(yearIndex, data, height, min, max, xScale, countryPlotLis
     })
     .attr("r", 4)
 
-    // Shows and hides the calendar tooltip.
+    // Shows and hides the tooltip.
     .on("mouseover", function(d) {
       if (YChecked == true) {
         scatterTip.html(
-          "<div class='scatterTipText'>"
+          "<div class='chartToolTipText'>"
           + "<span class='tipTitle'>" + d["Name"] + "</span><br>"
-          + "GHG/GDP: " + (d["GHG"] / d["GDP"]) * MtToKg + "<br>"
-          + "GDP: " + d["GDP"] + "</div>"
+          + "emission/GDP: " + (d["GHG"] / d["GDP"]) * MtToKg
+          + " Kg CO2 equivalent / USD) <br>"
+          + "GDP: " + d["GDP"] + " USD </div>"
         );
       };
       if (YChecked == false) {
         scatterTip.html(
-          "<div class='scatterTipText'>"
+          "<div class='chartToolTipText'>"
           + "<span class='tipTitle'>" + d["Name"] + "</span><br>"
-          + "GHG: " + d["GHG"] + "<br>"
-          + "GDP: " + d["GDP"] + "</div>"
+          + "GHG emission: " + d["GHG"]
+          + " kt CO2 equivalent <br>"
+          + "GDP: " + d["GDP"] + " USD </div>"
         );
       };
       scatterTip.show();
@@ -547,8 +547,9 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, YUpper, count
     };
   };
 
+  // Initialise tooltip.
   var barTip = d3.tip()
-    .attr("class", "barTip");
+    .attr("class", "chartToolTip");
 
   var barChart = d3.select(".barChartTransform");
 
@@ -598,9 +599,13 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, YUpper, count
     .enter()
     .append("rect")
       .attr("class", "barRect")
+
+      // Sets x based on which country and sector is plotted.
       .attr("x", function(d) {
         return (d["countryIndex"] * rectGroupWidth + groupPadding) + d["sectorIndex"] * rectWidth;
       })
+
+      // Sets y based on the GHG emission. Set to 0 if emission is 0 or NaN.
       .attr("y", function(d) {
         // Plot by scale if not 0, else set y to 0.
         var value = Math.abs(d["sectorEmission"]);
@@ -609,18 +614,30 @@ function updateBar(yearIndex, data, barChartWidth, barChartHeight, YUpper, count
         }
         else { return 0; }
       })
+
+      // Sets height based on which country and sector is plotted.
       .attr("height", function(d) {
-        // Plot by scale if not 0, else set height to 0.
+
+        // Plot by scale if not 0 or NaN, else set height to 0.
         var value = Math.abs(d["sectorEmission"]);
-        if (value != 0 && isNaN(value) != true) {
-          return barYScale(value);
-        }
-        else {
-          return 0;
-        }
+        if (value != 0 && isNaN(value) != true) { return barYScale(value); }
+        else { return 0; }
       })
+
       .attr("width", rectWidth - rectPadding)
-      .style("fill", function(d) { return sectorColour[d["sectorKey"]]; });
+      .style("fill", function(d) { return sectorColour[d["sectorKey"]]; })
+
+      // Shows and hides the tooltip.
+      .on("mouseover", function(d) {
+        barTip.html(
+          "<div class='chartToolTipText'>"
+          + "<span class='tipTitle'>" + d["country"] + "</span><br>"
+          + "Sector: " + d["sectorKey"] + "<br>"
+          + "GHG: " + d["sectorEmission"] + "</div>"
+        )
+        barTip.show();
+      })
+      .on("mouseout", barTip.hide);
 
 
   // Adds a g element for an X axis
