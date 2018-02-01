@@ -60,5 +60,8 @@ different countries easier.
 #### External components
 - All visualisations are created by a javascript script. This script is loaded in
 by the html.
-- Datamaps is used for the world map.
+- Datamaps is used for the world map: http://datamaps.github.io/
 - All visualisations are created with d3.
+  - d3: https://d3js.org/d3.v3.min.js
+  - d3-tip: https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js
+  - d3 topojson: https://d3js.org/topojson.v1.min.js
