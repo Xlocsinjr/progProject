@@ -98,3 +98,7 @@ To "spread out" the data over the visualisations, all axis and colour scales
 were changed to log scales so an even distribution of colours, dots and bars
 were seen in the visualisations while still showing whether GHG emissions
 increased or decreased.
+- All visualisations are updated by removing certain elements from the charts
+and recreating these based on other selections of countries, sectors or year.
+It would have been nicer if these changes could transition instead of instantly
+changing.
