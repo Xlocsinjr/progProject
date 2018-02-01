@@ -26,7 +26,7 @@ def valueTest(value):
         return "NAV"
     return newValue
 
-def getMapData():
+def getData():
     """
     Gathers the data for the world map and writes the data into a json file.
     """
@@ -168,4 +168,4 @@ def getMapData():
 
 
 if __name__ == '__main__':
-    getMapData()
+    getData()

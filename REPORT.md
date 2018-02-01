@@ -4,13 +4,12 @@ The page aims to visualise the world's greenhouse gas (GHG) emissions from 1970
 to 2012 and how these emissions relate to a country's GDP.
 
 ## Design
-### Scripts and functions
-##### Scripts
-###### convertCSV2JSON
+### Scripts
+#### convertCSV2JSON
 A script to convert a datasource to json in python.
 
-###### visualisations.js
-- A script for the graphs in JavaScript
+#### visualisations.js
+A script to create the graphs for progProject.html
 - The script first initialises the interactive elements and defines some
 global variables.
 - Functions are then defined.
@@ -22,15 +21,17 @@ global variables. These are:
   scatter plot and the bar chart.
   - sectorPlotList: A list to determine which sectors are shown in the bar
   chart.
-- Every interactive element, except the y axis change, will change a "to plot"
-variable in some way. When these elements are manipulated the relevant global
-"to plot" variables are updated, after which the relevant viualisations are
-updated.
-##### Python functions
+- Every interactive element, except the scatterplot y axis change, will change a
+ "to plot" variable in some way. When these elements are manipulated the
+relevant global"to plot" variables are updated, after which the relevant
+viualisations are updated.
+
+### Python functions
 - function valueTest checks if a given value can be converted to float to ensure
 it is a number.
 - function getData retrieves all relevant information from allData.json.
-##### JavaScript functions
+
+### JavaScript functions
 - NOTE: All functions are defined in visualisations.js.
 - NOTE: every interactive element will have its own update function
 - function minMaxFinder finds the minimum and maximum value of the GDP, the GHG

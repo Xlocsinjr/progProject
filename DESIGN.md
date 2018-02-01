@@ -96,7 +96,11 @@ which means all other countries are barely coloured.
 ##### Scripts
 - convertCSV2JSON: A script to convert a datasource to json in python.
 - visualisations.js: A script for the graphs in JavaScript
-##### Functions
+##### Python functions
+- function valueTest checks if a given value can be converted to float to ensure
+it is a number.
+- function getData retrieves all relevant information from allData.json.
+##### JavaScript functions
 - NOTE: All functions are defined in visualisations.js.
 - NOTE: every interactive element will have its own update function
 - function minMaxFinder finds the minimum and maximum value of the GDP, the GHG
