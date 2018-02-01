@@ -23,7 +23,7 @@ global variables. These are:
   chart.
 - Every interactive element, except the scatterplot y axis change, will change a
  "to plot" variable in some way. When these elements are manipulated the
-relevant global"to plot" variables are updated, after which the relevant
+relevant global "to plot" variables are updated, after which the relevant
 viualisations are updated.
 
 ### Python functions
@@ -32,8 +32,13 @@ it is a number.
 - function getData retrieves all relevant information from allData.json.
 
 ### JavaScript functions
-- NOTE: All functions are defined in visualisations.js.
-- NOTE: every interactive element will have its own update function
+- All functions are defined in visualisations.js.
+- Every interactive element updates the global "to plot" variables, immediately
+thereafter the relevant visualisations are updated.
+- Every visualisation has an update function which removes and recreates a chart
+based on the global "to plot" variables.
+
+
 - function minMaxFinder finds the minimum and maximum value of the GDP, the GHG
 emissions and the GHG emissions per sector in the data. This function returns
 the minima and maxima in a list.
